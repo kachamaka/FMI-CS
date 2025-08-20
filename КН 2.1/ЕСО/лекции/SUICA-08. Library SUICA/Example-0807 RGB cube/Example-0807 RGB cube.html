@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 0807: RGB куб</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			var n = 5;
+			s = new Suica();
+			g = group();
+			g.origin=[1-2/n,1-2/n,1-2/n];
+			var frame = {color:[0,0,0], mode:Suica.LINE};
+			
+			for (var x=1; x<=n; x++)
+			for (var y=1; y<=n; y++)
+			for (var z=1; z<=n; z++)
+			if (x==1 || y==1 || z==1 || x==n || y==n || z==n)
+			{
+				var style = {color:[x/n,y/n,z/n], light:false};
+				g.add(cube([x/n,y/n,z/n],1/n).custom(style));
+				g.add(cube([x/n,y/n,z/n],1/n).custom(frame));
+			}
+			demo(3,0.2);
+			s.nextFrame = drawFrame;
+		}
+		function drawFrame()
+		{
+			var t = Suica.time;
+			g.spin = -t/3;
+			g.focus = [2*Math.cos(t/2),1,2*Math.sin(t/3)];
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

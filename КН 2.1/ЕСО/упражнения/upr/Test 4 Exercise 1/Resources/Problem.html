@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>T4-00</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica().nextFrame = animate;
+			// lookAt([0,10,5],[0,0,0],[0,0,1]);
+			lookAt([16,8,6],[0,0,0],[0,0,1]);
+
+
+			// създаване на земята от 11х11 кубчета;
+			// централното кубче е в (0,0,-1) 
+			for (var x=-5; x<=5; x++){
+                for (var y=-5; y<=5; y++){
+                    cube([x,y,-1],0.9).custom({color:[1,0.8,0.5]});
+                }
+
+            }
+
+			
+			// създаване на слонче като групов обект
+			slonche = group([
+				// крака и тяло
+				cube([0,0,0],1).custom({color:[0.8,0.8,0.8]}),
+				cube([0,0,1.3],1.8).custom({color:[0.8,0.8,0.8]}),
+				// опашка
+				cuboid([-1.1,0,0.5],[0.2,0.2,1]).custom({color:[0.8,0.8,0.8]}),
+				// очи
+				cylinder([0.8,0.25,1.5],0.2,0.2).custom({color:[1,1,1],focus:[1,0,0]}),
+				cylinder([0.8,-0.25,1.5],0.2,0.2).custom({color:[1,1,1],focus:[1,0,0]}),
+				sphere([0.9,0.25,1.5],0.15).custom({color:[0,0,0]}),
+				sphere([0.9,-0.25,1.5],0.15).custom({color:[0,0,0]}),
+				// уши
+				cuboid([0.4,1.7,1.3],[0.2,1.4,1.4]).custom({color:[0.8,0.8,0.8]}),
+				cuboid([0.4,-1.7,1.3],[0.2,1.4,1.4]).custom({color:[0.8,0.8,0.8]}),
+				cuboid([0.45,1.7,1.3],[0.2,1.1,1.1]).custom({color:[0.9,0.9,0.9]}),
+				cuboid([0.45,-1.7,1.3],[0.2,1.1,1.1]).custom({color:[0.9,0.9,0.9]}),
+				// бивни
+				cone([0.8,0.45,0.9],0.1,1).custom({color:[0.9,0.9,0.9],light:false,focus:[3,0,-1]}),
+				cone([0.8,-0.45,0.9],0.1,1).custom({color:[0.9,0.9,0.9],light:false,focus:[3,0,-1]}),
+
+				cuboid([0.8,0,0.9],[0.2,0.2,2]).custom({color:[0.6,0.6,0.6],light:false,focus:[2,0,-1]}),
+				cuboid([1.9,0,0.5],[0.2,0.2,0.5]).custom({color:[0.6,0.6,0.6],light:false,focus:[50,0,1]}),
+			]);
+			slonche.spin = 0;
+			
+			
+			// правим едно цветенце точно пред слончето
+			cvetence = group([
+				// стъбло
+				segment([0,0,0],[0,0,1]).custom({color:[0,1,0]}),
+				// тичинки
+				cube([0,0,1],0.2).custom({color:[1,1,0],light:false}),
+				// венчелистчета
+				cuboid([0,0,0.95],[0.2,0.6,0.2]).custom({color:[1,0,0]}),
+				cuboid([0,0,0.95],[0.6,0.2,0.2]).custom({color:[1,0,0]}),
+				// листа
+				cuboid([0,-0.14,0.4],[0.4,0.2,0.02]).custom({color:[0,1,0],focus:[0,1,1]}),
+				cuboid([0,0.14,0.4],[0.4,0.2,0.02]).custom({color:[0,1,0],focus:[0,-1,1]}),
+			]);
+			cvetence.center = [20,0,-0.5];
+		}
+
+		
+		function animate()
+		{
+		
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<canvas width="598" height="398" style="border: solid 1px Black;"></canvas>
+</body>

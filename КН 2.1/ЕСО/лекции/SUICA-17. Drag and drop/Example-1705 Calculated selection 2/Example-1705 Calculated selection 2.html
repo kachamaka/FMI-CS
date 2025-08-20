@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1705: Изчислен избор 2</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			p = new Suica();
+			orthographic(-1000,1000);
+			lookAt([0,0,100],[0,0,0],[0,1,0]);
+			
+			p.gl.canvas.addEventListener('mousemove',mouseMove,false);
+			obj = document.getElementById('obj');
+			
+			n = 30;
+			a = [];
+			for (var i=0; i<n; i++)
+				a.push(sphere([random(-300,300),random(-150,150),0],random(5,50)));
+		}
+
+		function distance(p,q)
+		{
+			return Math.sqrt( (p[0]-q[0])*(p[0]-q[0]) + (p[1]-q[1])*(p[1]-q[1]) );
+		}
+		
+		function mouseMove(event)
+		{
+			var x = event.clientX-event.target.offsetLeft-event.target.offsetWidth/2;
+			var y = -(event.clientY-event.target.offsetTop-event.target.offsetHeight/2);
+	
+			obj.innerHTML = '?';
+			for (var i=0; i<n; i++)
+				if ( distance(a[i].center,[x,y])<=a[i].radius )
+					obj.innerHTML = 'a['+i+']';
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="300" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+	<p>Обект: <span id="obj"></span></p>
+</body>

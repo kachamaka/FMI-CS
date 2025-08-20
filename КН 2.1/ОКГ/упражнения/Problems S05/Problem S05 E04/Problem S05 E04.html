@@ -1,0 +1,69 @@
+﻿<html>
+	<head>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+		<script src="three.min.js"></script>
+		<script src="CSG.js"></script>
+		<script>
+			// Задача: конструирайте ... хипербола
+
+			
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.setAnimationLoop( drawFrame );
+			document.body.appendChild( renderer.domElement );
+
+			var scene = new THREE.Scene();
+			
+			var aspect = window.innerWidth/window.innerHeight;
+			camera = new THREE.PerspectiveCamera( 30, aspect );
+			camera.position.set( 0, 0, 200 );
+			camera.lookAt( new THREE.Vector3() );
+
+			// За момента имаме само окръжност
+			var coneG = new THREE.CylinderGeometry( 0.01, 100, 80, 64, 32 );
+
+			var cone1 = new THREE.Mesh( coneG );
+			cone1.position.y = -50;
+			var cone2 = new THREE.Mesh( coneG );
+			cone2.position.y = 50;
+			cone2.rotation.z = Math.PI;
+			
+			var csg = new CSG();
+			csg.union( [cone1, cone2] );
+
+			var mesh = new THREE.Mesh( new THREE.BoxGeometry( 1/2, 300, 300 ) );
+			mesh.position.x = 10;
+
+			csg.intersect( [mesh] );
+			var hyperbola = csg.toMesh();
+			hyperbola.material = new THREE.MeshPhongMaterial( {color: 'crimson' } );
+			hyperbola.position.x = -10;
+			scene.add( hyperbola );
+			// scene.add(cone1);
+			// scene.add(cone2);
+			scene.add(csg.toMesh());
+
+
+			
+			// Добавяме светлина
+			light = new THREE.PointLight( 'lightblue' );
+			light.position.set( 0, 0, 100 );
+			scene.add( light );
+			
+			function drawFrame()
+			{
+				// въртим окръжността
+				hyperbola.rotation.x += 0.005;
+				hyperbola.rotation.y += 0.004;
+				hyperbola.rotation.z += 0.003;
+				
+				renderer.render( scene, camera );
+			}
+		</script>
+	</body>
+</html>

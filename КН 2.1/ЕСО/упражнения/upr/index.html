@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Упражнение</title>
+        <script src="suica.min.js"></script>
+        
+        <script>
+            function main(x, y, z, r){     
+                // new Suica();
+                // oxyz();
+
+
+                // b = 2*a;
+
+                // let r1 = rectangle([x, y+a/2, z-a], [a, b]);
+                // r1.focus = [1, 0, 0];
+                // r1.color =  [0.1, 0.34, 0.36];
+                // let r2 = rectangle([x, y-a, z-a/2], [a, b])
+                // r2.focus = [1, 0, 0];
+                // r2.color = [0.02, 0.15, 0.2];
+                // r2.spin = Math.PI/2;
+                // let r3 = rectangle([x, y-a/2, z+a], [a, b]);
+                // r3.focus = [1, 0, 0];
+                // r3.color =  [0.1, 0.34, 0.36];
+                // let r4 = rectangle([x, y+a, z+a/2], [a, b]);
+                // r4.focus = [1, 0, 0];
+                // r4.color = [0.02, 0.15, 0.2];
+                // r4.spin = Math.PI/2;
+
+                //------
+                
+                // let A = point([random(-20, 20), random(-20, 20), random(-20, 20)]);
+                // A.pointSize = 8;
+
+                // let x = A.center[0];
+                // let y = A.center[1];
+                // let z = A.center[2];
+
+                // let B = point([x+n,y,z]);
+                // B.pointSize = 8;
+                // let C = point([x+n,y+m,z]);
+                // C.pointSize = 8;
+                // let D = point([x,y+m,z]);
+                // D.pointSize = 8;
+
+                // let s1 = segment(A.center, B.center);
+                // let s2 = segment(B.center, C.center);
+                // let s3 = segment(C.center, D.center);
+                // let s4 = segment(A.center, D.center);
+                // let s5 = segment(A.center, C.center);
+                // let s6 = segment(B.center, D.center);
+
+                //------
+
+                // for(let i = 0; i < n; i++){
+                //     let a = radians(random(0, 360));
+                //     let b = radians(random(0, 360));
+
+                //     xc = x + r*Math.cos(a)*Math.cos(b);
+                //     yc = y + r*Math.sin(a)*Math.cos(b);
+                //     zc = z + r*Math.sin(b);
+                //     segment([x, y, z], [xc, yc, zc]).custom({
+                //         color: [Math.random(), Math.random(), Math.random()]
+                //     });
+
+                // }
+
+                //------
+                // demo(100, 1, 2, 0);
+                // demo();
+
+                // function initCylinder(x, y, z, r){
+                //     let h = random(1, 15);
+                //     return cylinder([x, y, z], r, h).custom({color: [0, random(0.3, 0.5), random(0.3, 1)]});
+                // }
+
+                // initCylinder(10, 0, 0, 5);
+                // for(let j = 0; j < m; j++){
+                //     let offset = r*(j%2);
+                //     for(let i = 0; i < n; i++){
+                //         initCylinder(x + r*Math.sqrt(3)*j, y + 2*r*i + offset, z, r);
+                //     }
+                // }
+
+                // for(let i = 0; i < m; i++){
+                //     let offset = r*(i%2);
+                //     for(let j = 0; j < n; j++){
+                //         let xc = x + r*Math.sqrt(3)*i;
+                //         let yc = y + 2*r*j + offset;
+                //         initCylinder(xc, yc, z, r);
+                //     }
+                // }
+                
+                //------
+                // demo();
+
+                // let p1 = pyramid([x, y, z], r, h, n);
+                // let p2 = sameAs(p1).custom({spin: radians(180/n)});
+
+                //---------
+                p=new Suica();
+                oxyz();
+                // demo();
+                
+                // c=circle([x,y,z],r).custom({
+                //                         mode: Suica.LINE,
+                //                         color: [0,1,0]});
+                // a=radians(random(0,360));        
+                // s=sphere(
+                //     [
+                //         x+r*Math.cos(a),
+                //         y+r*Math.sin(a),
+                //         z
+                //     ],
+                //     r/5).custom({color: [1,0,0]});
+                
+                // k=circle(s.center,2*s.radius+3).custom({
+                //                         mode: Suica.LINE,
+                //                         color: [0,1,0]});
+                // d=sphere(
+                //     [
+                //         k.center[0]+k.radius*Math.cos(a),
+                //         k.center[1]+k.radius*Math.sin(a),
+                //         k.center[2]
+                //     ],
+                //         k.radius/5).custom({color: [0,1,1]});
+                
+                // p.nextFrame=loop;
+                // function loop(){
+                //         s.center=[
+                //             c.center[0]+c.radius*Math.cos(a),
+                //             c.center[1]+c.radius*Math.sin(a),
+                //             c.center[2]];
+                //         k.center=s.center;
+                //         d.center=[
+                //             k.center[0]+k.radius*Math.cos(-a),
+                //             k.center[1]+k.radius*Math.sin(-a),
+                //             k.center[2]];
+                //         a+=radians(1);
+                // }
+                //--------------
+                // x = y = z = 0;
+                // s=sphere([x,y,z],random(3,5)).custom({
+                //                                         color: [0.5,0.5,1]});
+                // c=cylinder([s.center[0],s.center[1]+2*s.radius,s.center[2]],s.radius+0.5,random(10,20)).custom({
+                //         focus: [0,1,0],
+                //         color: [1,0.7,0],
+                //         hollow: true});
+                
+                // v=vectorPoints(c.center,s.center);
+                
+                // p.nextFrame=MoveSC;
+                // function MoveSC(){
+                //     distSC=Math.sqrt(Math.pow(c.center[0]-s.center[0],2)+Math.pow(c.center[1]-s.center[1],2)+Math.pow(c.center[2]-s.center[2],2));
+                    
+                //     if (distSC<=c.height+2*s.radius){
+                //             for(var i=0;i<3;i++){
+                //                     s.center[i]+=v[i]*Suica.dTime;
+                //             }
+                //     }
+                // }
+            }
+
+        </script>
+    </head>
+    <body onload="main(3, 7, 2, 20)">
+        <canvas width="900px" height="500px" style="border: solid 1px black">Не се поддържа canvas!</canvas>
+        <noscript>Не се поддържа JavaScript!</noscript>
+    </body>
+</html>

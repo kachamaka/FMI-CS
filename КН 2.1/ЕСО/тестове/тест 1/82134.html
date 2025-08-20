@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<style>
+			#box{
+				margin: 2em;
+				padding: 1em; 
+				border: solid 1px black;
+
+				margin-left: 25em;
+				width: 490px;
+				background-color: lightyellow;
+				color: blue;
+			}
+			#text{
+				text-align: right;
+			}
+			#myImage{
+				border: 7px blue solid;
+			}
+			#btn{
+				margin-left: 50em;
+			}
+			#title{
+				margin-left: 17.5em;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1 id="title">Мартин Попов</h1>
+		<div id="box">
+			<!-- параграф 1 -->
+			<p id="text">
+				Едвам днеска вечер, по тъмно, Огнянов можа да тръгне от манастира, за да посети Рада. Тя живееше у баба Лиловица, отделно в една стаичка, в дъното на длъгнестия и бухнал с листнати овошки двор. Отвън до стаята беше прилепено одърче, дето Рада деня работеше и четеше на сянка.
+			</p>
+	
+			<!-- параграф 2 -->
+			<p id="text">
+				Ней се изгледаха очите да чака два дни. Тия дълги часове, пълни с трепета на ожиданието, с жегливи вълнения и безпoкoйcтва, сториха й се по-дълги от векове. В нeтърпениетo си, тя излезе вън на двора.
+			</p>
+
+			<p id="text">
+				<img id="myImage" onclick="openImage(1)" height="30px" src="Image1.jpg">
+				<img id="myImage" onclick="openImage(2)" height="40px" src="Image2.jpg">
+				<img id="myImage" onclick="openImage(3)" height="50px" src="Image3.jpg">
+				<img id="myImage" onclick="openImage(4)" height="60px" src="Image4.jpg">
+				<img id="myImage" onclick="openImage(5)" height="70px" src="Image5.jpg">
+			</p>
+			<!-- параграф 3 -->
+			<p id="text">
+				Нощта напредваше. Звездите блещукаха като живи брилянти на небето. Из пречистения и утихнал въздух се лееха тихи благоухания от цветята в съседните дворища; най-силно се чувствуваше ароматното дихание на една кичеста акация.
+			</p>
+			
+			<!-- параграф 4 -->
+			<p id="text">
+				<i>
+					"Под игото", Иван Вазов
+				</i>
+			</p>
+
+
+
+		</div>
+		<button id="btn" onclick="hideWords()">82134</button>
+
+
+
+		<script>
+			function openImage(imageNum){
+				window.location.href = "Image" + imageNum + ".jpg";
+			}
+			function hideWords(){
+				let textArr = document.getElementsByTagName("p");
+				console.log(textArr);
+				for(let i = 0; i<textArr.length; i++){
+					if(textArr[i].innerText.length == 4) {
+						continue;
+					}
+					let newText = "";
+					let split = textArr[i].innerText.split(" ");
+					for(let j = 0; j<split.length; j++){
+						if(split[j].length != 3){
+							newText += split[j];
+						}
+						newText += " ";
+					}
+					textArr[i].innerText = newText;
+				}
+			}
+			
+		</script>
+	</body>
+</html>

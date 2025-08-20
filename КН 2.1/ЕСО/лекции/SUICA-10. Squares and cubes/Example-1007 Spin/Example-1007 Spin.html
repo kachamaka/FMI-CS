@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1007: Свойство spin</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica();
+			demo(20,1,1);
+			
+			// завъртане на куб около централната му ос
+			cube([0,7,0],5);
+			a = cube([0,7,0],5);
+			a.spin = Math.PI/6;
+			a = cube([0,7,0],5);
+			a.spin = Math.PI/3;
+
+			// завъртане на куб около околен ръб
+			a = cube([0,-6,0],5);
+			a.origin = [0.5,0.5,0];
+			a.spin = 0*Math.PI/3;
+			a = cube([0,-6,0],5);
+			a.origin = [0.5,0.5,0];
+			a.spin = 2*Math.PI/3;
+			a = cube([0,-6,0],5);
+			a.origin = [0.5,0.5,0];
+			a.spin = 4*Math.PI/3;
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

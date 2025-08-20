@@ -1,0 +1,59 @@
+﻿<html>
+	<head>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+		<script src="three.min.js"></script>
+		<script>
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.setAnimationLoop( drawFrame );
+			document.body.appendChild( renderer.domElement );
+
+			var scene = new THREE.Scene();
+			scene.background = new THREE.Color( 'cyan' );
+
+			var aspect = window.innerWidth/window.innerHeight;
+			var camera = new THREE.PerspectiveCamera( 30, aspect );
+			camera.position.set( 0, 0, 30 );
+			camera.lookAt( new THREE.Vector3() );
+
+			var object = new THREE.Group();
+			scene.add( object );
+
+			var geometry = new THREE.CylinderGeometry( 1, 1, 15, 32 );
+			var material = new THREE.MeshPhongMaterial( {color:'crimson'} );
+			var cylinder = new THREE.Mesh( geometry, material );
+			cylinder.position.x = 2;
+			object.add( cylinder );
+
+			cylinder = new THREE.Mesh( geometry, material );
+			cylinder.rotation.z = 1.568;
+			object.add( cylinder );
+
+			geometry = new THREE.CylinderGeometry( 0.8, 0.8, 11, 32 );
+			material = new THREE.MeshPhongMaterial( {color:'crimson'} );
+			cylinder = new THREE.Mesh( geometry, material );
+			cylinder.position.x = -2.4;
+			cylinder.position.y = 3.5;
+			cylinder.rotation.z = 2.2;
+
+			object.add( cylinder );
+
+
+			var light = new THREE.PointLight();
+			light.position.set( 0, 0, 20 );
+			scene.add( light );
+
+			function drawFrame()
+			{
+				// object.rotation.x += 0.05;
+				// object.rotation.y += 0.005;
+				renderer.render( scene, camera );
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 2202: Достъп до графичните полета</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			a = new Suica('one');
+			demo(70,1,0.2);
+			background([1,0.8,0.6]);
+			ac = cube([0,0,0],20).custom({color:[1,0.3,0]});
+			a.nextFrame = animateA;
+
+			b = new Suica('two');
+			demo(70,-2.5,0.2);
+			background([0.6,0.8,1]);
+			cuboid([0,0,0],[5,5,20]);
+			cuboid([0,0,0],[5,20,5]);
+			cuboid([0,0,0],[20,5,5]);
+			b.nextFrame = animateB;
+		}
+		
+		sin = Math.sin;
+		cos = Math.cos;
+		
+		function animateA()
+		{
+			ac.color = [
+				0.5+0.5*sin(Suica.time),
+				0.5+0.5*sin(Suica.time+1),
+				0.5+0.5*sin(Suica.time+2) ];
+		}
+
+		function animateB()
+		{
+			b.background ([
+				0.5+0.5*sin(Suica.time),
+				0.5+0.5*sin(Suica.time+1),
+				0.5+0.5*sin(Suica.time+2) ]);
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas id="one" width="350" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+	<canvas id="two" width="350" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1704: Изчислен избор</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			p = new Suica();
+			orthographic(-1000,1000);
+			lookAt([0,0,100],[0,0,0],[0,1,0]);
+			
+			p.gl.canvas.addEventListener('mousemove',mouseMove,false);
+			obj = document.getElementById('obj');
+			
+			a = sphere([-150,0,0],50);
+			b = sphere([   0,0,0],50);
+			c = sphere([+150,0,0],50);
+		}
+
+		function distance(p,q)
+		{
+			return Math.sqrt( (p[0]-q[0])*(p[0]-q[0]) + (p[1]-q[1])*(p[1]-q[1]) );
+		}
+		
+		function mouseMove(event)
+		{
+			var x = event.clientX-event.target.offsetLeft-event.target.offsetWidth/2;
+			var y = -(event.clientY-event.target.offsetTop-event.target.offsetHeight/2);
+			
+			if ( distance(a.center,[x,y])<=50 )
+				obj.innerHTML = 'a';
+			else
+			if ( distance(b.center,[x,y])<=50 )
+				obj.innerHTML = 'b';
+			else
+			if ( distance(c.center,[x,y])<=50 )
+				obj.innerHTML = 'c';
+			else
+				obj.innerHTML = '?';
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="300" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+	<p>Обект: <span id="obj"></span></p>
+</body>

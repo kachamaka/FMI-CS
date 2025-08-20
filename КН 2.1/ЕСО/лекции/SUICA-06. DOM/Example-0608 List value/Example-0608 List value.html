@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Пример 0608: Съдържание на списък</title>
+
+		<style>
+		</style>
+		
+		<script>
+			function newSelection()
+			{
+				var v = document.getElementById('list').value;
+				document.getElementById('sel').innerHTML = v;
+			}
+		</script>
+	</head>
+	<body>
+		<select id="list" onchange="newSelection()">
+			<option value="Morbi ipsum primis">Morbi</option>
+			<option value="Vel orci luctus">Vel</option>
+			<option value="Massa et ultrices">Massa</option>
+			<option value="Vehicula velit vel">Vehicula</option>
+			<option value="Finibus at purus">Finibus</option>
+			<option value="Libero nec lobortis">Libero</option>
+		</select>
+		<p>
+			Maecenas nec lobortis leo [<span id="sel"></span>].
+		</p>
+	</body>
+</html>

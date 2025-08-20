@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Пример 0607: Свойство value на текстово поле</title>
+
+		<style>
+			body {	font-size: 300%;
+					font-family: Consolas; }
+			input, button {	font-size: 100%;
+					font-family: Consolas;
+					text-align: center; }
+		</style>
+		
+		<script>
+			function calc()
+			{
+				var n1 = Number(document.getElementById('num1').value);
+				var n2 = Number(document.getElementById('num2').value);
+				document.getElementById('res').innerHTML=n1+n2;
+			}
+		</script>
+	</head>
+	<body>
+		<input type="text" id="num1" value="" size="2">
+		+
+		<input type="text" id="num2" value="" size="2">
+		=
+		<span id="res"></span>
+		<button onclick="calc()">?</button>
+	</body>
+</html>

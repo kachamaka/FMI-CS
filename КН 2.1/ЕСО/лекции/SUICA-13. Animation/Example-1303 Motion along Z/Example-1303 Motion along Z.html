@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1303: Движение по Z</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			p = new Suica();
+			oxyz();
+
+			a = cube([0,0,0],10);
+			p.nextFrame = moveZ;
+		}
+		
+		function moveZ()
+		{
+			if (a.center[2]>30)
+				a.center[2] = 0;
+			else
+				a.center[2] += 15*Suica.dTime;
+		}
+		
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

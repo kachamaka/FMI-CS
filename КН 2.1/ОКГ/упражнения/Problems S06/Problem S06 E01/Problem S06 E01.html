@@ -1,0 +1,82 @@
+﻿<html>
+	<head>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+		<script src="three.min.js"></script>
+		<script>
+			// Задача: Създайте четиъгълна пирамида с един
+			// вертикален ръб
+			
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.setAnimationLoop( drawFrame );
+			document.body.appendChild( renderer.domElement );
+			
+			var scene = new THREE.Scene();
+			scene.background = new THREE.Color( 'lavender' );
+			
+			var aspect = window.innerWidth/window.innerHeight;
+			var camera = new THREE.PerspectiveCamera( 30, aspect );
+			camera.position.set( 0, 30, 60 );
+			camera.lookAt( new THREE.Vector3() );
+
+            var oxyz = new THREE.AxesHelper( 16 );
+            scene.add( oxyz );
+			// създаваме най-обща форма (геометрия)
+			// записваме данните за върховете в геометрията
+			// числото 3 означава, че три последователни
+			// стойности определят един връх
+			
+			// общия обект
+            let pyr = new THREE.Group();
+
+            function generateTriangle(x1, y1, z1, x2, y2, z2, x3, y3, z3){
+                let geometry = new THREE.BufferGeometry();
+
+                let vertices = new Float32Array([
+                    x1, y1, z1, // връх 0
+                    x2, y2, z2, // 1
+                    x3, y3, z3 // 2
+                ]);
+
+                geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
+        
+                // за правилно оцветяване молим Three.js
+                // да изчисли нормалните вектори
+                geometry.computeVertexNormals();
+        
+                let object = new THREE.Group();
+                object.add( new THREE.Mesh( geometry, new THREE.MeshPhongMaterial({side:THREE.DoubleSide}) ));
+                object.add( new THREE.Mesh( geometry, new THREE.MeshBasicMaterial({color:'red', wireframe:true}) ));
+                object.add( new THREE.Points( geometry, new THREE.PointsMaterial({color:'black', size:1}) ));
+
+                pyr.add( object );
+            }
+
+            generateTriangle(0, 0, 0, 10, 0, 0, 0, 0, 10);
+            generateTriangle(10, 0, 10, 10, 0, 0, 0, 0, 10);
+            // let midBase = Math.sqrt(5)*5;
+            generateTriangle(0, 0, 0, 0, 0, 10, 5, 10, 5);
+            generateTriangle(0, 0, 0, 10, 0, 0, 5, 10, 5);
+            generateTriangle(10, 0, 0, 10, 0, 10, 5, 10, 5);
+            generateTriangle(0, 0, 10, 10, 0, 10, 5, 10, 5);
+
+			
+            scene.add(pyr);
+			scene.add( new THREE.HemisphereLight( 'yellow', 'lightsalmon' ) );
+			
+			function drawFrame()
+			{
+				// pyr.rotation.x += 0.005;
+				pyr.rotation.y += 0.04;
+				// pyr.rotation.z += 0.003;
+
+				renderer.render( scene, camera );
+			}
+		</script>
+	</body>
+</html>

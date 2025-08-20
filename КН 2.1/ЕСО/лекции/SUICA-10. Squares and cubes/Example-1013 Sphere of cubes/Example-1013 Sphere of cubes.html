@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1013: Сфера от кубчета</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica();
+			demo(50);
+
+			// случайно завъртяни кубчета, пръснати по сфера
+			for (var i=0; i<300; i++)
+			{
+				a = random(0,2*Math.PI);
+				b = random(0,2*Math.PI);
+				c = cube([10*Math.cos(a)*Math.cos(b),10*Math.sin(a)*Math.cos(b),10*Math.sin(b)],4);
+				c.color = [random(0.5,1),random(0.5,1),random(0.5,1)];
+				c.spin = random(0,2*Math.PI);
+				c.focus = [random(-1,1),random(-1,1),random(-1,1)];
+			}
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

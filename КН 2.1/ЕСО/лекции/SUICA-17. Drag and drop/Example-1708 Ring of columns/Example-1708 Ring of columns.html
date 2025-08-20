@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1708: Пръстен от колони</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			p = new Suica();
+			//demo(50);
+			
+			p.gl.canvas.addEventListener('mousemove',mouseMove,false);
+			p.nextFrame = animate;
+			
+			n = 50;
+			a = [];
+			for (var i=0; i<n; i++)
+				a.push( cuboid([0,0,-5],[1,1,15]).custom({
+							interactive: true,
+							origin: [10,0,-0.5],
+							spin: i/n*2*Math.PI,
+							}));
+		}
+
+		function mouseMove(event)
+		{
+			var obj = p.objectAtPoint(event.clientX,event.clientY);
+			if (obj) obj.sizes[2] = 0.1;
+		}
+		
+		function animate()
+		{
+			var t = Suica.time/4;
+			lookAt ([50*Math.cos(t),50*Math.sin(t),20],[0,0,0],[0,0,1]);
+			for (var i=0; i<n; i++)
+				if (a[i].sizes[2]<15)
+					a[i].sizes[2] *= 1.02;
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

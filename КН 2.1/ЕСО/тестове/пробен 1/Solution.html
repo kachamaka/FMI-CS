@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			h1 { color: Red; }
+			
+			p {
+				width: 50%;
+				margin-left: auto;
+				margin-right: auto;
+				text-align: justify;
+			}
+			
+			img {
+				width: 48%;
+				height: 6em;
+			}
+		</style>
+		
+		<script>
+			function blueTitle()
+			{
+				var title = document.getElementsByTagName('h1')[0];
+				title.style.color = 'blue';
+			}
+		</script>
+	</head>
+
+	<body>
+		<h1>ЗЛАТНОТО ПТИЧЕ</h1>
+
+		<p>Имало едно време един цар. В градината му расла една златна ябълка. Всеки ден по пладне дървото пускало цвят, вечер връзвало плод, а през нощта плодовете узрявали, но някой идвал и ги обирал. Всяка сутрин царят отивал в градината и не намирал ни една ябълка. Той имал трима синове. Веднъж им рекъл:</p>
+
+		<p>
+		   <img src="image1.jpg">
+		   <img src="image2.jpg">
+		</p>
+		
+		<p>- Чудя се кой дохожда нощем да ми бере златните ябълки. Ни една не оставя - поне да ги видя какви са. Човек ли е, звяр ли е - не знам. Я нека седне довечера някой от вас под дървото - да пази: дано уловим крадеца!</p>
+
+		<p>
+			<button onclick="blueTitle()">Бутон</button>
+		</p>
+	</body>
+</html>

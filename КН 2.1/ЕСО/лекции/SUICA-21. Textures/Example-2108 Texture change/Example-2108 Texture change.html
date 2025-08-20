@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 2108: Смяна на текстура</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica().nextFrame = rotate;
+			lookAt([0,0,140],[0,0,0],[0,1,0]);
+			
+			image = [];
+			for (var i=0; i<4; i++)
+				image[i] = new Suica.Image('texture'+(i+1)+'.jpg');
+			a = cube([0,0,0],40);
+		}
+		
+		function rotate()
+		{
+			a.spin = Suica.time;
+			a.focus = [Math.sin(Suica.time),Math.sin(Suica.time+1),Math.sin(Suica.time-1)];
+			a.image = image[Math.floor(Suica.time)%4];
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

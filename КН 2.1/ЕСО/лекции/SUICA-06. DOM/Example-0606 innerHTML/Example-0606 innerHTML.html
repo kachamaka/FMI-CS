@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Пример 0606: innerHTML</title>
+
+		<style>
+			b {color:red;}
+		</style>
+	</head>
+	<body>
+		<p>Nullam tempus <b>malesuada ultricies</b>. In quis lacus bibendum, posuere massa a, varius enim. Maecenas elementum efficitur leo sit amet sodales. Praesent <b>ligula lectus</b>, pharetra sit amet efficitur et, rhoncus consequat ante. Suspendisse sagittis sagittis est ut tempor. Aenean fermentum nunc non turpis pulvinar porttitor. Mauris id velit auctor, laoreet mi sed, <b>maximus augue</b>. Integer lobortis sed magna vel rhoncus. Praesent blandit ultricies fringilla. Cras volutpat hendrerit tortor, vel congue elit imperdiet quis.</p>
+		<p>In tincidunt tincidunt nulla at blandit. Maecenas id sollicitudin ante. Fusce porta, urna eu dapibus ultrices, leo enim ornare metus, a dapibus velit justo eu nibh. Sed vel pharetra nulla. Pellentesque pellentesque leo tellus, quis <b>blandit felis commodo</b> eget. Suspendisse accumsan turpis a enim feugiat suscipit sed ut enim. Curabitur ultrices ligula ac felis scelerisque malesuada. Nulla lacinia lectus suscipit, suscipit turpis ac, ornare risus. In tempus enim ut dignissim laoreet. Maecenas vitae nibh non purus maximus iaculis nec at dolor. <b>Donec feugiat</b> elementum metus, dictum convallis nibh dictum non. Nunc non euismod ipsum.</p>
+		<p id="result"></p>
+		<script>
+			var b = document.getElementsByTagName('b');
+			var p = document.getElementById('result');
+		
+			// обхождане на всички <b> елементи и
+			// събиране на съдържанието им в q
+			var q = '';
+			for (var i=0; i<b.length; i++)
+			{
+				if (i) {q += '|';}
+				q += '<i> '+b[i].innerHTML+' </i>';
+			}
+			p.innerHTML = q;
+		</script>
+	</body>
+</html>

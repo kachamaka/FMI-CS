@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Подготовка за Тест 2 - задача 1</title>
+		<script src="suica.min.js"></script>
+		
+		<script>
+			function main(x,y,z,a)
+			{
+				new Suica();
+				//oxyz();
+				demo();
+				
+				randcol=[random(0,1),random(0,1),random(0,1)];
+				
+				/*построяваме куб с център с координати x,y,z и дължина на страната а и визуализираме само контурите му*/
+				
+				cube([x,y,z],a).custom({
+						mode: Suica.LINE, 
+						color: [0.5,0.5,0.5]});
+				/*построяваме 6 окръжности с центърове средите на околните стени на куба*/
+				circle([x+a/2,y,z],a/2).custom({
+						color: randcol,
+						focus: [1,0,0]});
+				circle([x-a/2,y,z],a/2).custom({
+						color: randcol,
+						focus: [-1,0,0]});
+				circle([x,y+a/2,z],a/2).custom({
+						color: randcol,
+						focus: [0,1,0]});
+				circle([x,y-a/2,z],a/2).custom({
+						color: randcol,
+						focus: [0,-1,0]});
+				circle([x,y,z+a/2],a/2).custom({
+						color: randcol});
+				circle([x,y,z-a/2],a/2).custom({
+						color: randcol,
+						focus: [0,0,-1]});
+				
+			}
+
+		</script>
+		
+	</head>
+	<body onload="main(0,0,0,20)">
+		<canvas width="800" height="500" style="border: solid black 1px;">Не се поддържа canvas!</canvas>
+		<noscript>Не се поддържа JS!</noscript>
+	</body>
+</html>

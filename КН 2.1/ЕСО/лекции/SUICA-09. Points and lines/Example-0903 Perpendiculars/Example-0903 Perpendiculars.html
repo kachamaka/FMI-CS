@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 0903: Перпендикуляри</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function vAdd(a,b)
+		{
+			var x = a[0]+b[0];
+			var y = a[1]+b[1];
+			var z = a[2]+b[2];
+			return [x,y,z];
+		}
+
+		function main()
+		{
+			// координати на точки
+			var o = [0,0,1/2];
+			var a = [1,0,1];
+			var b = [0,1,1];
+	
+			// вектори
+			var oa = vectorPoints(a,o);
+			var ob = vectorPoints(b,o);
+			
+			// перпендикулярни при скаларно произведение 0
+			var sca = scalarProduct(oa,ob);
+			if (Math.abs(sca)<0.001)
+				console.log('oa.ob =',sca,'май са перпендикулярни');
+			else
+				console.log('oa.ob =',sca,'не са перпендикулярни');
+				
+			// намиране на перпендикулярен вектор
+			var oc = vectorProduct(oa,ob);
+			
+			// намиране на единичен вектор
+			oc = unitVector(oc);
+			
+			// намиране на точка C
+			var c = vAdd(o,oc);
+			console.log('C = ['+c+']');
+			
+			// проверка
+			console.log( 'Перпендикулярни при 0:' );
+			console.log( 'oa.oc =',scalarProduct(oa,oc) );
+			console.log( 'ob.oc =',scalarProduct(ob,oc) );
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<h2 id="result"></h2>
+</body>

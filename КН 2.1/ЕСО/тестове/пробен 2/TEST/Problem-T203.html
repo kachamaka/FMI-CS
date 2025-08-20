@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Подготовка за Тест 2 - задача 3</title>
+		<script src="suica.min.js"></script>
+		
+		<script>
+			function main(x,y,z,r,h,n)
+			{
+				new Suica();
+				//oxyz();
+				demo();
+				
+				//избираме случаен цвят
+				randcol=[random(0,1),random(0,1),random(0,1)];
+				
+				var r1=r/8; // да се експериментира със стойност за радиуса на сферите: r/n
+				
+				//създаваме пирамида
+				var a=radians(360/n);			
+				pyramid([x,y,z],r,h,n).custom({
+							color: [0.7,0.7,0.7],
+							mode: Suica.LINE});
+							
+				//създаваме една сфера във върха на пирамидата
+				sphere([x,y,z+h],r1).custom({color: randcol});
+				
+				//създаваме n сфери във върховете на основата на пирамидата, използваме полярни координати, за да разположим сферите по върховете на основата на пирамидата, която е правилен многоъгълник, за определяне на точната позиция на върховете използваме ъгъл кратен на n
+				for (var i=0; i<n; i++){
+					sphere([x+r*Math.cos(a),y+r*Math.sin(a),z],r1).custom({color: randcol});
+					a+=radians(360/n);
+				}
+			}
+
+		</script>
+		
+	</head>
+	<body onload="main(0,0,0,10,15,3)">
+		<canvas width="800" height="500" style="border: solid black 1px;">Не се поддържа canvas!</canvas>
+		<noscript>Не се поддържа JS!</noscript>
+	</body>
+</html>

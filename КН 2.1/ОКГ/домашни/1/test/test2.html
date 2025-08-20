@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<script src="three.min.js"></script>
+		<script src="OrbitControls.js"></script>
+	</head>
+	
+	<body>
+		<script>
+			const FN = 82134; // факултетен номер 
+		</script>
+		
+		<script src="init.js"></script>
+			
+		<script>
+		
+			// 3. едва тогава почвайте да строите стените
+			//    и да добавяте исканите обекти по стаите
+			//
+			// 4. init.js се създава глобален обект scene
+			//    и в него трябва да сложите обектите си!
+			//
+			// 5. кубът по-долу е само за пример как може
+			//    да се слагат обекти в сцената
+
+			//long base64 string of the map texture
+
+			let geometry = new THREE.SphereGeometry( 0.4, 32, 16 );
+			let texture = new THREE.TextureLoader().load( 'im.png' );
+			let material = new THREE.MeshPhongMaterial({
+				map: texture,
+			});
+			
+			let globe = new THREE.Mesh( geometry, material );
+			scene.add(globe);
+
+		</script>
+	</body>
+</html>

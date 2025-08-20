@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1110: Свойство hollow</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica();
+			demo(20,1,0);
+
+			// няколко тръби - цилиндри без основи
+			h = 20;
+			r = 1/2;
+			for (var i=0; i<12; i++)
+			{
+				a = cylinder([0,-h/2,0],r,h);
+				a.focus = [0,1,0];
+				a.hollow = true;
+				a.color = [random(0.5,1),0,random(0.5,1)];
+				h = h*0.8;
+				r = r/0.8;
+			}
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

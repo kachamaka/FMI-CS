@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 0912: Радиални линии</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica();
+			oxyz();
+			demo();
+			
+			var n = 40;
+			
+			// създаване на n случайни линии
+			for (var i=0; i<n; i++)
+			{
+				var alpha = radians(180*i/n);
+				
+				var x = Math.cos(alpha);
+				var z = Math.sin(alpha);
+				
+				line([0,0,0],[x,0,z]);
+			}
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

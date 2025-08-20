@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1410: Вложени махала</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			p = new Suica();
+			demo(100);
+			
+			a1 = cylinder([0,0,30],1/2,25);
+			a2 = spheroid([0,0,0],[2,6,6]);
+
+			b1 = cylinder([0,0,0],1/2,15);
+			b2 = spheroid([0,0,0],[1.5,4,4]);
+
+			c1 = cylinder([0,0,0],1/2,10);
+			c2 = spheroid([0,0,0],[1,3,3]);
+			
+			p.nextFrame = loop;
+		}
+		
+		function loop()
+		{
+			t = 2*Suica.time;
+
+			// горно голямо махало
+			ang = radians(-90+45*Math.sin(t));
+			a1.focus = [0,Math.cos(ang),Math.sin(ang)];
+			a2.center = [0,25*a1.focus[1],25*a1.focus[2]+30];
+			
+			// средно махало
+			ang = ang+radians(60*Math.sin(t-0.5));
+			b1.center = a2.center;
+			b1.focus = [0,Math.cos(ang),Math.sin(ang)];
+			b2.center = [0,b1.center[1]+15*b1.focus[1],b1.center[2]+15*b1.focus[2]];
+						
+			// крайно махало
+			ang = ang+radians(60*Math.sin(t-1));
+			c1.center = b2.center;
+			c1.focus = [0,Math.cos(ang),Math.sin(ang)];
+			c2.center = [0,c1.center[1]+10*c1.focus[1],c1.center[2]+10*c1.focus[2]];
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>T4-zad2</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica().nextFrame = animate;
+			lookAt([18,8,10],[0,0,0],[0,0,1]);
+			//demo(18)
+
+			for (var x=-5; x<=5; x++)
+			for (var y=-5; y<=5; y++)
+				cube([x,y,-1],0.9).custom({color:[0.7,0.95,1]});
+
+		
+			snejko = group([
+				sphere([0,0,0.2],0.93).custom({color:[1,1,1]}),
+				sphere([0,0,1.4],0.75).custom({color:[1,1,1]}),
+				sphere([0,0,2.5],0.55).custom({color:[1,1,1]}),
+				// очи
+				cylinder([0.27,0.25,2.6],0.1,0.2).custom({color:[1,1,1],focus:[1,0,0]}),
+				cylinder([0.27,-0.25,2.6],0.1,0.2).custom({color:[1,1,1],focus:[1,0,0]}),
+				sphere([0.47,0.25,2.6],0.05).custom({color:[0,0,0]}),
+				sphere([0.47,-0.25,2.6],0.05).custom({color:[0,0,0]}),
+				// нос
+				cone([0.3,0,2.5],0.1,0.7).custom({color:[0.8,0.3,0],focus:[1,0,0]}),
+				//копечета
+				sphere([0.65,0,1.8],0.05).custom({color:[0,0,0]}),
+				sphere([0.75,0,1.4],0.05).custom({color:[0,0,0]}),
+				sphere([0.85,0,0.6],0.05).custom({color:[0,0,0]}),
+				sphere([0.92,0,0.3],0.05).custom({color:[0,0,0]}),
+				
+			]);
+			snejko.spin = 0;
+			
+			//дясна ръка
+			diasna_ruka = group([
+				// ръка
+				cylinder([0,0,0],0.07,0.9).custom({color:[0.7,0.1,0]}),
+				// ръкавица
+				spheroid([0,0,0],[0.15,0.07,0.2]).custom({color:[0.25,0.25,0.25],center:[0,0,0.9]}),
+			]);
+			diasna_ruka.custom({
+					center:[0,-0.5,1.8],
+					focus:[0,-1,-1],
+					});
+			snejko.add(diasna_ruka);
+			
+			//лява ръка
+			liava_ruka = group([
+				// ръка
+				cylinder([0,0,0],0.07,0.9).custom({color:[0.7,0.1,0]}),
+				// ръкавица
+				spheroid([0,0,0],[0.15,0.07,0.2]).custom({color:[0.25,0.25,0.25],center:[0,0,0.9]}),
+			]);
+			liava_ruka.custom({
+					center:[0,0.5,1.8],
+					focus:[0,1,-1],
+					});
+			snejko.add(liava_ruka);
+			
+			// създаване на 1 елха от дясно на снежния човек 
+				var elha = Elha();
+				elha.center = [1,-1,-0.5];
+		
+		}
+		function Star(){
+		//звезда
+			star = group([
+				prism([0,0,0],0.2,0.03,3).custom({
+					color:[1,0,0],
+					focus:[1,0,0],
+				}),
+				prism([0,0,0],0.2,0.03,3).custom({
+					color:[1,0,0],
+					focus:[1,0,0],
+					spin: radians(60),
+				}),
+			]);
+			
+			star.center = [0,0,0];
+								
+			return star;
+		}
+		
+		function Elha(){
+		//елха
+			elha = group([
+				cylinder([0,0,0],0.12,0.4).custom({color:[0.7,0.1,0]}),
+				pyramid([0,0,0.4],0.45,1,Math.round(random(5,9))).custom({color:[0,random(0.5,1),(0, 0.2)]})
+			]);
+			star = Star();
+			
+			star.center = [0,0,1.4];
+			elha.add(star);
+						
+			return elha;
+			}
+		
+		function animate()
+		{
+			
+
+		}
+
+	</script>	
+</head>
+
+<body onload="main()">
+	<canvas width="598" height="398" style="border: solid 1px Black;"></canvas>
+
+	
+</body>

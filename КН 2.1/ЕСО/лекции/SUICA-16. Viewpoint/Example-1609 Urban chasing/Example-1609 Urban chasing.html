@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1609: Градско преследване</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			info = document.getElementById('info');
+			
+			new Suica().nextFrame = chase;
+			background([0,0,0]);
+			
+			// сгради
+			for (var x=-12; x<11; x+=2)
+			for (var y=-12; y<11; y+=2)
+			{
+				var c = random(0.5,1);
+				cuboid([x+1,y+1,0],[0.8,0.8,random(0.4,2)]).custom({
+					origin: [0,0,-0.5],
+					color: [0,c/2,c]
+				});
+			}
+			
+			// бягащият обект
+			ball = sphere([0,0,0.5],0.5).custom({color:[1,0.5,0]});
+			dir = 0;
+		}		
+		
+		pos = [10,10,10];
+		target = [0,0,0];
+		up = [0,0,1];
+		
+		frame=-1;
+		k=20;
+		function chase()
+		{
+			frame++;
+			
+			ball.center[0] += 2/k*Math.cos(dir);
+			ball.center[1] += 2/k*Math.sin(dir);
+			
+			if (Math.abs(ball.center[0])>10 ||
+				Math.abs(ball.center[1])>10 )
+			{
+				ball.center[0] = Math.max(ball.center[0],-10);
+				ball.center[0] = Math.min(ball.center[0],+10);
+				ball.center[1] = Math.max(ball.center[1],-10);
+				ball.center[1] = Math.min(ball.center[1],+10);
+				frame = 0;
+			}
+			
+			if (frame%k==0)
+			{
+				dir += Math.PI/2*(Math.round(random(-1.5,1.5)));
+				ball.center[0] = Math.round(ball.center[0]);
+				ball.center[1] = Math.round(ball.center[1]);
+			}
+			
+			for (var i=0; i<3; i++)
+			{
+				target[i] = target[i]*0.96+0.04*ball.center[i];
+				pos[i] = pos[i]*0.98+0.02*ball.center[i]+0.3/(4-i);
+			}
+			
+			lookAt(pos,target,up);
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

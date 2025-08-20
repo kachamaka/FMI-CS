@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1206: Споделени обекти</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica();
+			oxyz();
+			demo(25);
+
+			a = sphere([0,0,-4],3/4),
+			b = sphere([0,0,4],3/4),
+			c = cylinder([0,0,-4],1/4,8)
+			
+			g1 = group([a,b,c]);
+			g2 = group([a,b,c]).custom({focus:[1,0,0]});
+			g3 = group([a,b,c]).custom({focus:[0,1,0]});;
+			c.color = [0,1,1];
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

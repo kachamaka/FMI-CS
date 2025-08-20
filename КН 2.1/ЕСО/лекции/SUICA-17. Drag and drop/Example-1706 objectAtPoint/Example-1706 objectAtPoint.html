@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1706: Метод objectAtPoint</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			p = new Suica();
+			orthographic(-1000,1000);
+			lookAt([0,0,100],[0,0,0],[0,1,0]);
+			
+			p.gl.canvas.addEventListener('mousemove',mouseMove,false);
+			obj = document.getElementById('obj');
+			
+			a = sphere([-150,0,0],50).custom({info:'a',interactive:true});
+			b = sphere([   0,0,0],50).custom({info:'b',interactive:true, color:[0.5,0,1]});
+			c = sphere([+150,0,0],50).custom({info:'c',interactive:true, color:[0,1,0.5]});
+		}
+
+		function mouseMove(event)
+		{
+			var o = p.objectAtPoint(event.clientX,event.clientY);
+
+			if ( o )
+				obj.innerHTML = o.info;
+			else
+				obj.innerHTML = '?';
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="300" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+	<p>Обект: <span id="obj"></span></p>
+</body>

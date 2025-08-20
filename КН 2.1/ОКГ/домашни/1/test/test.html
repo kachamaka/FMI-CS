@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+
+<!-- Мартин Попов, група 1, ф.н. 82134 -->
+
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<script src="three.min.js"></script>
+		<script src="OrbitControls.js"></script>
+	</head>
+	
+	<body>
+		<script>
+			const FN = 82134; // факултетен номер 
+		</script>
+		
+		<script src="init.js"></script>
+			
+		<script>
+		
+			// 3. едва тогава почвайте да строите стените
+			//    и да добавяте исканите обекти по стаите
+			//
+			// 4. init.js се създава глобален обект scene
+			//    и в него трябва да сложите обектите си!
+			//
+			// 5. кубът по-долу е само за пример как може
+			//    да се слагат обекти в сцената
+
+			//source:
+			//https://stackoverflow.com/questions/42494845/how-do-i-create-a-solid-ellipse-and-fill-it-with-a-specific-color-in-three-js
+			//stretched ellipse 
+			// let path = new THREE.Shape();
+			// path.absellipse(0,0,0.05,0.1,0, Math.PI*2, true,0);
+			// geometry = new THREE.ShapeBufferGeometry( path );
+			// material = new THREE.MeshPhongMaterial( { color: "#4E342E"} );
+			// let ellipse = new THREE.Mesh( geometry, material );
+			// ellipse.position.set(0, 1, 0);
+			// ellipse.rotation.x -= Math.PI/2+0.3;
+			// ellipse.rotation.y += 0.5;
+			// ellipse.rotation.z -= 0.3;
+			// ellipse.position.y += 0.07;
+			// ellipse.position.x -= 0.03;
+			// scene.add(ellipse);
+
+			const pi = Math.PI;
+
+			function generateCockroach(x, y, z, xRot, yRot, zRot){
+				let bodyColor = "#1a1a1a";
+				let wingColor = "#0d0d0d";
+
+				let cockroach = new THREE.Group();
+				
+				let geometry = new THREE.CylinderGeometry( 0.04, 0.04, 0.12, 32 );
+				let material = new THREE.MeshPhongMaterial( {color: bodyColor} );
+				let body = new THREE.Mesh( geometry, material );
+				body.rotation.x += Math.PI/2;
+				body.scale.set(1, 1, 0.5);
+				cockroach.add(body);
+
+				function generateWing(x, y, z, xRot, yRot, zRot){
+					let path = new THREE.Shape();
+					path.absellipse(0,0,0.03,0.06,0, Math.PI*2, true,0);
+					let geometry = new THREE.ShapeBufferGeometry( path );
+					let material = new THREE.MeshPhongMaterial( { color: wingColor, side: THREE.DoubleSide} );
+					let wing = new THREE.Mesh( geometry, material );
+					wing.position.x += x;
+					wing.position.y += y;
+					wing.position.z += z;
+					wing.rotation.x += xRot;
+					wing.rotation.y += yRot;
+					wing.rotation.z += zRot;
+
+					return wing;
+				}
+
+				cockroach.add(generateWing(-0.03, 0.0143, 0, -Math.PI/2, -0.3, -0.3));
+				cockroach.add(generateWing(0.03, 0.0143, 0, -Math.PI/2, 0.3, 0.3));
+
+				//butt
+				geometry = new THREE.SphereGeometry( 0.0409, 32, 16 );
+				material = new THREE.MeshPhongMaterial( { color: bodyColor, side: THREE.DoubleSide  } );
+				let butt = new THREE.Mesh( geometry, material );
+				butt.position.z += 0.05;
+				butt.scale.set(1, 0.49, 1.5);
+				cockroach.add(butt);
+
+				//head base
+				geometry = new THREE.SphereGeometry( 0.0409, 32, 16 );
+				material = new THREE.MeshPhongMaterial( { color: bodyColor, side: THREE.DoubleSide  } );
+				let headBase = new THREE.Mesh( geometry, material );
+				headBase.position.z -= 0.065;
+				headBase.scale.set(1, 0.6, 0.5);
+				cockroach.add(headBase);
+				
+				//head top
+				geometry = new THREE.SphereGeometry( 0.0409, 32, 16 );
+				material = new THREE.MeshPhongMaterial( { color: bodyColor, side: THREE.DoubleSide  } );
+				let headTop = new THREE.Mesh( geometry, material );
+				headTop.position.y += 0.01;
+				headTop.position.z -= 0.08;
+				headTop.scale.set(0.6, 0.4, 0.4);
+				cockroach.add(headTop);
+
+				function generateLeg(x, y, z, xRot, yRot, zRot){
+					let leg = new THREE.Group();
+
+					let geometry = new THREE.BoxGeometry( 0.003, 0.003, 0.04 );
+					let material = new THREE.MeshPhongMaterial( {color: bodyColor} );
+					let legBase = new THREE.Mesh( geometry, material );
+					leg.add(legBase);
+
+					geometry = new THREE.BoxGeometry( 0.003, 0.003, 0.08 );
+					material = new THREE.MeshPhongMaterial( {color: bodyColor} );
+					legEnd = new THREE.Mesh( geometry, material );
+					legEnd.position.x += 0.019;
+					legEnd.position.z += 0.017;
+					legEnd.rotation.y += 0.5;
+					leg.add(legEnd);
+
+					leg.position.x += x;
+					leg.position.y += y;
+					leg.position.z += z;
+					leg.rotation.x += xRot;
+					leg.rotation.y += yRot;
+					leg.rotation.z += zRot;
+
+					return leg;
+				}
+
+				cockroach.add(generateLeg(0.045, -0.01, 0.043, 0, -Math.PI/4, -Math.PI/8));
+				cockroach.add(generateLeg(0.045, -0.01, -0.005, 0, -Math.PI/4, -Math.PI/8));
+				cockroach.add(generateLeg(0.045, -0.01, -0.055, 0, -Math.PI/4, -Math.PI/8));
+
+				cockroach.add(generateLeg(-0.045, -0.01, 0.043, 0, Math.PI/4, Math.PI+Math.PI/8));
+				cockroach.add(generateLeg(-0.045, -0.01, -0.005, 0, Math.PI/4, Math.PI+Math.PI/8));
+				cockroach.add(generateLeg(-0.045, -0.01, -0.055, 0, Math.PI/4, Math.PI+Math.PI/8));
+				
+				function generateAntenna(x, y, z, xRot, yRot, zRot){
+					let geometry = new THREE.BoxGeometry( 0.001, 0.001, 0.06 );
+					let material = new THREE.MeshPhongMaterial( {color: bodyColor} );
+					let antenna = new THREE.Mesh( geometry, material );
+					antenna.position.x += x;
+					antenna.position.y += y;
+					antenna.position.z += z;
+
+					antenna.rotation.x += xRot;
+					antenna.rotation.y += yRot;
+					antenna.rotation.z += zRot;
+					
+					return antenna;
+				}
+
+				cockroach.add(generateAntenna(-0.02, 0.03, -0.11, Math.PI/8, Math.PI/8, 0));
+				cockroach.add(generateAntenna(0.02, 0.03, -0.11, Math.PI + Math.PI/8, Math.PI/8, 0));
+
+				cockroach.position.x += x;
+				cockroach.position.y += y;
+				cockroach.position.z += z;
+				cockroach.rotation.x += xRot;
+				cockroach.rotation.y += yRot;
+				cockroach.rotation.z += zRot;
+				return cockroach;
+			}
+
+			scene.add(generateCockroach(0, 0.6, 0, 0, -pi/4, 0));
+
+		</script>
+	</body>
+</html>

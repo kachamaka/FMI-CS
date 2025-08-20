@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 0907: Случайни точки по линия</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica();
+			oxyz();
+			demo();
+			
+			var n = 40;
+			
+			// създаване на 2 случайни точки
+			a = point([random(-30,30),random(-30,30),random(-10,10)]);
+			a.pointSize = 10;
+			a.color = [0,0,0];
+			
+			b = point([random(-30,30),random(-30,30),random(-10,10)]);
+			b.pointSize = 10;
+			b.color = [0,0,0];
+
+			// създаваме n случайни точки между тях
+			for (var i=0; i<n; i++)
+			{
+				var k = random(0,1);
+
+				var x = a.center[0]*(1-k)+k*b.center[0];
+				var y = a.center[1]*(1-k)+k*b.center[1];
+				var z = a.center[2]*(1-k)+k*b.center[2];
+
+				point([x,y,z]);
+			}
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

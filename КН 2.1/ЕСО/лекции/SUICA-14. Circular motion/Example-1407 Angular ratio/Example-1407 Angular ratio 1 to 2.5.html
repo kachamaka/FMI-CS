@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1407: Ъглово съотношение 1:2.5</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			p = new Suica();
+			demo(35,0.000001,5);
+			
+			a = sphere([0,0,0],4);
+			a.color = [0.5,0,1];
+			circle([0,0,0],30).custom({
+				mode: Suica.LINE,
+				color: [0.3,0,1]
+			});
+
+			b = sphere([0,0,0],4);
+
+			p.nextFrame = loop;
+		}
+		
+		var from, to;
+		function loop()
+		{
+			t = 3*Suica.time;
+
+			a.center[0] = 30*Math.cos(t);
+			a.center[1] = 30*Math.sin(t);
+
+			b.center[0] = a.center[0] + 15*Math.cos(2.5*t);
+			b.center[1] = a.center[1] + 15*Math.sin(2.5*t);
+			
+			if (from && 0.9<t && t<1+4*Math.PI)
+			{
+				segment(from,to).custom({color:[1,0,0.5]});
+			}
+			from = to;
+			to = [b.center[0],b.center[1],0];
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

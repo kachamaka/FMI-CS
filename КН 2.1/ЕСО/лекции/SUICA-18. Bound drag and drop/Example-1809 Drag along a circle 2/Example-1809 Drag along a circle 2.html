@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1809: Влачене по окръжност 2</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			p = new Suica();
+			orthographic(-1000,1000);
+			lookAt([0,0,100],[0,0,0],[0,1,0]);
+			
+			p.gl.canvas.addEventListener('mousedown',mouseDown,false);
+			p.gl.canvas.addEventListener('mouseup',mouseUp,false);
+			p.gl.canvas.addEventListener('mousemove',mouseMove,false);
+			
+			circle([0,0,0],120).custom({color:[0,0.5,1],mode:Suica.LINE});
+			D = sphere([0,120,0],20).custom({interactive:true});
+		}
+
+		var obj = null;
+
+		function mouseDown(event)
+		{
+			obj = p.objectAtPoint(event.clientX,event.clientY);
+		}
+		
+		function mouseUp(event)
+		{
+			obj = null;
+		}
+
+		function mouseMove(event)
+		{
+			if (obj)
+			{
+				var x = event.clientX-event.target.offsetLeft-event.target.offsetWidth/2;
+				var y = -(event.clientY-event.target.offsetTop-event.target.offsetHeight/2);
+				var d = Math.sqrt(x*x+y*y); 
+				obj.center[0] = 120*x/d;
+				obj.center[1] = 120*y/d;
+			}
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1911: Избор от диапазон 2</title>
+
+	<script src="suica.min.js"></script>
+
+	<style>
+		body {position: absolute; }
+		h3 {margin:0.25em; display:inline;}
+		.panel {
+			position: absolute;
+			left: 10px;
+			top: 10px;
+			border: solid 1px black;
+			padding: 0.2em 0.5em;
+			background-color: LightGray;
+			text-align: center;
+		}
+		input { vertical-align: middle; }
+	</style>
+	
+	<script>
+		function main()
+		{
+			p = new Suica();
+			background([0.6,0.6,0.6]);
+
+			hor = document.getElementById('hor');
+			ver = document.getElementById('ver');
+			
+			for (var i=0; i<11; i++)
+			{
+				cube([11*i,0,0],10).custom({color:[1,0.7,0]});
+				cube([0,11*i,0],10).custom({color:[1,0.7,0]});
+				cube([0,0,11*i],10).custom({color:[1,0.7,0]});
+			}
+			
+			c = [];
+			for (var i=0; i<100; i++)
+			{
+				c.push(cube([random(-75,75),random(-75,75),random(-55,55)],10).custom({
+					focus: [random(-1,1),random(-1,1),random(-1,1)],
+					spin: random(0,2*Math.PI),
+					color: [1,1,1]
+				}));
+			}
+			p.nextFrame = animate;
+		}
+			
+		cos = Math.cos;
+		sin = Math.sin;
+		
+		function animate()
+		{	
+			var h = radians(parseInt(hor.value));
+			var v = radians(parseInt(ver.value));
+			
+			lookAt( [200*cos(h)*cos(v),
+					 200*sin(h)*cos(v),
+					 200*sin(v)], [0,0,0], [0,0,1] );
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<div class="panel">
+		<h3>Изберете ъгли:</h3>
+		Хоризонтален: <input type="range" id="hor" min="-120" max="120" step="30" value="0">
+		Вертикален: <input type="range" id="ver" min="-80" max="80" step="20" value="0">
+	</div>
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+	
+</body>

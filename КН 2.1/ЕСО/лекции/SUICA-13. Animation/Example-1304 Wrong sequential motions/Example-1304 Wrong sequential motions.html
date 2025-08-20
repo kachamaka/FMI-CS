@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1304: Грешни последователни движения</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			p = new Suica();
+			oxyz();
+			demo(50,1,0.5,0.15);
+			
+			// син неподвижен куб
+			cube([0,0,0],10).custom({
+				origin: [0,0,-0.5]
+			});
+			
+			// жълт подвижен куб
+			a = cube([0,0,10],6).custom({
+				origin: [0,0,-0.5],
+				color: [1,1,0]
+			});
+			p.nextFrame = move;
+		}
+		
+		function move()
+		{
+			a.center[1] += 4*Suica.dTime;
+			a.center[2] += -10*Suica.dTime;
+			
+			if (a.center[2]<-10)
+			{
+				a.center = [0,0,10];
+			}
+		}
+		
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

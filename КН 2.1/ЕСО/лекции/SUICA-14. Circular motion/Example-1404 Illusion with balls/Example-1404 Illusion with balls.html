@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1404: Илюзия с топки</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			p = new Suica();
+			demo(95,0.001,0);
+			background([0.3,0,0.2]);
+			
+			x1 = sphere([0,0,0],8);
+			x2 = sameAs(x1);
+			y1 = sameAs(x1);
+			y2 = sameAs(x1);
+			z1 = sameAs(x1);
+			z2 = sameAs(x1);
+			
+			p.nextFrame = loop;
+		}
+		
+		
+		function loop()
+		{
+			t = 2*Suica.time;
+			c = 16*Math.cos(t);
+			s = 16*Math.sin(t);
+			x1.center = [0,c,s];
+			x2.center = [0,-c,-s];
+			y1.center = [s,0,c];
+			y2.center = [-s,0,-c];
+			z1.center = [c,s,0];
+			z2.center = [-c,-s,0];
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

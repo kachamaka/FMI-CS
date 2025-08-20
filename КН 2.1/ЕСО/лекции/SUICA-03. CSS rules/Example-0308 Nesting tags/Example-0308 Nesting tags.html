@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Пример 0308: Вътрешен таг</title>
+		<style>
+			/* 	при селектора на вътрешен таг се избира този елемент, 
+				само ако се намира в елемент отговарящ на външния таг */
+				
+			body { background-color: Beige; }
+			
+			h1,h3 {	color: SaddleBrown; }
+			
+			h3 { background-color: Wheat; }
+				
+			p i { background-color: Yellow; }
+			
+			p { margin-left: 6em;
+				margin-right: 6em;
+			  }
+		</style>
+	</head>
+	<body>
+		<!-- наклонените текстове в заглавията и в първия параграф няма да
+			 бъдат на жълт фон, понеже не са в <p> -->
+		<h1>Sed porttitor <i>augue magna</i></h1>
+		In at porta nulla. Donec quis dui vel <i>lacus tempus fringilla</i>. Suspendisse bibendum, neque sed vehicula pharetra, eros metus <i>ullamcorper nisi</i>, eget suscipit ipsum ligula sit <i>amet odio</i>.
+		<h3>Proin id <i>nibh lacus</i></h3>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer <i>non pharetra justo</i>, vitae accumsan risus. Proin justo lectus, facilisis nec risus a, volutpat facilisis quam. Nunc in gravida tellus, vestibulum condimentum ligula. Sed feugiat sollicitudin semper. Cras ac <i>pellentesque lectus</i>. Suspendisse eget aliquet leo. Praesent purus mi, pulvinar a blandit vitae, aliquet sit amet mauris.</p>
+
+		<h3>Vivamus <i>viverra</i> velit</h3>
+		<p>Etiam ut varius purus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam imperdiet dui tellus, sed ultricies <i>orci sodales mollis</i>. Curabitur accumsan lobortis accumsan. Nullam euismod sem a orci ornare malesuada. Integer faucibus, lectus ac malesuada elementum, metus ipsum posuere quam, vel aliquet est mi id dui. <i>Suspendisse potenti.</i></p>
+	</body>
+</html>

@@ -1,0 +1,14 @@
+#lang racket
+
+(define (natural-divisors n)
+  (define (helper-iterator [num 2] [count 1])
+    (if (>= num n)
+        count
+        (if (= (remainder n num) 0)
+            (helper-iterator (+ num 1) (+ count 1))
+            (helper-iterator (+ num 1) count)
+            )
+        )
+    )
+  (helper-iterator)
+        

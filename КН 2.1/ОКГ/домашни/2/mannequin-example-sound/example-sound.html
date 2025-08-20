@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<script src="three.min.js"></script>
+		<script src="mannequin.js"></script>
+	</head>
+	
+	<body>
+		<button style="position: fixed; font-size: 1.25em; width: 6em; top: 30%; left: calc(50% - 3em);" onclick="start()">Старт</button>
+		<audio id="music">
+			<source src="Arktype_-_Hot_Pursuit.mp3" type="audio/mpeg">
+		</audio>
+
+		<script>
+			function start( )
+			{
+				document.getElementById('music').play();
+
+				createScene();
+
+				man = new Male();
+			}
+			
+			function animate(t)
+			{
+				t = t/31;
+
+				if( t>1550/31 )
+					man.head.nod = 20+30*Math.sin(2*t);
+					
+				
+				man.head.tilt = -10*Math.sin( t );
+				man.torso.tilt = 5*Math.sin( t );
+				man.l_leg.straddle = 5*Math.sin( t );
+				man.r_leg.straddle = -5*Math.sin( t );
+				man.l_ankle.tilt = 5*Math.sin( t );
+				man.r_ankle.tilt = -5*Math.sin( t );
+				man.position.x = -3*Math.sin(t);
+				
+				scene.rotation.y = Math.sin( t/15 );
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Подготовка за Тест 2 - задача 2</title>
+		<script src="suica.min.js"></script>
+		
+		<script>
+			function main(x,y,z,a)
+			{
+				new Suica();
+				//oxyz();
+				demo();
+				
+				/*избираме случаен светъл цвят за диамата*/
+				randcol=[random(0.5,1),random(0.5,1),random(0.5,1)];
+								
+				/*построяваме куб с център с координати x,y,z и дължина на страната а и визуализираме само контурите му*/
+				cube([x,y,z],a).custom({
+						mode: Suica.LINE, 
+						color: [0.5,0.5,0.5]});
+						
+				/*построяваме диамант съставен от две четириъгълни пирамини с център с координати x,y,z радиус а/2 и височина а/2 втората пирамида е завъртяна, така че основата ѝ да съвпада с основата на първата пирамида*/
+				pyramid([x,y,z],a/2,a/2,4).custom({
+						color: randcol
+						});
+				pyramid([x,y,z],a/2,a/2,4).custom({
+						color: randcol,
+						focus: [0,0,-1]
+						});
+				
+			}
+
+		</script>
+		
+	</head>
+	<body onload="main(0,0,0,20)">
+		<canvas width="800" height="500" style="border: solid black 1px;">Не се поддържа canvas!</canvas>
+		<noscript>Не се поддържа JS!</noscript>
+	</body>
+</html>

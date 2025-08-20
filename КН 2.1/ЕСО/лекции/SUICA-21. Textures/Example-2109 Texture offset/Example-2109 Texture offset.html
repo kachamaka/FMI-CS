@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 2109: Отместване на текстура</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica();
+			demo();
+			
+			a = cube([15,15,0],15);
+			a.image = new Suica.Image('crosshatch.jpg');
+
+			a = cube([-15,-15,0],15);
+			a.image = new Suica.Image('crosshatch.jpg');
+			a.image.offset = [0.5,0.5];
+
+			a = cube([-15,15,0],15);
+			a.image = new Suica.Image('crosshatch.jpg');
+			a.image.scale = [3,3];
+			a.image.offset = [0,0];
+
+			a = cube([15,-15,0],15);
+			a.image = new Suica.Image('crosshatch.jpg');
+			a.image.scale = [1/2,1/2];
+			a.image.offset = [0.75,0.75];
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

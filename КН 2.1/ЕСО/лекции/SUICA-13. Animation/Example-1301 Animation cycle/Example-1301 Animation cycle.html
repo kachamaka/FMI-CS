@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1301: Анимационен цикъл</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			p = new Suica();
+			oxyz();
+			demo(50);
+			
+			p.nextFrame = loop;
+		}
+		
+		function loop()
+		{
+			document.getElementById('t').innerHTML = 'Време: '+Suica.time.toFixed(1)+' сек | ΔВреме: '+Suica.dTime.toFixed(3)+' сек<br/>';
+		}
+		
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<div id="t"></div>
+	<canvas width="740" height="330" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

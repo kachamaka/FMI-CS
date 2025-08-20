@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Пример 0611: Слушатели на събития</title>
+
+		<script>
+			function recolorAll()
+			{
+				var pp = document.getElementsByTagName('p');
+				for (var p=0; p<pp.length; p++)
+					pp[p].style.color = 'red';
+			}
+			
+			function main()
+			{
+				var b;
+				b = document.getElementById('but1');
+				b.addEventListener('click',recolorAll);
+
+				b = document.getElementById('but2');
+				b.addEventListener('click',function ()
+				{
+					var p;
+					p = document.getElementsByTagName('p');
+					p[1].style.color='blue';
+				});
+			}
+		</script>
+	</head>
+	<body onload="main()">
+		<p>
+			Nullam vehicula vestibulum sollicitudin. Maecenas at felis pretium, suscipit metus vitae, tempor dui. Aenean laoreet, risus ut rhoncus efficitur, mi tortor vulputate justo, id eleifend risus enim quis quam. Duis volutpat elit a quam venenatis, at pharetra erat ultrices. Nulla facilisi. Praesent ultrices congue nisi vitae lacinia. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+		</p>
+		<p>
+			Vestibulum ultricies diam ac tempus fermentum. Mauris tempor libero a pulvinar sollicitudin. Fusce commodo turpis ac rhoncus consequat. Aenean non purus non magna semper iaculis vitae vel nunc. Nulla ornare nisl eu ligula consectetur, sed gravida tellus commodo. 
+		</p>
+		<p>
+			Sed vehicula aliquet nisi, iaculis sagittis velit tempor nec. Nam efficitur eleifend tortor, nec vestibulum lectus euismod ac. Donec faucibus imperdiet dui, sit amet dictum ligula ullamcorper ac. Curabitur at massa in nunc vestibulum mattis quis nec arcu. Duis ultrices, ligula varius egestas sodales, arcu diam viverra urna, sit amet mattis diam ante eget justo. Curabitur tempus, diam non pulvinar pretium, mi dui scelerisque eros, ut bibendum justo velit eget est. 
+		</p>
+		<button id="but1">Rhoncus</button>
+		<button id="but2">Eleifend</button>
+	</body>
+</html>

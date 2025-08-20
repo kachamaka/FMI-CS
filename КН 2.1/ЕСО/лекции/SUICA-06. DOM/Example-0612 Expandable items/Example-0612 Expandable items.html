@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Пример 0612: Разширяеми елементи</title>
+
+		<style>
+			h3	{	color: #000080;
+					background-color: #F0F0FF;
+					font-size: 1.25em;
+					margin-top: 0.1em;
+					margin-bottom: 0.1em;
+					padding: 0.3em;
+					cursor: pointer;
+				}
+			p	{	margin: 0.25em auto 0.75em 2.5em;
+				}
+		</style>
+		<script>
+			function main()
+			{
+				var h = document.getElementsByTagName('h3');
+				var p = document.getElementsByTagName('p');
+				
+				for (var i=0; i<p.length; i++)
+				{
+					p[i].style.display = 'none';
+					h[i].elem = p[i];
+					h[i].addEventListener('click',function(event)
+					{
+						var style = event.target.elem.style;
+						if (style.display=='none')
+							style.display = 'block';
+						else
+							style.display = 'none';
+					});
+				}
+			}
+		</script>
+	</head>
+	<body onload="main()">
+		<h3>Q1. Fusce purus enim?</h3>
+		<p>Scelerisque sit amet aliquet vitae, lacinia quis nunc. Nunc id augue ullamcorper, faucibus magna sed, blandit orci. Praesent mauris sem, finibus eu purus et, ultricies suscipit purus.</p>
+		<h3>Q2. Mauris eros?</h3>
+		<p>Rutrum a elementum sed, volutpat a nisi. Nam rutrum orci quis eros lacinia rutrum. Mauris auctor leo vehicula, lobortis neque eu, eleifend nisl.</p>
+		<h3>Q3. Proin scelerisque?</h3>
+		<p>Donec rutrum lorem libero, et faucibus quam laoreet sed. Etiam rutrum venenatis tincidunt. Sed id lectus malesuada, euismod tortor nec, porttitor risus. In hac habitasse platea dictumst. Praesent interdum ante lorem, in euismod nulla blandit nec. Curabitur cursus enim orci, id sodales est mollis ac.</p>
+		<h3>Q4. Cras eu augue id?</h3>
+		<p>Lacus faucibus suscipit et quis justo. Cras id ante neque. Praesent scelerisque tortor vel dictum rhoncus. Nulla sed egestas lectus.</p>
+	</body>
+</html>

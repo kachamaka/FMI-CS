@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1406: Звезда, планета, луни</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			p = new Suica();
+			background([0,0,0.25]);
+			
+			star = sphere([0,0,0],12);
+			star.color = [1,0.8,0.1];
+			
+			planet = sphere([0,0,0],4);
+			planet.color = [0.3,0.7,1];
+			
+			moon1 = sphere([0,0,0],2);
+			moon1.color = [0.7,0.7,0.7];
+			
+			moon2 = sphere([0,0,0],1);
+			moon2.color = [0.7,0.7,0.7];
+			
+			p.nextFrame = loop;
+		}
+		
+		
+		function loop()
+		{
+			t = Suica.time;
+
+			planet.center[0] = 30*Math.cos(t);
+			planet.center[1] = 40*Math.sin(t);
+
+			moon1.center[0] = planet.center[0] + 10*Math.cos(4*t);
+			moon1.center[1] = planet.center[1] + 10*Math.sin(4*t);
+
+			moon2.center[0] = planet.center[0] + 15*Math.cos(3*t);
+			moon2.center[1] = planet.center[1] + 15*Math.sin(3*t);
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

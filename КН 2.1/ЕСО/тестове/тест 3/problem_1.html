@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<script src="suica.min.js"></script>
+</head>
+
+<body>
+	<span id="n1" style="position:fixed; padding: 0.25em;"></span>
+	<canvas id="1" width="616" height="300" style="border: solid 1px black;"></canvas>
+
+	<script>
+
+		// подменете числото 90001 с вашия ф.н.
+		let suica = new Suica( 82134 ); 
+		
+		// това е златистата топка, която трябва да движите
+		let ball = sphere( [0,0,0], 0.3 ).custom({ color:[2,1,0] });
+
+        suica.nextFrame = animate;
+
+        k = 0;
+        m = 0;
+        n = 0;
+        step = 0.01;
+        let blue = [4, 2, 0];
+        let pink = [-4, 0, 0];
+        let black = [0, 0, 0];
+        console.log(blue);
+        // const EPS = 1/(1<<20);
+        function animate(){
+            
+            // console.log(k);
+            if(k < 1){
+                ball.center[0] = k*blue[0] + (1-k)*ball.center[0];
+                ball.center[1] = k*blue[1] + (1-k)*ball.center[1];
+                k += step;
+            }else{
+                ball.radius = 0.1;
+                
+                if(m < 1){
+                    ball.center[0] = m*pink[0] + (1-m)*ball.center[0];
+                    ball.center[1] = m*pink[1] + (1-m)*ball.center[1];
+                    m += step;
+                }else{
+                    ball.radius = 0.3;
+                    if(n < 1){
+                        ball.center[0] = n*black[0] + (1-n)*ball.center[0];
+                        ball.center[1] = n*black[1] + (1-n)*ball.center[1];
+                        n += step;
+                    }else{
+                        // for(let i = 0; i < 100; i++){
+                        //     ball.radius = Math.sin(radians());
+                        // }
+                    }
+                }
+            }
+
+        }
+
+	</script>	
+</body>

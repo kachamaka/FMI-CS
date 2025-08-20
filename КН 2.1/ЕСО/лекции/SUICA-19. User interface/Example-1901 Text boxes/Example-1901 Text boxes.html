@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1901: Текстови полета</title>
+
+	<script src="suica.min.js"></script>
+
+	<style>
+		body {position: absolute; }
+		
+		.panel {
+			position: absolute;
+			left: 10px;
+			top: 10px;
+			width: 100px;
+			border: solid 1px black;
+			padding: 0 0.25em 0.5em 0.25em;
+			text-align: center;
+			background-color: DarkSeaGreen;
+		}
+		
+		.panel div {
+			margin: 0.25em 0;
+		}
+	</style>
+	
+	<script>
+		function main()
+		{
+			p = new Suica();
+			orthographic(-1000,1000);
+			lookAt([0,0,100],[0,0,0],[0,1,0]);
+			background([0.8,1,0.9]);
+			
+			line([0,0,0],[1,0,0]);
+			line([0,0,0],[0,1,0]);
+			
+			elemX = document.getElementById('x');
+			elemY = document.getElementById('y');
+			elemR = document.getElementById('r');
+		}
+		
+		var z = -100;
+		function create()
+		{
+			var x = Number(elemX.value);
+			var y = Number(elemY.value);
+			var r = Number(elemR.value);
+			
+			circle([x,y,z++],r).custom({
+				color:[random(0,1),random(0,1),random(0,1)]
+				});
+			
+			elemX.value = '';
+			elemY.value = '';
+			elemR.value = '';
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<div class="panel">
+		<h3>Окръжност</h3>
+		<div>X = <input type="text" id="x" value="" size="2"></div>
+		<div>Y = <input type="text" id="y" value="" size="2"></div>
+		<div>R = <input type="text" id="r" value="" size="2"></div>
+		<br>
+		<button onclick="create()">Създай</button>
+	</div>
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+	
+</body>

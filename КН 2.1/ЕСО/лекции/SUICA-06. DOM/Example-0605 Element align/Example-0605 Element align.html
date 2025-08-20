@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Пример 0605: Подравняване на елемент</title>
+		<style>
+			span {
+				display: table; 
+				border: solid 1px red;
+				margin: 0 auto 10px auto;
+				padding: 5px;
+				text-align: center;
+			}
+		</style>
+		<script>
+			function align()
+			{
+				var spans = document.getElementsByTagName('span');
+				
+				// намиране на най-широкият елемент
+				var max = 0;
+				for (var i=0; i<spans.length; i++)
+					max = Math.max(max,spans[i].clientWidth);
+					
+				// промяна на размерите през стила, понеже
+				// clientWidth е свойство само за четене
+				for (var i=0; i<spans.length; i++)
+					spans[i].style.width = max+'px';
+			}
+		</script>
+	</head>
+	<body>
+		<span>Duis semper</span>
+		<span>Turpis aliquam facilisis</span>
+		<span>Congue</span>
+		<span>Nulla neque mi</span>
+		<span>Malesuada non vulputate in quis est</span>
+		<span>A facilisis elit</span>
+		<span>Auis pretium leo</span>
+		<button onclick="align()">Libero</button>
+	</body>
+</html>

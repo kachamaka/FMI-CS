@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 2008: Тримерни вектори</title>
+
+	<script src="suica.min.js"></script>
+	
+	<script>
+		function main()
+		{
+			new Suica();
+			demo(130);
+			
+			var color = {color:[0.1,0.7,0.8]};
+			for (var i=0; i<30; i++)
+			{
+				p = sphere([random(-50,50),random(-50,50),random(-30,30)],3).custom(color);
+				q = cone([random(-50,50),random(-50,50),random(-30,30)],3,10).custom(color).custom({origin:[0,0,1]});
+
+				v = vectorPoints(q.center,p.center);
+				q.focus = v;
+
+				cylinder(p.center,1,Math.sqrt(scalarProduct(v,v))-10).custom(color).custom({focus:v});
+			}
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

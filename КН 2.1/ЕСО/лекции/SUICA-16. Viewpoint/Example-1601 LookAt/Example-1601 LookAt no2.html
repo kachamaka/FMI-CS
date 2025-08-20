@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1601: Функция lookAt №2</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			info = document.getElementById('info');
+			
+			new Suica();
+
+			oxyz();
+			cube([0,0,5],10).custom({color:[1,0,0]});
+			cone([0,10,0],5,15).custom({color:[0,1,0]});
+			sphere([0,-10,5],5).custom({color:[1,1,0]});
+			cylinder([-10,-10,5],2,20).custom({color:[0,0.5,1],focus:[1,0,0]});
+			
+			lookAt( [0,60,0], [0,0,0], [1,0,0] );
+		}
+		
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

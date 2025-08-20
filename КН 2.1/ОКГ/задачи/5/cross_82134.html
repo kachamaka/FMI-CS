@@ -1,0 +1,96 @@
+﻿<html>
+	<head>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+		<script src="three.min.js"></script>
+		<script>
+
+			let renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.setAnimationLoop( drawFrame );
+			document.body.appendChild( renderer.domElement );
+
+			let scene = new THREE.Scene();
+			scene.background = new THREE.Color( 'lightblue' );
+
+			let aspect = window.innerWidth/window.innerHeight;
+			let camera = new THREE.PerspectiveCamera( 30, aspect );
+			camera.position.set( 0, 4, 20 );
+			camera.lookAt( new THREE.Vector3() );
+
+			let light = new THREE.PointLight();
+			light.position.set( 0, 15, 50 );
+			scene.add( light );
+
+            let crossCoin = new THREE.Group();
+
+            const material = new THREE.MeshPhongMaterial({shininess: 140, specular: 'white'});
+
+            function generatePillar(height){
+                crossPillar = new THREE.Shape();
+                crossPillar.moveTo(   0.5, -1 );
+                crossPillar.lineTo(   0.5,  height );
+                crossPillar.lineTo( 1,  height+0.5 );
+                crossPillar.lineTo( -1,  height+0.5 );
+                crossPillar.lineTo( -0.5,  height );
+                crossPillar.lineTo(  -0.5,  -1 );
+                crossPillar.lineTo(  -1, -1.5 );
+                crossPillar.lineTo(  1, -1.5 );
+
+                let extrudeSettings = { depth: 0.5, bevelEnabled: true, bevelSegments: 2, steps: 2, bevelSize: 0.1, bevelThickness: 0.1 };
+                let geometry = new THREE.ExtrudeGeometry( crossPillar, extrudeSettings );
+
+                let object = new THREE.Mesh( geometry, material );
+                
+                return object;
+            }
+
+            let pillar1 = generatePillar(6);
+            crossCoin.add(pillar1);
+            pillar1.position.y -= 1;
+            let pillar2 = generatePillar(5);
+            pillar2.rotation.z = Math.PI/3+Math.PI/20;
+            pillar2.position.x = 1.8;
+            pillar2.position.y = -0.5;
+            crossCoin.add(pillar2);
+            let pillar3 = generatePillar(5);
+            pillar3.rotation.z = -Math.PI/3-Math.PI/20;
+            pillar3.position.x = -1.8;
+            pillar3.position.y = -0.5;
+            crossCoin.add(pillar3);
+
+            let circleGeom = new THREE.Shape();
+
+            circleGeom.moveTo( 0, 5 );
+            circleGeom.bezierCurveTo( 1, 5, 5, 5, 4, 4);
+            circleGeom.bezierCurveTo( 4, 4, 3, 3, 0, 2);
+            circleGeom.bezierCurveTo( 0, 2, 0, 5, 0, 5);
+            
+            let holeGeom = new THREE.Shape();
+            holeGeom.moveTo( 0, 5 );
+            holeGeom.bezierCurveTo( 0, 5, 7, 5, 0, 2);
+            circleGeom.holes.push(holeGeom);
+
+            let extrudeSettings = { depth: 0.5, bevelEnabled: true, bevelSegments: 2, steps: 2, bevelSize: 0.1, bevelThickness: 0.1 };
+           
+            var geometry = new THREE.ExtrudeGeometry( circleGeom, extrudeSettings );
+
+            var mesh = new THREE.Mesh( geometry, material );
+            mesh.position.y = 0.455;
+            crossCoin.add(mesh);
+            
+            scene.add(crossCoin);
+            crossCoin.position.y = -1;
+            
+			function drawFrame() {
+                crossCoin.rotation.y += 0.03;
+
+				renderer.render( scene, camera );
+			}
+		</script>
+	</body>
+</html>

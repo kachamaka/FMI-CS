@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 2001: Стрелки на осите</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica();
+			demo(150,1,0.3,0.11);
+
+			black = {color:[0,0,0]};
+			ox = {focus:[1,0,0]};
+			oy = {focus:[0,1,0]};
+			
+			s = segment([0,0,0],[0,0,50]).custom(black);
+			sameAs(s).custom(ox);
+			sameAs(s).custom(oy);
+			
+			cone([0,0,50],1,4).custom(black);
+			cone([50,0,0],1,4).custom(black).custom(ox);
+			cone([0,50,0],1,4).custom(black).custom(oy);
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

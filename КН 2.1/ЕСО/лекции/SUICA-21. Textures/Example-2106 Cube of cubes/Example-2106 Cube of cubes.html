@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 2106: Куб от кубчета</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica();
+			demo(10,3,0,0);
+			background([0,0,0]);
+
+			style = {image: new Suica.Image('block.jpg')};
+			
+			for (var x=-1; x<2; x++)
+			for (var y=-1; y<2; y++)
+			for (var z=-1; z<2; z++)
+				if (x*x+y*y+z*z>1.1)
+					cube([x,y,z],1).custom(style);
+		}
+		
+		function scale(n)
+		{
+			style.image.scale=[n,n];
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+	<br>
+	<button onclick="scale(1)">1x1</button>
+	<button onclick="scale(2)">2x2</button>
+	<button onclick="scale(3)">3x3</button>
+	<button onclick="scale(5)">5x5</button>
+</body>

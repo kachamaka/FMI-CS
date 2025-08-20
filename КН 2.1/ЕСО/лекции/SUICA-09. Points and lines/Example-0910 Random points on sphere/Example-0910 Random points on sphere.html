@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 0910: Случайни точки по сфера</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica();
+			oxyz();
+			demo();
+			
+			var n = 500;
+			var r = 20;
+			
+			// създаване на n случайни точки
+			// по сфера с радиус r
+			for (var i=0; i<n; i++)
+			{
+				var alpha = radians(random(0,360));
+				var beta = radians(random(-90,90));
+				
+				var x = r*Math.cos(alpha)*Math.cos(beta);
+				var y = r*Math.sin(alpha)*Math.cos(beta);
+				var z = r*Math.sin(beta);
+				
+				point([x,y,z]);
+			}
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

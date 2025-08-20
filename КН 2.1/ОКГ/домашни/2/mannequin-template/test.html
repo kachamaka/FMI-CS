@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+	<script src="three.min.js"></script>
+	<script src="mannequin.js"></script>
+	<style>
+		body {
+			color: black;
+			text-shadow: 0 0 4px gray;
+			font-family: Calibri;
+		}
+
+		h1 {
+			position: fixed;
+			z-index: 10;
+			top: 0;
+			left: 0;
+			text-align: center;
+			width: 100%;
+		}
+
+		div {
+			position: fixed;
+			z-index: 10;
+			bottom: 1em;
+			left: 1em;
+			font-size: 1.5em;
+			font-style: italic;
+		}
+	</style>
+</head>
+
+<body>
+
+	<h1>Спортът е здраве!</h1>
+
+	<div>
+		Тренировка, вместо спринцовка<br>
+		няма успех без подготовка!<br>
+		Не питай колко лишения нужни са!
+		Виж моите хора колко задружни са.
+	</div>
+
+	<script>
+
+		createScene();
+
+		Larry = new Male();
+		Palky = new Male();
+
+		Larry.position.x = -20;
+		Palky.position.x = 20;
+
+		//wtf
+		Larry.position.y = 0;
+
+
+		//#region bar
+		var pullUpBar = new THREE.Group();
+
+		var geometry = new THREE.BoxGeometry(3, 100, 3);
+		var material = new THREE.MeshPhongMaterial({ color: new THREE.Color(1, 0, 0) });
+
+		var uprightBeam1 = new THREE.Mesh(geometry, material);
+		var uprightBeam2 = new THREE.Mesh(geometry, material);
+		uprightBeam1.position.set(-20, 10, -50);
+		uprightBeam2.position.set(-60, 10, -50);
+		uprightBeam1.rotation.y = Math.PI / 2;
+		uprightBeam2.rotation.y = Math.PI / 2;
+
+		uprightBeam1.castShadow = true;
+		uprightBeam2.castShadow = true;
+		pullUpBar.add(uprightBeam1);
+		pullUpBar.add(uprightBeam2);
+
+		var bar = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 40, 20, 64), new THREE.MeshLambertMaterial({ color: 'DarkGoldenRod' }));
+		bar.rotation.z = Math.PI / 2;
+		bar.position.set(-40, 55, -50);
+		bar.castShadow = true;
+		pullUpBar.add(bar);
+
+		pullUpBar.castShadow = true;
+		pullUpBar.position.x = 20;
+		pullUpBar.position.y += 10;
+		pullUpBar.position.z -= 10;
+		scene.add(pullUpBar);
+
+		//#endregion bar
+
+		//pullUps possitions;
+
+		var bottomPull = { "version": 6, "data": [6.4, [26.1, -86.9, 36.1], [-3.7, -5.9, -3.7], [-0.1, 5.7, 5.5], [2.3, 1.9, -19.8], [70], [-22.5, -5.5, -2.3], [-3.4, -1, -5.5], [91], [0.8, 6, -0.1], [89.9, 79.5, 81.6], [13.3], [-15, 0, 0], [69.1, 61.4], [-24.4, -67.2, 151.2], [9.8], [15, 0, 0], [94.2, 100]] };
+		var middlePull = { "version": 6, "data": [12, [-90, -87.4, -79.1], [1.8, -7.7, 16.5], [-0.1, 5.7, 5.5], [2.3, 1.9, -27.2], [91.3], [-22.5, -5.5, -2.3], [-3.4, -1, -21.7], [108.2], [0.8, 6, -0.1], [88.3, 77, 11.7], [61.6], [-15, 0, 0], [69.1, 61.4], [-48, -73.1, 56.2], [64.8], [15, 0, 0], [94.2, 100]] };
+		var endOfPull = { "version": 6, "data": [24.2, [40.8, -89.2, 51.7], [-1.7, -8.7, 16], [3.1, 6, 13], [2.3, 1.9, -27.2], [91.3], [-22.5, -5.5, -2.3], [-3.4, -1, -21.7], [108.2], [0.8, 6, -0.1], [58.1, 80.6, -13.7], [129.8], [-15, 0, 0], [69.1, 61.4], [-90, -80.3, -40], [130.5], [15, 0, 0], [94.2, 100]] };
+
+		//pushUps possitions;
+
+		var bottomPush = { "version": 6, "data": [-24.5, [163.3, -86, 74.4], [0.1, 0, 0.5], [4, 0.3, -5.2], [6, 0, 8.8], [15.9], [-6, -6, -43.7], [-6, 0, 7.6], [16.2], [6, 6, -44.9], [85.8, -3.6, -19.4], [114.8], [-90, 0, 0], [5, 10], [-89.9, 2.8, -20], [107.1], [89.9, 0, 0], [5.5, 10]] };
+		var endOfPush = { "version": 6, "data": [-10.1, [163.3, -86, 98.2], [-0.2, 0.1, -18.2], [0, 0, 5], [6, 0, 22.5], [28.8], [-6, -6, -43.7], [-6, 0, 21.5], [29.3], [6, 6, -44.9], [86.4, -3.8, 84.5], [3.6], [-90, 0, 0], [5, 10], [-89.9, 2.8, 84.3], [2], [89.9, 0, 0], [5.5, 10]] };
+
+		//flexing positions;
+		var rightHand = { "version": 6, "data": [4, [0, -90, 0], [0, 0, -2], [0, 0, 5], [6, 0, 0], [0], [-6, -6, -0.6], [-6, 0, 0], [0], [6, 6, -0.6], [9.3, -11.5, 5.6], [15], [-15, 0, 0], [10, 10], [31.9, -70.6, 109.2], [125.1], [15, 0, 0], [120, 99.9]] };
+		var leftHand = { "version": 6, "data": [3.9, [0, -90, 0], [0, 0, -2], [0, 0, 5], [6, 0, 0], [0], [-6, -6, -0.6], [-6, 0, 0], [0], [6, 6, -0.6], [26.7, 75.5, 115.7], [38.6], [-15, 0, 0], [119.9, 100], [31.9, -70.6, 108.7], [34.4], [-5.3, 0, 0], [3, -9.9]] };
+
+
+		//starting possitions
+		var init_pos = { "version": 6, "data": [3.8, [0, -90, 0], [0, 0, -2], [0, 0, 5], [6, 0, 0], [0], [-6, -6, -0.6], [-6, 0, 0], [0], [6, 6, -0.6], [7, -0.6, -5], [15], [-15, 0, 0], [10, 10], [-7, 0.6, -5], [15], [15, 0, 0], [10, 10]] };
+		var init_pos1 = { "version": 6, "data": [3.8, [0, -90, 0], [0, 0, -2], [0, 0, 5], [6, 0, 0], [0], [-6, -6, -0.6], [-6, 0, 0], [0], [6, 6, -0.6], [7, -0.6, -5], [15], [-15, 0, 0], [10, 10], [-7, 0.6, -5], [15], [15, 0, 0], [10, 10]] };
+
+		//walk to the bar
+		var firstStep = { "version": 6, "data": [7.6, [0, -90, 0], [-7.6, 0.3, -2], [0, 0, 5], [0, 0.7, -6.8], [0], [-6, -6, -0.6], [-6, 0, 84.3], [107.5], [6, 6, 11.6], [17.3, -1.5, -4.8], [15], [-15, 0, 0], [10, 10], [-7, 0.6, -11.1], [15], [15, 0, 0], [10, 10]] };
+		var secondStep = { "version": 6, "data": [3.8, [0, -90, 0], [5.5, -1.4, -7.4], [0, 0, 5], [0, 0.7, -27.3], [0], [-6, -6, -0.6], [-5.6, 3.8, -3.6], [3.8], [6, 6, -11.9], [7, -0.6, -5], [15], [-15, 0, 0], [10, 10], [-7, 0.6, -11.1], [15], [15, 0, 0], [10, 10]] };
+		var thirdStep = { "version": 6, "data": [7.6, [0, -90, 0], [6.6, -1.6, -7.3], [0, 0, 5], [-2.1, 1.8, 98.2], [120.4], [-6, -6, 57.5], [-0.9, 3.5, -3.9], [3.8], [6, 6, -11.9], [7, -0.6, -12.4], [15], [-15, 0, 0], [10, 10], [-7, 0.6, -11.1], [15], [15, 0, 0], [10, 10]] };
+		var fourthStep = { "version": 6, "data": [3.8, [0, -90, 0], [0.3, -0.8, -7.5], [0, 0, 5], [-2.2, 2.3, 1], [9.7], [-6, -6, -13.7], [-0.9, 3.5, -27.3], [0], [6, 6, 4.8], [7, -0.6, -5], [15], [-15, 0, 0], [10, 10], [-7, 0.6, 22.8], [15], [15, 0, 0], [10, 10]] };
+		var underneathTheBar = { "version": 6, "data": [7.6, [0, -90, 0], [0, 0, -2], [0, 0, 24.8], [6, 0, 0], [0], [-6, -6, -0.6], [-6, 0, 0], [0], [6, 6, -0.6], [-88.2, 85.6, -97.3], [15], [-15, 0, 0], [10, 10], [88.9, -86, -95.7], [15], [15, 0, 0], [10, 10]] };
+		var prepare_to_jump = { "version": 6, "data": [-4.4, [-29.6, -90, 0], [-1.6, 0.6, -47.5], [0, 0, 5], [6, 0, 4.4], [101.4], [-6, -6, -34.5], [-3.7, -0.2, -4.4], [94.4], [6, 6, -37.6], [-88.2, 85.6, -97.3], [15], [-15, 0, 0], [10, 10], [88.9, -86, -95.7], [15], [15, 0, 0], [10, 10]] };
+		var grabbing_the_bar = { "version": 6, "data": [16.5, [0, -90, 0], [0, 0, -2], [0, 0, 23.2], [6, 0, -19.9], [28.7], [-6, -6, -0.6], [-6, 0, -18.7], [27.8], [6, 6, -0.6], [-88.2, 85.6, -97.3], [15], [-15, 0, 0], [65.6, 52.9], [88.9, -86, -95.7], [15], [15, 0, 0], [69.6, 36.1]] };
+		a = 0;
+		b = 0;
+		c = 0;
+		d = 0;
+		e = 0;
+		f = 0;
+
+		a1 = 0;
+		b1 = 0;
+		c1 = 0;
+		d1 = 0;
+
+		let pos = 1;
+		step = 0.02;
+		done = false;
+
+		function pullUps() {
+			while (true) {
+				a += step;
+				if (a <= 1) {
+					a += step;
+					Larry.posture = Mannequin.blend(bottomPull, middlePull, a);
+					return;
+				}
+
+				if (b <= 1) {
+					b += 1.5 * step;
+					Larry.posture = Mannequin.blend(middlePull, endOfPull, b);
+					return;
+				}
+
+				if (b <= 2) {
+					b += 1.7 * step;
+					Larry.posture = Mannequin.blend(endOfPull, bottomPull, b - 1);
+					return;
+				}
+				a = 0;
+				b = 0;
+			}
+		}
+
+		function pushUps() {
+			Palky.position.y = 1;
+			while (true) {
+
+				a += step;
+				if (a <= 1) {
+					a += 1.3 * step;
+					Palky.posture = Mannequin.blend(bottomPush, endOfPush, a);
+					return;
+				}
+
+				if (b <= 1) {
+					b += 3 * step;
+					Palky.posture = Mannequin.blend(endOfPush, bottomPush, b);
+					return;
+				}
+				a = 0;
+				b = 0;
+			}
+		}
+
+		function start() {
+
+			if (c <= 1) {
+				c += step;
+				Larry.posture = Mannequin.blend(init_pos, rightHand, c);
+				return;
+			}
+
+			if (d <= 1) {
+				d += step;
+				Palky.position.y = 0;
+				Palky.posture = Mannequin.blend(init_pos1, leftHand, d);
+				return;
+			}
+		}
+
+		function walkToTheBar(t) {
+			while (!done) {
+
+				if (a <= 1) {
+					a += step;
+					Larry.posture = Mannequin.blend(firstStep, secondStep, a);
+					Larry.position.z += -0.3;
+					return;
+				}
+
+				if (b <= 1) {
+					b += 1.5 * step;
+					Larry.posture = Mannequin.blend(secondStep, thirdStep, b);
+					Larry.position.z += -0.3;
+
+					return;
+				}
+
+				if (c <= 1) {
+					c += 1.5 * step;
+					Larry.posture = Mannequin.blend(thirdStep, fourthStep, c);
+					Larry.position.z += -0.6;
+
+					return;
+				}
+
+				if (d <= 1) {
+					d += 1.4 * step;
+					Larry.posture = Mannequin.blend(fourthStep, underneathTheBar, d);
+					Larry.position.z += -0.5;
+					return;
+				}
+
+				if (e <= 1) {
+					e += 1.3 * step;
+					Larry.posture = Mannequin.blend(underneathTheBar, prepare_to_jump, e);
+					Larry.position.y += 0.1;
+					Larry.position.z += 0.07;
+
+					return;
+				}
+
+				if (f <= 1) {
+					f += 1.7 * step;
+					Larry.posture = Mannequin.blend(prepare_to_jump, grabbing_the_bar, f);
+					return;
+				}
+				done = true;
+				Larry.attach(bar);
+
+				a = 0;
+				b = 0;
+				c = 0;
+				d = 0;
+				e = 0;
+			}
+		}
+
+		b_start = false;
+		b_walk = false;
+		fuck = false;
+
+
+		function animate(t) {
+			// scene.rotation.x = rad(50 * sin(t / 2));
+			// scene.rotation.y = rad(50 * sin(t / 2));
+			// scene.rotation.z = rad(50 * sin(t / 2));
+            
+			if (a1 <= 1000) {
+				a1 += 2 * t;
+				start();
+
+				return;
+			}
+			if (b1 <= 1000) {
+				b1 += t;
+				walkToTheBar();
+				return;
+			}
+			if (c1 <= 1000) {
+				c1 += t;
+				pullUps();
+				return;
+			}
+			if (d1 <= 1000) {
+				d1 += t;
+				pushUps();
+				return;
+			}
+
+			// if (!b_start) {
+			// 	start();
+			// 	b_start = true;
+			// 	return;
+			// }
+			// else if (t > 300) {
+			// 	b_walk = true;
+			// 	return;
+			// }
+			// if (b_walk) {
+			// 	walkToTheBar(t);
+			// 	pushUps();
+			// 	fuck = true;
+			// 	return;
+			// 	if (fuck) {
+			// 		pullUps();
+			// 		return;
+			// 	}
+			// }
+		}
+
+
+
+
+	</script>
+</body>
+
+</html>

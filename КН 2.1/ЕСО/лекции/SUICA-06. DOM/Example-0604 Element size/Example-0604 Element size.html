@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Пример 0604: Размер на елемент</title>
+		
+	</head>
+	<body>
+		<div id="box" style="width: 70%; border: solid 10px red; padding: 1em;">Duis semper turpis aliquam facilisis congue. Nulla neque mi, malesuada non vulputate in, malesuada quis est. Nulla a facilisis elit, quis pretium leo. Nunc ut massa in dui suscipit consectetur. Sed accumsan volutpat ipsum, ut faucibus tellus. Donec eros leo, aliquet ac sodales vitae, sollicitudin a erat. Nulla consequat feugiat mi, laoreet laoreet sapien aliquam non. Nulla et enim sed enim varius finibus. Aliquam efficitur dapibus volutpat. Curabitur sed ultricies sapien.</div>
+		<script>
+			var e = document.getElementById('box');
+			console.log(e.offsetWidth+' x '+e.offsetHeight);
+			console.log(e.clientWidth+' x '+e.clientHeight);
+			console.log(e.style.width+' x '+e.style.height);
+		</script>
+	</body>
+</html>

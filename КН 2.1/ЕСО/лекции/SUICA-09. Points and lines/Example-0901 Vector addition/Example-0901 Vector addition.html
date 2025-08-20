@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 0901: Събиране на вектори</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function vAdd(a,b)
+		{
+			var x = a[0]+b[0];
+			var y = a[1]+b[1];
+			var z = a[2]+b[2];
+			return [x,y,z];
+		}
+		
+		function main()
+		{
+			var v = [-2,2,4];
+			var u = [4,9,3];
+			
+			var w = vAdd(v,u);
+			var s = vAdd(u,w);
+			
+			console.log('['+v+']+['+u+']=['+w+']');
+			console.log('['+u+']+['+w+']=['+s+']');
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<h2 id="result"></h2>
+</body>

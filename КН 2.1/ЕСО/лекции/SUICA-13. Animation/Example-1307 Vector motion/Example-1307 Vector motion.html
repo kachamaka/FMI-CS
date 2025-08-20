@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1307: Движение с вектор</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			p = new Suica();
+			oxyz();
+			demo(60,1,0.2,0.2);
+			
+			a = sphere([random(-15,15),random(-15,15),random(0,20)],1);
+			b = sphere([random(-15,15),random(-15,15),random(0,20)],1);
+			c = sphere(sameAs(a.center),1.5).custom({
+					color: [0.5,1,1]
+				});
+			s = segment(a.center,b.center);
+			v = vectorPoints(b.center,a.center);
+			t = 3;
+			
+			p.nextFrame = loop;
+		}
+		
+		function loop()
+		{
+			if (Suica.time<=t)
+				for (var i=0; i<3; i++)
+					c.center[i] += v[i]*Suica.dTime/t;
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

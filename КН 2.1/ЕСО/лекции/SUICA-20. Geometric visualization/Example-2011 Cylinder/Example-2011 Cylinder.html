@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 2011: Цилиндър</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica().nextFrame = swing;
+			
+			cylinder([0,25,-15],15,30).custom({mode:Suica.LINE,color:[0,0.5,1]});
+
+			a = circle([0,-25,-15],15).custom({mode:Suica.LINE,color:[0,0.5,1]});
+			sameAs(a).custom({center:[0,-25,15]});
+			point([0,-25,-15]).custom({color:[1,0,0],pointSize:10});
+			point([0,-25,15]).custom({color:[1,0,0],pointSize:10});
+			point([0,-10,-15]).custom({color:[1,0,0],pointSize:10});
+			point([0,-10,15]).custom({color:[1,0,0],pointSize:10});
+			segment([0,-25,-15],[0,-25,15]).custom({color:[1,0,0]});
+			segment([0,-25,-15],[0,-10,-15]).custom({color:[1,0,0]});
+			segment([0,-25,15],[0,-10,15]).custom({color:[1,0,0]});
+			segment([0,-10,-15],[0,-10,15]).custom({color:[1,0.7,0.7]});
+		}
+		
+		function swing()
+		{
+			var a = 0.3*Math.sin(Suica.time);
+			lookAt([100*Math.cos(a),100*Math.sin(a),30],[0,0,0],[0,0,1]);
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

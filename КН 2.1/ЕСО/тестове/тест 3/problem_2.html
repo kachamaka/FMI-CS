@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<script src="suica.min.js"></script>
+</head>
+
+<body>
+<body>
+	<span id="n2" style="position:fixed; padding: 0.25em;"></span>
+	<canvas id="2" width="616" height="300" style="border: solid 1px black;"></canvas>
+
+	<script>
+
+		// подменете числото 90001 с вашия ф.н.
+		let suica = new Suica( 82134 );
+
+		let ball = sphere( [29, 5, 0], 4 ).custom({ color:[1,1,1] });
+
+        suica.nextFrame = animate;
+
+        let step = 10;
+        let t = 0;
+        function animate(){
+            let a = radians(t);
+            ball.center[1] = 5*Math.cos(a);
+            ball.center[2] = 5*Math.sin(a);
+            t+= step;
+        }
+
+	</script>	
+</body>

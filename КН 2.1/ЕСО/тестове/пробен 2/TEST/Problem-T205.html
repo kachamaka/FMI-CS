@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Подготовка за Тест 2 - задача 5</title>
+		<script src="suica.min.js"></script>
+		
+		<script>
+			function main(x,y,z,a)
+			{
+				new Suica();
+				//oxyz();
+				demo();
+				
+				//избираме случаен цвят за сферите
+				randcol=[random(0,1),random(0,1),random(0,1)];
+				//създаваме група от куб, 3 равни отсечки чиито среди съвпадат с центъра на куба и 6 сфери, чиито центрове съвпадат с краищата на отсечките  
+				g = group ([
+					cube([x,y,z],a).custom({color: [random(0,1),random(0,1),random(0,1)]}),
+					segment([x-3/2*a,y,z],[x+3/2*a,y,z]).custom({color: [0.5,0.5,0.5]}),
+					segment([x,y-3/2*a,z],[x,y+3/2*a,z]).custom({color: [0.5,0.5,0.5]}),
+					segment([x,y,z-3/2*a],[x,y,z+3/2*a]).custom({color: [0.5,0.5,0.5]}),
+					sphere([x-3/2*a,y,z],a/3).custom({color: randcol}),
+					sphere([x+3/2*a,y,z],a/3).custom({color: randcol}),
+					sphere([x,y-3/2*a,z],a/3).custom({color: randcol}),
+					sphere([x,y+3/2*a,z],a/3).custom({color: randcol}),
+					sphere([x,y,z-3/2*a],a/3).custom({color: randcol}),
+					sphere([x,y,z+3/2*a],a/3).custom({color: randcol}),
+				]);
+				
+				//променяме фокуса, така че цялата група от обекти да бъде завъртяна по случаен начин в пространството
+				g.focus=[random(0,1),random(0,1),random(0,1)];
+			}
+
+		</script>
+		
+	</head>
+	<body onload="main(0,0,0,10)">
+		<canvas width="800" height="500" style="border: solid black 1px;">Не се поддържа canvas!</canvas>
+		<noscript>Не се поддържа JS!</noscript>
+	</body>
+</html>

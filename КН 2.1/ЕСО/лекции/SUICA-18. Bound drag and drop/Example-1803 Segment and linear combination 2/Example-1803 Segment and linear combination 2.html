@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1803: Отсечка и линейна комбинация 2</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			p = new Suica();
+			orthographic(-1000,1000);
+			lookAt([0,0,100],[0,0,0],[0,1,0]);
+			
+			p.gl.canvas.addEventListener('mousedown',mouseDown,false);
+			p.gl.canvas.addEventListener('mouseup',mouseUp,false);
+			p.gl.canvas.addEventListener('mousemove',mouseMove,false);
+			
+			p1 = [random(-300,-100),random(-150,150),0];
+			p2 = [random( 100, 300),random(-150,150),0];
+			segment(p1,p2).custom({color:[0,0.5,1]});
+			circle(p1,5).custom({color:[0,0.5,1]});
+			circle(p2,5).custom({color:[0,0.5,1]});
+			
+			s = sphere([(p1[0]+p2[0])/2,(p1[1]+p2[1])/2,0],20).custom({interactive:true});
+			
+			k = 0.5;
+			kLimit = (s.radius+5)/Math.sqrt((p1[0]-p2[0])*(p1[0]-p2[0])+(p1[1]-p2[1])*(p1[1]-p2[1]));
+		}
+
+		var obj = null;
+
+		function mouseDown(event)
+		{
+			x = event.clientX;
+			obj = p.objectAtPoint(x,event.clientY);
+		}
+		
+		function mouseUp(event)
+		{
+			obj = null;
+		}
+
+		function mouseMove(event)
+		{
+			if (obj)
+			{
+				k -= (event.clientX-x)/500;
+				
+				if (k<kLimit) k=kLimit;
+				if (k>1-kLimit) k=1-kLimit;
+				
+				s.center[0] = p1[0]*k+(1-k)*p2[0];
+				s.center[1] = p1[1]*k+(1-k)*p2[1];
+			}
+			x = event.clientX;
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

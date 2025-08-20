@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 2004: Координатна мрежа</title>
+
+	<script src="suica.min.js"></script>
+
+	<style>
+		.label {
+			position:absolute;
+			font-size: 1.5em;
+			font-family: 'Arial Black', Gadget, sans-serif;
+			font-weight: bold;
+			color: orange;
+			-webkit-text-stroke: 1px black;
+			background-color:transparent;
+			z-index:10;
+		}
+	</style>
+
+	<script>
+		function main()
+		{
+			new Suica().nextFrame = drawFrame;
+			demo(130,1,0.3,0.1);
+
+			g = group([
+				segment([0,0,0],[0,0,33]),
+				cone([0,0,33],1,4)
+			]);
+			g.color = [0,0,0];
+			g.mergeColor();
+			
+			sameAs(g).custom({focus:[1,0,0]});
+			sameAs(g).custom({focus:[0,1,0]});
+			
+			for (var i=0; i<=30; i+=2.5)
+			{
+				var c = (i%10==0)?0.3:0.8;
+				c = {color: [c,c,c]};
+				
+				// равнина XY
+				segment( [i,0,0], [i,30,0]).custom(c);
+				segment( [0,i,0], [30,i,0]).custom(c);
+				
+				// равнина XZ
+				segment( [i,0,0], [i,0,30]).custom(c);
+				segment( [0,0,i], [30,0,i]).custom(c);
+				
+				// равнина YZ
+				segment( [0,i,0], [0,i,30]).custom(c);
+				segment( [0,0,i], [0,30,i]).custom(c);
+			}
+		}
+		
+		function drawFrame()
+		{
+			var e = document.getElementById('x');
+			var pos = getPosition([38,0,0]);
+			e.style.left = pos[0]+"px";
+			e.style.top = pos[1]+"px";
+
+			e = document.getElementById('y');
+			pos = getPosition([0,38,0]);
+			e.style.left = pos[0]+"px";
+			e.style.top = pos[1]+"px";
+
+			e = document.getElementById('z');
+			pos = getPosition([0,0,43]);
+			e.style.left = pos[0]-5+"px";
+			e.style.top = pos[1]+"px";
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+	
+	<div id="x" class="label">X</div>
+	<div id="y" class="label">Y</div>
+	<div id="z" class="label">Z</div>
+</body>

@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Пример 0515: Функция</title>
+	</head>
+	<body>
+		<script>
+			// пресмята радиани от градуси
+			function rad(x)
+			{
+				return x*Math.PI/180;
+			}
+
+			// пресмята sin() от градуси
+			function sin(x)
+			{
+				var r = rad(x);
+				return Math.sin(r);
+			}
+			
+			for (n=0; n<=180; n+=30)
+			{
+				console.log('sin('+n+'°) \t= '+sin(n).toFixed(4));
+			}
+			</script>
+	</body>
+</html>

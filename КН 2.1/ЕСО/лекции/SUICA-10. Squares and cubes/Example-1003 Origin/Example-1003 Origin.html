@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1003: Свойство origin</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica();
+			oxyz();
+			demo(15,1,1);
+			
+			// червен квадрат с origin=(0,0,0)
+			a = square([0,0,0.1],5);
+			a.color = [1,0,0];
+
+			// син квадрат с origin=(0.5,0.5,0)
+			a = square([0,0,0.2],5);
+			a.origin = [0.5,0.5,0];
+			a.color = [0,0,1];
+
+			// зелен квадрат с origin=(-0.25,-1.25,0)
+			a = square([0,0,0.1],5);
+			a.origin = [-0.25,-1.25,0];
+			a.color = [0,1,0];
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

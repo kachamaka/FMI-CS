@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1703: Обекти с мека връзка</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			p = new Suica();
+			p.nextFrame = animate;
+			orthographic(-1000,1000);
+			lookAt([0,0,100],[0,0,0],[0,1,0]);
+			
+			p.gl.canvas.addEventListener('mousemove',mouseMove,false);
+			n = 20;
+			s = [];
+			for (var i=0; i<n; i++)
+				s.push(sphere([0,0,10-3*i],10+1*i).custom({
+					color: [1-i/n,0,(i+1)/n]
+				}));
+		}
+
+		function mouseMove(event)
+		{
+			s[0].center[0] = event.clientX-event.target.offsetLeft-event.target.offsetWidth/2;
+			s[0].center[1] = -(event.clientY-event.target.offsetTop-event.target.offsetHeight/2);
+		}
+		
+		function animate()
+		{
+			var k = 0.85;
+			for (var i=1; i<n; i++)
+			{
+				s[i].center[0] = s[i].center[0]*k+(1-k)*s[i-1].center[0];
+				s[i].center[1] = s[i].center[1]*k+(1-k)*s[i-1].center[1];
+			}
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    test
+    <script>
+        let x = 5123;
+        let d = 1;
+        let num = 0;
+        for(let i = 0; i<=x; i++){
+            let currentNum = i;
+            
+            while(currentNum){
+                let testNum = currentNum%10;
+                if(testNum==d){
+                    num++;
+                }
+                currentNum = Math.floor(currentNum/10);
+            
+            }
+        }
+        let sum = 0;
+        while(num){
+            let add = num%10;
+            sum += add;
+            num = Math.floor(num/10);
+
+        }
+        console.log(sum);
+
+    </script>
+</body>
+</html>

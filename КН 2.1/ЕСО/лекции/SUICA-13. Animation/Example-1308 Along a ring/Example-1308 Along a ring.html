@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1308: По пръстен</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			p = new Suica();
+			demo(30,1,0.1);
+			
+			n = 12;
+			b = [];
+			for (var i=0; i<n; i++)
+			{
+				a = 2*Math.PI*i/n;
+				b.push(sphere([10*Math.cos(a),10*Math.sin(a),random(-5,5)],0.15));
+			}
+			c = cuboid([0,0,0],[1,1,2]);
+			c.focus = [0,0,1];
+			
+			for (var i=0; i<n; i++)
+			{
+				var j = (i+1)%n;
+				segment(b[i].center,b[j].center).custom({color:[0,0,1]});
+			}
+			p.nextFrame = loop;
+		}
+		
+		frame = 0;	// номер на кадър
+		from = 0;	// номер на начална точка
+		to = 1;		// номер на крайна точка
+		function loop()
+		{
+			frame++;
+			if (frame%50==1)
+			{
+				from = to;
+				to = (to+1)%n;
+				v = vectorPoints(b[to].center,b[from].center);
+				c.center = sameAs(b[from].center);
+			}
+			for (var i=0; i<3; i++)
+			{
+				c.center[i] += v[i]/50;
+				c.focus[i] = c.focus[i]*0.8+0.2*v[i];
+			}
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

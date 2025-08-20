@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 2107: Множество текстури</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica().nextFrame = rotate;
+			lookAt([0,0,140],[0,0,0],[0,1,0]);
+			
+			a = [];
+			a[0] = cube([+20,+20,0],20).custom({image: new Suica.Image('texture1.jpg')});
+			a[1] = cube([+20,-20,0],20).custom({image: new Suica.Image('texture2.jpg')});
+			a[2] = cube([-20,+20,0],20).custom({image: new Suica.Image('texture3.jpg')});
+			a[3] = cube([-20,-20,0],20).custom({image: new Suica.Image('texture4.jpg')});
+		}
+		
+		function rotate()
+		{
+			for (var i=0; i<4; i++)
+			{
+				a[i].spin = Suica.time+i;
+				a[i].focus = [Math.sin(Suica.time-i),Math.sin(Suica.time+i+1),Math.sin(Suica.time-i+1)];
+			}
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

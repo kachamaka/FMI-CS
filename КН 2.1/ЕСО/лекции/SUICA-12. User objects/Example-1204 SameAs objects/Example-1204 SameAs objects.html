@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1204: SameAs обекти</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica();
+			demo(25,1,0.2);
+
+			a = sphere([0,0,0],5);
+			b = cuboid([0,0,0],[15,15,1]).custom({
+				color:[1,1,0],
+				focus:[1,1,1],
+				spin:Math.PI/4
+				});
+			
+			contour = {color:[0,0,0], mode:Suica.LINE};
+			
+			sameAs(a).custom(contour);
+			sameAs(b).custom(contour);
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

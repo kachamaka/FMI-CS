@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>T4-00</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+	
+		// Подзадача 9:
+		// Добавете бутон [Цвете], с който се закача цветенце
+		// в края на хобота и остава там дори и при движение
+
+
+
+		function main()
+		{
+			new Suica().nextFrame = animate;
+
+			// НОВО
+			// непрекъснато въртене на сцената
+			demo(15);
+
+			// земя
+			for (var x=-5; x<=5; x++)
+			for (var y=-5; y<=5; y++)
+				cube([x,y,-1],0.9).custom({color:[1,0.8,0.5]});
+
+			// слонче
+			slonche = group([
+				cube([0,0,0],1).custom({color:[0.8,0.8,0.8]}),
+				cube([0,0,1.3],1.8).custom({color:[0.8,0.8,0.8]}),
+				cuboid([-1.1,0,0.5],[0.2,0.2,1]).custom({color:[0.8,0.8,0.8]}),
+				cylinder([0.8,0.25,1.5],0.2,0.2).custom({color:[1,1,1],focus:[1,0,0]}),
+				cylinder([0.8,-0.25,1.5],0.2,0.2).custom({color:[1,1,1],focus:[1,0,0]}),
+				sphere([0.9,0.25,1.5],0.15).custom({color:[0,0,0]}),
+				sphere([0.9,-0.25,1.5],0.15).custom({color:[0,0,0]}),
+				cuboid([0.4,1.7,1.3],[0.2,1.4,1.4]).custom({color:[0.8,0.8,0.8]}),
+				cuboid([0.4,-1.7,1.3],[0.2,1.4,1.4]).custom({color:[0.8,0.8,0.8]}),
+				cuboid([0.45,1.7,1.3],[0.2,1.1,1.1]).custom({color:[0.9,0.9,0.9]}),
+				cuboid([0.45,-1.7,1.3],[0.2,1.1,1.1]).custom({color:[0.9,0.9,0.9]}),
+				cone([0.8,0.45,0.9],0.1,1).custom({color:[0.9,0.9,0.9],light:false,focus:[3,0,-1]}),
+				cone([0.8,-0.45,0.9],0.1,1).custom({color:[0.9,0.9,0.9],light:false,focus:[3,0,-1]}),
+			]);
+			slonche.spin = 0;
+					
+			// цветенце
+			cvetence = group([
+				segment([0,0,0],[0,0,1]).custom({color:[0,1,0]}),
+				cube([0,0,1],0.2).custom({color:[1,1,0],light:false}),
+				cuboid([0,0,0.95],[0.2,0.6,0.2]).custom({color:[1,0,0]}),
+				cuboid([0,0,0.95],[0.6,0.2,0.2]).custom({color:[1,0,0]}),
+				cuboid([0,-0.14,0.4],[0.4,0.2,0.02]).custom({color:[0,1,0],focus:[0,1,1]}),
+				cuboid([0,0.14,0.4],[0.4,0.2,0.02]).custom({color:[0,1,0],focus:[0,-1,1]}),
+			]);
+			cvetence.center = [2,0,-0.5];
+
+			// 10 цветенца
+			for (var i=0; i<10; i++)
+			{
+				novo_cvetence = sameAs(cvetence);
+				novo_cvetence.center = [Math.round(random(-5,5)),Math.round(random(-5,5)),-0.5];
+			}
+			
+			// хоботът
+			hobot = group([
+				cuboid([0,0,0],[1.4,0.3,0.3]).custom({
+					color:[0.8,0.8,0.8],
+					origin:[-0.5,0,0]}),
+			]);
+			hobot.center = [1.1,0,1];
+			hobot.focus = [0,1,0];
+			slonche.add(hobot);
+			
+			// връх на хобота
+			hobot_vruh = group([
+				cuboid([0,0,0],[0.4,0.3,0.3]).custom({color:[0.8,0.8,0.8]}),
+			]);
+			hobot_vruh.center = [1.25,0,0];
+			hobot_vruh.origin = [-0.4,0,0];
+			hobot.add(hobot_vruh);
+
+			// движение на слончето
+			dvizenie = false;
+			faza_na_skok = 0;
+			kadur = 0;
+		}
+
+		
+		function animate()
+		{
+			if (dvizenie)
+			{
+				// хоботът се движи
+				hobot.spin = radians(90*(1+Math.sin(Suica.time)));
+				hobot_vruh.spin = -radians(90*Math.sin(Suica.time));
+			}
+			else
+			{
+				// хоботът не се движи
+				hobot.spin = radians(0);
+				hobot_vruh.spin = radians(90);
+			}
+			
+			
+			kadur++;
+			if( kadur%15 == 0 )
+			{
+				switch (faza_na_skok)
+				{
+					case 5: slonche.center[2]++; break; // стъпка нагоре
+					case 4: button_napred(); break; // стъпка напред
+					case 3: button_napred(); break; // стъпка напред
+					case 2: button_napred(); break; // стъпка напред
+					case 1: slonche.center[2]--; break; // стъпка надолу
+				}
+				faza_na_skok--;
+			}
+		}
+		
+		
+		// бутон [Хобот]
+		function button_hobot()
+		{
+			dvizenie = !dvizenie;
+		}
+
+		
+		// бутон [Напред]
+		function button_napred()
+		{
+			slonche.center[0] += Math.cos(slonche.spin);
+			slonche.center[1] -= Math.sin(slonche.spin);
+		}
+
+		
+		// бутон [Настрани]
+		function button_nastrani()
+		{
+			var ugul = Math.random()>0.5 ? 90 : -90;
+			slonche.spin += radians(ugul);
+			button_napred();
+		}
+
+		
+		// НОВО
+		// бутон [Цвете]
+		function button_cvete()
+		{
+			// НОВО
+			// създаваме ново цветенце
+			slonsko_cvetence = sameAs(cvetence);
+			
+			// НОВО
+			// слагаме цветенцето в (0,0,0), понеже ще го закачим
+			// за върха на хобота и той ще е вече отговорен за
+			// положението на цветенцето
+			slonsko_cvetence.center = [0,0,0];
+			
+			// НОВО
+			// понеже хоботът поначало е "легнал" и след това е
+			// "изправен", трябва и цветенцето да "изправим"
+			slonsko_cvetence.focus = [0,-1,0];
+			slonsko_cvetence.spin = radians(90);
+			
+			// НОВО
+			// закачаме цветенцето за върха на хобота
+			hobot_vruh.add( slonsko_cvetence );
+		}
+
+	</script>	
+</head>
+
+<body onload="main()">
+	<canvas width="598" height="398" style="border: solid 1px Black;"></canvas>
+	<div style="position:relative; top:-396px; left:0.5em;">
+		<button onclick="button_hobot()">Хобот</button>
+		<button onclick="button_napred()">Напред</button>
+		<button onclick="button_nastrani()">Настрани</button>
+		<button onclick="faza_na_skok = 5">Скок</button>
+		<button onclick="button_cvete()">Цвете</button> <!-- НОВО -->
+	</div>
+</body>

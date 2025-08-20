@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 2206: Звукови ефекти</title>
+
+	<script src="suica.min.js"></script>
+	<script>
+		function main()
+		{
+			s = new Suica();
+			s.nextFrame = drawFrame;
+			lookAt([0,0,100],[0,0,0],[0,1,0]);
+			background([0.9,0.9,0.9]);
+			orthographic(-1000,1000);
+
+			n = 5;
+			a = [];
+			for (var i=0; i<n; i++)
+			{
+				a[i] = sphere([120*(i-2),0,0],30);
+				a[i].sign = 0;
+			}
+			document.getElementById('music').play();
+			
+			hits = 0;
+			hitEffect = [];
+			for (var i=0; i<n; i++)
+				hitEffect[i] = new Audio('246281__afleetingspeck__a-guitar-chord-hit-percussion2.wav');
+		}
+		
+		sin = Math.sin;
+		abs = Math.abs;
+		
+		function drawFrame()
+		{
+			var t = Suica.time;
+			for (var i=0; i<n; i++)
+			{
+				var q = t*(1+i/10)+i;
+				a[i].center[1] = -175+a[i].radius+250*abs(sin(q));
+				var sign = Math.sign(sin(q));
+				if (a[i].sign != sign)
+				{
+					a[i].sign = sign;
+					hitEffect[hits%n].play();
+					hits++;
+				}
+			}
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="720" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+	
+	<audio id="music" controls>
+		<source src="../Example-2205 Background music/Arktype_-_Hot_Pursuit.mp3" type="audio/mpeg">
+		Искаме музика, но няма!
+	</audio>
+
+</body>

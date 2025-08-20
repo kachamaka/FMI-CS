@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<script src="suica.min.js"></script>
+</head>
+
+<body>
+	<canvas width="600" height="300" style="border: solid 1px black;"></canvas>
+
+	<script>
+		new Suica();
+		demo(100);
+		sphere([0,-10,10],15);
+		
+		// ВАЖНО!
+		// Не пpоменяйте кода извън двете линии, допишете peшeнието си eдинcтвенo между тях
+		// --------------------------------------------------------------------------------
+        background([0.6, 1, 0.6]);
+		
+        //sphere to cover original sphere and change its color without changing code outside this section
+        sphere([0, -10, 10], 15.1).custom({color: [1, 0, 1]});
+        
+        let r = 15;
+        let c1 = cylinder([0, -10, -20], r, 30).custom({color: [1, 0.5, 1]});
+        let c2 = cylinder([0, -10, 10], r, 30).custom({focus: [0, 1, 0], color: [0.8, 0, 0.8]})
+ 
+			
+		// --------------------------------------------------------------------------------
+	</script>	
+</body>

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1002: Свойство mode</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica();
+			oxyz();
+			demo(15,1,1);
+			
+			// три квадрата в трите режима
+			a = square([0,-6,0],5);
+			a.mode = Suica.POINT;
+			a.pointSize = 7;
+			
+			a = square([0,0,0],5);
+			a.mode = Suica.LINE;
+
+			a = square([0,6,0],5);
+			a.mode = Suica.SOLID;
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

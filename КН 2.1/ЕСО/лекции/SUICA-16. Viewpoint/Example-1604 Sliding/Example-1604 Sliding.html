@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1604: Плъзгане</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			info = document.getElementById('info');
+			
+			p = new Suica()
+			p.nextFrame = drawSine;
+			
+			// рисуване на хоризонталната ос
+			line([0,0,0],[1,0,0]).custom({color:[0,0,0]});
+			
+			// рисуване на вертикалните деления
+			for (var x=-10; x<=100; x++)
+				segment([x,0.1,0],[x,-0.1,0]).custom({color:[0,0,0]});
+				
+			// заделяне на масив от n точки
+			n = 160;
+			q = [];
+			for (var i=0; i<n; i++)
+				q[i] = point([0,0,0]).custom({
+					color: [1,0,0],
+					pointSize: 20});
+		}		
+		
+		i = 0;
+		function drawSine()
+		{
+			x = i/20;
+			lookAt( [x-2,0,10], [x-2,0,0], [0,1,0] );
+
+			q[i%n].center = [x,Math.sin(x),0];
+			i++;
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

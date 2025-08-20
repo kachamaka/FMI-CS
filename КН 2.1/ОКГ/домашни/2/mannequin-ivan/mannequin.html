@@ -1,0 +1,352 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<script src="three.min.js"></script>
+		<script src="mannequin.js"></script>
+		<script src="CSG.js"></script>
+		<script src="posture-editor.js"></script>
+		<script src="OrbitControls.min.js"></script>
+		<style>
+			body {color: black; text-shadow: 0 0 4px gray; font-family: Calibri;}
+			h1   {position: fixed; z-index: 10; top: 0; left: 0; text-align: center; width: 100%;}
+			div  {position: fixed; z-index: 10; bottom: 1em; left: 1em; font-size: 1.5em; font-style: italic;}
+		</style>
+	</head>
+
+	<body>
+	
+		<!-- Сложете реално заглавие -->
+		<h1>Seppuku</h1>  
+		<h2>(No mannequins were harmed in the making of this scene)</h2>
+		
+		<!-- Сложете описание на сцената (опитайте с рима) -->
+		<div>
+			<Japanese>
+
+				極楽も  地獄もさきは  有明の  月ぞ心に  かかる雲なき <br>
+				
+				Gokuraku mo/ Jigoku mo saki ha/ Ariakeno/ Tsuki zo kokoro ni/ Kakaru kumo naki  <br>
+				<English>  <br>
+				
+				No matter which  <br>
+				
+				I’ll go to <br>
+				
+				The heaven or the hell <br>
+				
+				My mind is clear <br>
+				
+				Like the sky at dawn
+		</div>
+		<button id="start" style="position: fixed; font-size: 1.25em; width: 6em; top: 30%; left: calc(50% - 3em);" onclick="start()">Старт</button>
+		<audio id="music" src="music.mp3"></audio>
+		<script>
+		
+		function sword () {
+			let rad = Math.PI / 180;
+			var geometry = new THREE.BoxGeometry (0.07,0.07,0.008);
+		var material = new THREE.MeshPhongMaterial({color:'silver'});
+		var obj = new THREE.Mesh(geometry,material);
+		obj.position.y+=1;
+		geometry = new THREE.SphereGeometry(0.03, 35,15);
+		var sphere = new THREE.Mesh(geometry,material);
+		sphere.position.y+=1;
+		var csg = new CSG();
+		csg.intersect([obj,sphere]);
+		obj = csg.toMesh();
+		var shape = new THREE.Shape();
+			shape.moveTo(  0, 0 );
+			shape.quadraticCurveTo(  0.07, 0.05, 0, 1 );
+	
+			var extrudeSettings = { depth: 0.02, bevelEnabled: true, bevelSegments: 0, steps: 1, bevelSize: 0.1, bevelThickness: 0.001, curveSegments: 12 };
+			var geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
+			var obj2 = new THREE.Mesh(geometry,material);
+			obj2.scale.set(0.1,0.35,0.3);
+			obj2.rotation.set(-90*rad,270*rad,0);
+			obj2.position.set(-0.002,0.991,0.3);
+			var geomerty1 = new THREE.CylinderGeometry(0.01,0.01,0.1);
+			material = new THREE.MeshPhongMaterial({color:'black'});
+			var handle = new THREE.Mesh(geomerty1,material);
+			handle.rotation.x+=90*rad;
+			handle.position.set(0,1,-0.05);
+	       var group = new CSG();
+
+		   group.union([handle , obj , obj2]);
+		   var s = group.toMesh();
+		  
+		   return s;
+		}
+		function table (){
+			var geometry = new THREE.BoxGeometry(0.2,0.05,0.2);
+			var material = new THREE.MeshPhongMaterial({color:"lime"});
+			var table1 = new THREE.Mesh(geometry,material);
+			table1.position.y+=0.3;
+			geometry = new THREE.CylinderGeometry(0.02,0.02,0.08);
+			var material = new THREE.MeshPhongMaterial({color:"black"});
+			var leg1 = new THREE.Mesh(geometry,material);
+			leg1.position.set(0.05,0.28,0.05);
+			var leg2 = leg1.clone();
+			leg2.position.z-=0.1;
+			var leg3 = leg1.clone();
+			leg3.position.x-=0.1;
+			var leg4 = leg3.clone();
+			leg4.position.z-=0.1;
+			var group = new THREE.Group();
+			group.add(table1,leg1,leg2,leg3,leg4);
+	   return group;
+		}
+		</script>
+		<script>
+       function start(){
+			document.getElementById('music').play();
+			createScene(); // инициализиране на сцената
+		  
+            scene.rotation.y = -Math.PI/6;
+			
+			 s =  sword();
+			 s1 = sword(); 
+			 s2=sword();
+			 t1 = table();
+			t1.scale.set(90,90,90);
+			t1.position.set(5,-52,0);
+			
+			s.scale.set(60,60,80);
+			s1.scale.set(35,40,40);
+			s1.position.set(-1,-39,1);
+			s2.scale.set(35,40,40);
+			s2.position.set(0,-61,0);
+	
+			scene.add(t1,s2);
+			s.position.y-=59;
+			s.position.x-=1;
+			s.position.z+=2;
+			 dead_man_walking = new Male();
+           dead_man_walking.turn =1;
+		   dead_man_walking.position.x-=60;
+			
+			//scene.add(s);
+			
+			
+			 samurai = new Male();
+			samurai.turn = 180;
+			samurai.position.z -= 15;
+			samurai.position.x -= 20;
+			
+			
+			//walking
+			 pos0 = {"version":6,"data":[0,[0,-16.9,-2.3],[0,0,1],[0,0,5],[6,0,-0.7],[0],[-6,-6,-0.6],[-6,0,2.2],[0],[6,6,-0.6],[7,-0.6,-4.8],[15],[-15,0,0],[10,10],[-7,0.6,-11.3],[15],[15,0,0],[10,10]]};
+			  
+			  firstStep = {"version":6,"data":[0,[0,1,0],[-7.6,0.3,-2],[0,0,5],[0,0.7,-6.8],[0],[-6,-6,-0.6],[-6,0,84.3],[107.5],[6,6,11.6],[17.3,-1.5,-4.8],[15],[-15,0,0],[10,10],[-7,0.6,-11.1],[15],[15,0,0],[10,10]]};
+		 secondStep = {"version":6,"data":[0,[0,0.8,0],[5.5,-1.4,-7.4],[0,0,5],[0,0.7,-27.3],[0],[-6,-6,-0.6],[-5.6,3.8,-3.6],[3.8],[6,6,-11.9],[7,-0.6,-5],[15],[-15,0,0],[10,10],[-7,0.6,-11.1],[15],[15,0,0],[10,10]]};
+		 thirdStep = {"version":6,"data":[0,[0,8.6,0],[6.6,-1.6,-7.3],[0,0,5],[-2.1,1.8,98.2],[120.4],[-6,-6,57.5],[-0.9,3.5,-3.9],[3.8],[6,6,-11.9],[7,-0.6,-12.4],[15],[-15,0,0],[10,10],[-7,0.6,-11.1],[15],[15,0,0],[10,10]]};
+		 fourthStep = {"version":6,"data":[0,[0,5.2,0],[0.3,-0.8,-7.5],[0,0,5],[-2.2,2.3,1],[9.7],[-6,-6,-13.7],[-0.9,3.5,-27.3],[0],[6,6,4.8],[7,-0.6,-5],[15],[-15,0,0],[10,10],[-7,0.6,22.8],[15],[15,0,0],[10,10]]};
+		 pos1 = {"version":6,"data":[0,[0,4.6,0],[0,0,-2],[0,0,5],[6,0,0],[0],[-6,-6,-0.6],[-6,0,45.2],[54.4],[6,6,-0.6],[7,-0.6,-5],[15],[-15,0,0],[10,10],[-7,0.6,-5],[15],[15,0,0],[10,10]]};	
+		 pos2 ={"version":6,"data":[-1,[0,0.8,0],[0,0,-2],[0,0,5],[6,0,-27],[0],[-6,-6,-1.6],[-6,0,32.6],[36],[6,6,-0.6],[7,-0.6,-5],[15],[-15,0,0],[10,10],[-7,0.6,-5],[15],[15,0,0],[10,10]]};
+		 pos3 ={"version":6,"data":[-5.5,[0,0.8,0],[0,0,-2],[0,0,5],[6,0,-27.3],[46.3],[-6,-6,-1.6],[-6,0,52],[57.8],[6,6,-0.6],[7,-0.6,-5],[15],[-15,0,0],[10,10],[-7,0.6,-5],[15],[15,0,0],[10,10]]};
+		//{"version":6,"data":[-9.7,[0,-1.4,0],[0,0,-2],[0,0,5],[6,0,73.3],[86.4],[-6,-6,-0.6],[-6,0,-27.3],[53.2],[6,6,68],[7,-0.6,-5],[15],[-15,0,0],[10,10],[-7,0.6,-5],[15],[15,0,0],[10,10]]};
+		 pos4={"version":6,"data":[-15.4,[0,0.8,0],[0,0,-2],[0,0,5],[6,0,-10.9],[81.3],[-6,-6,77],[-6,0,91.5],[93.1],[6,6,-0.6],[7,-0.6,-5],[15],[-15,0,0],[10,10],[-7,0.6,-5],[15],[15,0,0],[10,10]]};
+		//{"version":6,"data":[-16.3,[0,-1.4,0],[0,0,-2],[0,0,5],[6,0,94],[99],[-6,-6,-8.5],[-6,0,-24.9],[65],[6,6,59],[7,-0.6,-5],[15],[-15,0,0],[10,10],[-7,0.6,-5],[15],[15,0,0],[10,10]]};
+	 pos5={"version":6,"data":[-16,[0,0.8,0],[0,0,-2],[0,0,5],[6,0,-10.9],[81.3],[-6,-6,77],[-6,0,94],[142.4],[6,6,-3.5],[7,-0.6,-5],[15],[-15,0,0],[10,10],[-7,0.6,-5],[15],[15,0,0],[10,10]]};
+	 pos6 ={"version":6,"data":[-16,[0,0.8,0],[0,0,-2],[0,0,5],[6,0,-10.9],[81.3],[-6,-6,77],[-6,0,-1],[142.4],[6,6,-3.5],[7,-0.6,-5],[15],[-15,0,0],[10,10],[-7,0.6,-5],[15],[15,0,0],[10,10]]};	
+	 pos7={"version":6,"data":[-18,[0,0.8,0],[0,0,-2],[0,0,5],[6,0,35.6],[128.7],[-6,-6,77],[-6,0,31.6],[122.5],[6,6,65.6],[7,-0.6,-5],[15],[-15,0,0],[10,10],[-7,0.6,-5],[15],[15,0,0],[10,10]]};
+	 pose1={"version":6,"data":[-18,[0,0.8,0],[0,0,-50.9],[0,0,5],[6,0,35.6],[128.7],[-6,-6,77],[-6,0,31.6],[122.5],[6,6,65.6],[17.4,-7.2,25.1],[23.5],[-15,0,0],[10,10],[1.5,26.6,74.2],[15],[-31.2,-73.8,-47.4],[29.3,64.1]]};
+	 pose2 ={"version":6,"data":[-18,[0,0.8,0],[0,0,-15],[0,0,5],[6,0,37],[128.7],[-6,-6,77],[-6,0,31.6],[122.5],[6,6,65.6],[90,-54.3,48],[103.1],[-15,0,0],[119.9,94],[-71.5,62.2,54.3],[100.3],[13.1,-28.2,14.9],[120,85.7]]};
+	 pose3 ={"version":6,"data":[-18,[0,0.8,0],[0,0,-25.2],[0,0,5],[6,0,37],[128.7],[-6,-6,77],[-6,0,31.6],[122.5],[6,6,65.6],[90,-62.2,95.2],[53.7],[-11.4,5.4,41.5],[119.9,100],[-71.5,62.2,20.6],[107.5],[13.1,-28.2,14.9],[120,85.7]]};
+	
+	 posef1={"version":6,"data":[0,[0,-90,0],[0,0,-2],[0,0,5],[6,0,0],[0],[-6,-6,-0.6],[-6,0,0],[0],[6,6,-0.6],[44.2,22.5,147.3],[6.5],[-15,0,0],[115.8,41.1],[-90,-73,41.3],[86.3],[19.8,90,0],[120,99.9]]};	
+	  posef0={"version":6,"data":[0,[0,-90,0],[9.7,21.6,-21.1],[0,0,5],[6,0,0],[0],[-6,-6,-0.6],[-6,0,0],[0],[6,6,-0.6],[31.1,-37,16.8],[63.9],[-15,-29.4,0],[115.8,41.1],[-41,45.5,73.6],[11.3],[19.8,90,-69.3],[120,99.9]]};
+	samurai.r_fingers.attach(s);
+			samurai.r_arm.straddle += 70;
+			samurai.r_fingers.bend += 90;
+			samurai.posture = posef1;
+			a=0;
+			b=0;
+			c=0;
+			step = 0.007;
+	   }
+			function cicle (t){
+			
+				dead_man_walking.posture= Mannequin.blend(firstStep,secondStep,a);
+				if (a<1){
+					dead_man_walking.position.x+=0.04;
+					a+=step;
+
+					return;
+				}
+				
+				dead_man_walking.posture= Mannequin.blend(secondStep,thirdStep,a-1);
+				if (a<2){
+					dead_man_walking.position.x+=0.04;
+					a+=step;
+
+					return;
+				}
+				dead_man_walking.posture= Mannequin.blend(thirdStep,fourthStep,a-2);
+				if (a<3){
+					dead_man_walking.position.x+=0.04;
+					a+=step;
+
+					return;
+				}
+				dead_man_walking.posture= Mannequin.blend(fourthStep,firstStep,a-3);
+				if (a<4){
+					dead_man_walking.position.x+=0.04;
+					a+=step;
+
+					return;
+				}
+				dead_man_walking.posture= Mannequin.blend(firstStep,secondStep,a-4);
+				if (a<5){
+					dead_man_walking.position.x+=0.04;
+					a+=step;
+
+					return;
+				}
+				
+				dead_man_walking.posture= Mannequin.blend(secondStep,thirdStep,a-5);
+				if (a<6){
+					dead_man_walking.position.x+=0.04;
+					a+=step;
+
+					return;
+				}
+				dead_man_walking.posture= Mannequin.blend(thirdStep,fourthStep,a-6);
+				if (a<7){
+					dead_man_walking.position.x+=0.04;
+					a+=step;
+
+					return;
+				}
+				dead_man_walking.posture= Mannequin.blend(fourthStep,pos0,a-7);
+				if (a<8){
+				
+					a+=step;
+
+					return;
+				}
+				dead_man_walking.posture= Mannequin.blend(pos0,pos1,b);
+				if (b<1){
+					
+					b+=step;
+
+					return;
+				}
+				dead_man_walking.posture= Mannequin.blend(pos1,pos2,b-1);
+				if (b<2){
+					
+					b+=step;
+
+					return;
+				}
+				dead_man_walking.posture= Mannequin.blend(pos2,pos3,b-2);
+				if (b<3){
+					
+					b+=step;
+
+					return;
+				}
+				dead_man_walking.posture= Mannequin.blend(pos3,pos4,b-3);
+				if (b<4){
+					
+					b+=step;
+
+					return;
+				}
+				dead_man_walking.posture= Mannequin.blend(pos4,pos5,b-4);
+				if (b<5){
+					
+					b+=step;
+
+					return;
+				}
+				dead_man_walking.posture= Mannequin.blend(pos5,pos6,b-5);
+			
+				if (b<6){
+					
+					b+=step;
+
+					return;
+				}
+				dead_man_walking.posture= Mannequin.blend(pos6,pos7,b-6);
+				if (b<7){
+					
+					b+=step;
+
+					return;
+				}
+				dead_man_walking.posture= Mannequin.blend(pos7,pose1,c);
+				if (c<1){
+					
+					c+=step;
+
+					return;
+				}
+				s2.visible=false;
+				dead_man_walking.r_fingers.bend += 90;
+			dead_man_walking.r_fingers.attach(s1);
+			dead_man_walking.posture= Mannequin.blend(pose1,pose2,c-1);
+				if (c<2){
+					
+					c+=step;
+
+					return;
+				}
+				dead_man_walking.posture= Mannequin.blend(pose2,pose3,c-2);
+				if (c<3){
+					
+					c+=step;
+
+					return;
+				}
+				samurai.posture=Mannequin.blend(posef1,posef0,c-3);
+				if (c<4){
+					
+					c+=step*12;
+
+					return;
+				}
+				dead_man_walking.pelvis.bend=30;
+				dead_man_walking.torso.bend=90;
+				dead_man_walking.neck.visible=false;
+				dead_man_walking.visible=false;
+				samurai.visible=false;
+				t1.visible=false;
+				
+			}
+		
+			function animate(t){
+			
+				cicle(t);
+				
+				
+				
+				// dead_man_walking.posture= Mannequin.blend(pos2,pos1,a-4);
+				// if (a<5){
+				// 	dead_man_walking.position.x+=0.06;
+				// 	a+=step;
+
+				// 	return;
+				// }
+				// dead_man_walking.posture= Mannequin.blend(pos1,pos2,a-5);
+				// if (a<6){
+				// 	dead_man_walking.position.x+=0.06;
+				// 	a+=step;
+
+				// 	return;
+				// }
+				// dead_man_walking.posture= Mannequin.blend(pos2,pos1,a-6);
+				// if (a<7){
+				// 	dead_man_walking.position.x+=0.06;
+				// 	a+=step;
+
+				// 	return;
+				// }
+			
+				
+			}
+		
+		</script>
+	</body>
+</html>
+

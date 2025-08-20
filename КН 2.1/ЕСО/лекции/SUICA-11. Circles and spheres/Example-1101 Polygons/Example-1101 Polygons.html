@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1101: Правилни многоъгълници</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica();
+			demo(7,1,4);
+
+			// n-ъгълник с триъгълници до страните
+			n = 9;
+			polygon([0,0,0],4,n);
+			
+			for (var i=0; i<n; i++)
+			{
+				a = (i+0.5)/n*2*Math.PI;
+				b = polygon([5*Math.cos(a),5*Math.sin(a),0],1.5,3);
+				b.spin = -a;
+			}
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

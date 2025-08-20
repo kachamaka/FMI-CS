@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Пример 0514: Цикъл for-in за масив</title>
+	</head>
+	<body>
+		<script>
+			// започваме с празен масив
+			a = [];
+			for (n=1; n<100000000; n*=10)
+			{
+				// добавяне на още n числа
+				for (var i=0; i<n; i++) a.push(Math.random());
+				
+				// намираме на средно аритметично
+				avg = 0;
+				for (var i in a) avg+=a[i]/a.length;
+				
+				// показваме го
+				console.log(avg.toFixed(5),(100*(avg/0.5-1)).toFixed(2)+'%',a.length);
+			}
+			</script>
+	</body>
+</html>

@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 2203: Текст над графика</title>
+
+	<script src="suica.min.js"></script>
+	<style>
+		.hud {
+			position:absolute;
+			font-size: 1em;
+			font-family: 'Courier New', monospace;
+			font-weight: bold;
+			color: HoneyDew;
+			background-color:transparent;
+			z-index:10;
+		}
+	</style>
+
+	<script>
+		function main()
+		{
+			s = new Suica();
+			s.nextFrame = drawFrame;
+			lookAt([100,0,0],[0,0,0],[0,0,1]);
+			background([0.4,0.4,0.4]);
+
+			n = 5;
+			a = [];
+			for (var i=0; i<n; i++)
+				a[i] = cube([0,0,0],10);
+				
+			hud = document.getElementsByClassName('hud')[0];
+			hud.style.left = s.gl.canvas.offsetLeft+32+'px';
+			hud.style.top = s.gl.canvas.offsetTop+'px';
+		}
+		
+		sin = Math.sin;
+		cos = Math.cos;
+		
+		function drawFrame()
+		{
+			var t = Suica.time;
+			for (var i=0; i<n; i++)
+			{
+				a[i].center = [30*sin(t+i),30*cos(t-i),10*sin(t+2*i)];
+				a[i].focus = a[i].center;
+				a[i].spin = t*(1+i/5)+2*i;
+			}
+			
+			var s = '';
+			for (var i=0; i<n; i++)
+			{
+				s += '<p>Куб №'+i+'<br>';
+				s += '&nbsp;&nbsp;&nbsp;x='+a[i].center[0].toFixed(1);
+				s += '&nbsp;&nbsp;&nbsp;y='+a[i].center[1].toFixed(1);
+				s += '&nbsp;&nbsp;&nbsp;z='+a[i].center[2].toFixed(1)+'</p>';
+				if (i<n-1) s += '<hr>';
+				hud.innerHTML = s;
+			}
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="720" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+	<div class="hud">?</div>
+</body>

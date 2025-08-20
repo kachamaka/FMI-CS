@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Пример 0603: getElementsByTagName</title>
+		
+		<script>
+			function main()
+			{
+				// намираме всички елементи <li>
+				// и правим жълт фона на текста
+				var li = document.getElementsByTagName('li');
+				for (var e=0; e<li.length; e++)
+					li[e].style.backgroundColor = 'yellow';
+					
+				// всички подзаглавия правим с наклонен текст
+				var p = document.getElementsByTagName('h3');
+				for (var e=0; e<p.length; e++)
+					p[e].style.fontStyle = 'italic';
+					
+				// и главното заглавие правим наклонено,
+				// като се уповаваме, че имаме поне едно
+				document.getElementsByTagName('h2')[0].style.fontStyle = 'italic';
+			}
+		</script>
+	</head>
+	<body onload="main()">
+		<h2>Mauris sagittis mi quis lobortis tincidunt</h2>
+		<h3>Pellentesque iaculis metus</h3>
+		<p id="one">Cras sit amet imperdiet nibh. Vestibulum aliquet quis odio vitae interdum. Donec accumsan, eros at vulputate imperdiet, justo arcu dapibus lectus, ut viverra quam leo quis lacus. Donec suscipit neque eget convallis dignissim. In hac habitasse platea dictumst. Aenean eu elit nisl.</p>
+		<h3>Sed malesuada vitae</h3>
+		<p id="two">Phasellus viverra tincidunt odio, eget mattis nulla facilisis in. Nam dignissim pretium posuere. Cras sit amet nisi tempus libero pretium sagittis.</p>
+		<ol>
+			<li>Leo pellentesque vulputate</li>
+			<li>Integer fringilla</li>
+			<li>Nunc non iaculis pulvinar</li>
+		</ol>
+		<p id="three">Quisque cursus magna massa, hendrerit imperdiet nibh maximus tincidunt. Quisque aliquam ipsum nibh, et condimentum nunc pretium sed. Ut mollis, nisi vel egestas mattis, mauris libero bibendum nunc, dictum dignissim lorem elit vitae felis.</p>
+	</body>
+</html>

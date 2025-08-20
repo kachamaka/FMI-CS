@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1905: Чекбоксове</title>
+
+	<script src="suica.min.js"></script>
+
+	<style>
+		body {position: absolute; }
+		h3 {margin:0.25em;}
+		label {display:block; position: relative; left:1em;}
+		.panel {
+			position: absolute;
+			left: 10px;
+			top: 10px;
+			widtha: 300px;
+			border: solid 1px black;
+			padding: 0 1.5em 0.5em 0.25em;
+			background-color: LightGray;
+		}
+	</style>
+	
+	<script>
+		function main()
+		{
+			p = new Suica();
+			background([0.6,0.6,0.6]);
+
+			hor = document.getElementById('hor');
+			ver = document.getElementById('ver');
+			rad = document.getElementById('rad');
+
+			hor.checked = true;
+			
+			for (var i=0; i<50; i++)
+			{
+				cube([random(-75,75),random(-75,75),random(-75,75)],10).custom({
+					focus: [random(-1,1),random(-1,1),random(-1,1)],
+					spin: random(0,2*Math.PI),
+					color: [1,1,1]
+				});
+			}
+			p.nextFrame = animate;
+		}
+			
+		cos = Math.cos;
+		sin = Math.sin;
+		
+		aRad = 0;
+		aHor = 0;
+		aVer = 0;
+		t = Suica.time;
+		function animate()
+		{	
+			dT = Suica.time-t;
+			t = Suica.time;
+			
+			if (hor.checked) aHor += dT;
+			if (ver.checked) aVer += dT;
+			if (rad.checked) aRad += dT;
+
+			var r = 200+100*sin(aRad);
+			var h = aHor;
+			var v = sin(aVer);
+			lookAt( [r*cos(h)*cos(v),
+					 r*sin(h)*cos(v),
+					 r*sin(v)], [0,0,0], [0,0,1] );
+		 }		
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<div class="panel">
+		<h3>Движение</h3>
+		<label><input type="checkbox" id="hor">Хоризонтално</label>
+		<label><input type="checkbox" id="ver">Вертикално</label>
+		<label><input type="checkbox" id="rad">Радиално</label>
+	</div>
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+	
+</body>

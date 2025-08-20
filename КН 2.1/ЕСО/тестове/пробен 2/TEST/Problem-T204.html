@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Подготовка за Тест 2 - задача 4</title>
+		<script src="suica.min.js"></script>
+		
+		<script>
+			function main(x,y,z,r,h,n)
+			{
+				new Suica();
+				//oxyz();
+
+				demo();
+				
+				//избираме случаен цвят
+				
+				randcol=[random(0,1),random(0,1),random(0,1)];
+				
+				//изчертаваме пирамида и завъртяно спрямо нея нейно копие
+				
+				a = pyramid([x,y,z],r,h,n).custom({color: randcol, focus: [1,0,0]});
+				sameAs(a).custom({spin: radians(360/2*n)});
+				
+				//изчертаваме още една двойка пирамиди същите като предните две, но със основи залепени за основите на предходните
+				
+				b = pyramid([x,y,z],r,h,n).custom({color: randcol, focus: [-1,0,0]});
+				sameAs(b).custom({spin: radians(360/2*n)});
+			}
+
+		</script>
+		
+	</head>
+	<body onload="main(0,0,0,20,3,3)">
+		<canvas width="800" height="500" style="border: solid black 1px;">Не се поддържа canvas!</canvas>
+		<noscript>Не се поддържа JS!</noscript>
+	</body>
+</html>

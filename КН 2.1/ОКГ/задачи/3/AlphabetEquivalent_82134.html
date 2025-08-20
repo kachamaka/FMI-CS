@@ -1,0 +1,108 @@
+﻿<html>
+	<head>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+		<script src="three.min.js"></script>
+		<script>
+			let renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.setAnimationLoop( drawFrame );
+			document.body.appendChild( renderer.domElement );
+
+			let scene = new THREE.Scene();
+
+			let aspect = window.innerWidth/window.innerHeight;
+			let camera = new THREE.PerspectiveCamera( 55, aspect );
+			camera.position.set( 0, 0, 30 );
+			camera.lookAt( new THREE.Vector3() );
+
+			let objects = new THREE.Group();
+			scene.add( objects );
+
+			
+			//first ring for the nine
+			let geometry = new THREE.TorusGeometry( 3, 1, 32, 100 );
+			let material = new THREE.MeshPhongMaterial( {color:'crimson'} );
+			material.shininess = 100;
+			let torus = new THREE.Mesh( geometry, material );
+			torus.position.set( -18, 5, 0)
+			objects.add(torus);
+
+			//second ring for the nine
+			torus = new THREE.Mesh( geometry, material );
+			torus.position.set( -11, -3, 0)
+			objects.add(torus);
+
+
+			//cylinder for the nine
+			geometry = new THREE.CylinderGeometry( 1, 1, 10, 32 );
+			let cylinder = new THREE.Mesh( geometry, material );
+			cylinder.position.set( -16.4, -1.7, 0);
+			cylinder.rotation.z -= Math.PI/18;
+			objects.add(cylinder);
+
+			//connecting cylinder for the ring and cylinder of nine
+			geometry = new THREE.CylinderGeometry( 1, 1, 2.5, 32 );
+			cylinder = new THREE.Mesh( geometry, material );
+			cylinder.position.set( -15.5, -3, 0);
+			cylinder.rotation.z += Math.PI/2;
+			cylinder
+			objects.add(cylinder);
+
+
+			//first part of the letter
+			geometry = new THREE.BoxGeometry(2, 15, 2);
+			let letter = new THREE.Mesh( geometry, material );
+			letter.position.set( 10, 1.5, 0);
+			objects.add(letter);
+
+			//second part of the letter
+			geometry = new THREE.BoxGeometry(2, 8, 2);
+			letter = new THREE.Mesh( geometry, material );
+			letter.position.set( 14, 8, 0);
+			letter.rotation.set(0, 0, Math.PI/2);
+			objects.add(letter);
+
+
+			//road
+			let roadLen = 40;
+			geometry = new THREE.BoxGeometry( 8, roadLen, 1 );
+			material = new THREE.MeshBasicMaterial( {color: 'gray'} );
+			let road = new THREE.Mesh( geometry, material );
+			road.rotation.set(-Math.PI/2.5, 0, 0);
+			road.position.set( 0, -1, -3);
+			objects.add( road );
+
+			
+			//sphere on road
+			geometry = new THREE.SphereGeometry( 1 );
+			material = new THREE.MeshBasicMaterial( {color: 'crimson'} );
+			let sphere = new THREE.Mesh( geometry, material );
+			objects.add( sphere );
+			
+			//light of sphere
+			let light = new THREE.SpotLight( 'crimson' );
+			sphere.add( light );
+
+			
+			let t = 0;
+			let extender = 6;
+
+			function drawFrame() {
+				// objects.rotation.y += 0.02;
+
+				t += 0.05;
+
+				//slide sphere along road
+				sphere.position.y = -(roadLen+extender)*Math.cos(Math.PI/10)*Math.sin(t)/9.2;
+				sphere.position.z = (roadLen+extender)*Math.sin(Math.PI/10)*Math.sin(t);
+
+				renderer.render( scene, camera );
+			}
+		</script>
+	</body>
+</html>

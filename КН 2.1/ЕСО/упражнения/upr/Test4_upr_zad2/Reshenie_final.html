@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>T4-zad2</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica().nextFrame = animate;
+			lookAt([18,8,10],[0,0,0],[0,0,1]);
+			//demo(18)
+
+			for (var x=-5; x<=5; x++)
+			for (var y=-5; y<=5; y++)
+				cube([x,y,-1],0.9).custom({color:[0.7,0.95,1]});
+
+		
+			snejko = group([
+				sphere([0,0,0.2],0.93).custom({color:[1,1,1]}),
+				sphere([0,0,1.4],0.75).custom({color:[1,1,1]}),
+				sphere([0,0,2.5],0.55).custom({color:[1,1,1]}),
+				// очи
+				cylinder([0.27,0.25,2.6],0.1,0.2).custom({color:[1,1,1],focus:[1,0,0]}),
+				cylinder([0.27,-0.25,2.6],0.1,0.2).custom({color:[1,1,1],focus:[1,0,0]}),
+				sphere([0.47,0.25,2.6],0.05).custom({color:[0,0,0]}),
+				sphere([0.47,-0.25,2.6],0.05).custom({color:[0,0,0]}),
+				// нос
+				cone([0.3,0,2.5],0.1,0.7).custom({color:[0.8,0.3,0],focus:[1,0,0]}),
+				//копечета
+				sphere([0.65,0,1.8],0.05).custom({color:[0,0,0]}),
+				sphere([0.75,0,1.4],0.05).custom({color:[0,0,0]}),
+				sphere([0.85,0,0.6],0.05).custom({color:[0,0,0]}),
+				sphere([0.92,0,0.3],0.05).custom({color:[0,0,0]}),
+				
+			]);
+			snejko.spin = 0;
+			
+			//шапка
+			shapka = group([
+				cylinder([0,0,0],0.5,0.03).custom({color:[0.25,0.25,0.25]}),
+				cylinder([0,0,0],0.33,0.6).custom({color:[0.3,0.3,0.3]}),
+			]);
+			
+			shapka.center = [0,0.15,2.96];
+			shapka.focus = [0,0.3,1];
+			snejko.add(shapka);
+			
+			
+			//дясна ръка
+			diasna_ruka = group([
+				// ръка
+				cylinder([0,0,0],0.07,0.9).custom({color:[0.7,0.1,0]}),
+				// ръкавица
+				spheroid([0,0,0],[0.15,0.07,0.2]).custom({color:[0.25,0.25,0.25],center:[0,0,0.9]}),
+			]);
+			diasna_ruka.custom({
+					center:[0,-0.5,1.8],
+					focus:[0,-1,-1],
+					});
+			snejko.add(diasna_ruka);
+			//лява ръка
+			liava_ruka = group([
+				// ръка
+				cylinder([0,0,0],0.07,0.9).custom({color:[0.7,0.1,0]}),
+				// ръкавица
+				spheroid([0,0,0],[0.15,0.07,0.2]).custom({color:[0.25,0.25,0.25],center:[0,0,0.9]}),
+			]);
+			liava_ruka.custom({
+					center:[0,0.5,1.8],
+					focus:[0,1,-1],
+					});
+			snejko.add(liava_ruka);
+					
+			// създаваме звезда в дясната ръка на снежко
+			snejko_star = Star();
+			snejko_star.custom({
+					center:[0,0,1.1],
+					spin:Math.PI/2
+					});
+			snejko_star.visible = false;
+			diasna_ruka.add(snejko_star);
+						
+			// създаване на 10 елхи на случайно място 
+			for (var i=0; i<10; i++)
+			{
+				var x = Math.round(Math.random()*10-5);
+				var y = Math.round(Math.random()*10-5);
+				var elha = Elha();
+				elha.center = [x,y,-0.5];
+			}
+		
+			// завъртане на сцената
+			sceneAngle = 0.4; // ъгъл на завъртяност
+			sceneRotate = 0 // 0=няма въртене, 1=има въртене
+			
+			// движение на ръцете
+			raceRotate = 0; // 0=не мърда, 1=мърда
+		
+			// скачане на снежко 
+			jumpPhase = 0; // фаза на скачането, 0=няма скачане
+			jumpCounter = 0; // брояч на кадрите на скачането
+		
+		}
+		
+		function Star(){
+		//звезда
+			star = group([
+				prism([0,0,0],0.2,0.03,3).custom({
+					color:[1,0,0],
+					focus:[1,0,0],
+				}),
+				prism([0,0,0],0.2,0.03,3).custom({
+					color:[1,0,0],
+					focus:[1,0,0],
+					spin: radians(60),
+				}),
+			]);
+			
+			star.center = [0,0,0];
+								
+			return star;
+		}
+		
+		function Elha(){
+		//елха
+			elha = group([
+				cylinder([0,0,0],0.12,0.4).custom({color:[0.7,0.1,0]}),
+				pyramid([0,0,0.4],0.45,1,Math.round(random(5,9))).custom({color:[0,random(0.5,1),(0, 0.2)]})
+			]);
+			star = Star();
+			
+			star.center = [0,0,1.4];
+			elha.add(star);
+						
+			return elha;
+			}
+		
+		
+		
+		function animate()
+		{
+			// въртене на сцена - за да се върти с хълцане
+			sceneAngle += sceneRotate * (1+Math.sin(4*Suica.time))/100;
+			lookAt([20*Math.cos(sceneAngle),20*Math.sin(sceneAngle),10],[0,0,0],[0,0,1]);
+			
+			// движение на ръцете на снежко
+			if (raceRotate)
+				{
+					liava_ruka.focus = [0,1,Math.sin(3*Suica.time)];
+					diasna_ruka.focus = [0,-1,Math.sin(3*Suica.time)];
+				}
+				else
+				{
+					diasna_ruka.focus = [0,-1,-1];
+					liava_ruka.focus = [0,1,-1];
+				}
+			
+			
+			// скачане на снежко
+			jumpCounter++; // броим броя кадри
+			if (jumpCounter%20 == 0) // на всеки 20 минаваме в друга фаза
+			{
+				switch (jumpPhase)
+				{
+					case 5: snejko.center[2]++; break; // стъпка нагоре
+					case 4:
+					case 3:
+					case 2: buttonForward(); break; // стъпка напред
+					case 1: snejko.center[2]--; break; // стъпка надолу
+				}
+				jumpPhase--; // след тази стъпка преминаваме в следваща фаза
+			}
+		}
+		
+		// бутон [Сцена]
+		function buttonScene()
+		{
+			// флагът sceneRotate показва дали сцената се
+			sceneRotate = 1-sceneRotate;
+		}
+		
+		// бутон [Ръце]
+		function buttonRuce()
+		{
+			// флагът raceRotate показва дали ръцете се движат (1) или не (0)
+			raceRotate = 1-raceRotate;
+		}
+		
+		// бутон [Звезда]
+		function buttonStar()
+		{
+			// показваме или скриваме звездата в ръката на снежко
+			snejko_star.visible = !snejko_star.visible;
+		}
+		
+		// бутон [Напред]
+		function buttonForward()
+		{
+			snejko.center[0] += Math.cos(snejko.spin);
+			snejko.center[1] -= Math.sin(snejko.spin);
+		}
+		
+		// бутон [Настрани]
+		function buttonSide()
+		{
+			// избираме случайно число +1 или -1
+			var k = Math.random()>0.5 ? 1 : -1;
+
+			// завъртаме снежко на +90 или -90 градуса,
+			// т.е. наляво или надясно
+			snejko.spin += k*Math.PI/2;
+			
+			// и правим стъпка напред в тази посока
+			buttonForward();
+		}
+		
+		// бутон [Скок]
+		function buttonJump()
+		{
+			// ако в момента снежко не скача, то фазата му
+			// на скок е 0 или по-малка
+			if (jumpPhase<1)
+			{
+				jumpPhase = 5; // слагаме го във ваза 5
+				jumpCounter = 0; // нулираме брояча на кадри
+			}
+		}
+
+	</script>	
+</head>
+
+<body onload="main()">
+	<canvas width="598" height="398" style="border: solid 1px Black;"></canvas>
+	<br>
+	<div style="position:relative; top:-24.7em; left:0.5em; text-align:center; width:598px;">
+		<button onclick="buttonForward()">Напред</button>
+		<button onclick="buttonSide()">Настрани</button>
+		<button onclick="buttonJump()">Скок</button>
+	</div>
+	<div style="position:relative; top:-3.4em; left:0.5em; text-align:center; width:598px;">
+		<button onclick="buttonScene()">Сцена</button>
+		<button onclick="buttonRuce()">Ръце</button>
+		<button onclick="buttonStar()">Звезда</button>
+	</div>
+</body>

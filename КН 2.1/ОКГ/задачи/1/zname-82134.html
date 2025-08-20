@@ -1,0 +1,91 @@
+<html>
+	<head>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+		<script src="three.min.js"></script>
+		<script>
+
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+
+			var scene = new THREE.Scene();
+			
+			var aspect = window.innerWidth/window.innerHeight;
+			var camera = new THREE.PerspectiveCamera( 35, aspect );
+			camera.position.set( 6, 3, 8 );
+			camera.lookAt( new THREE.Vector3() );
+
+			const xOffset = 1.5;
+
+			const geometry1 = new THREE.BoxGeometry( 3, 1, 3 );
+			const material = new THREE.MeshPhongMaterial( {color: 0x1392D6} );
+			let plocha1;
+			plocha1 = new THREE.Mesh( geometry1, material );
+			plocha1.position.y = -1;
+			plocha1.position.x = xOffset;
+			scene.add( plocha1);
+
+			const geometry2 = new THREE.BoxGeometry( 3, 1, 3 );
+			let plocha2 = new THREE.Mesh( geometry2, material );
+			plocha2.position.y = -1;
+			plocha2.position.x = -xOffset;
+			scene.add( plocha2);
+
+			const geometry3 = new THREE.BoxGeometry( 3, 1, 3 );
+			let plocha3 = new THREE.Mesh( geometry3, material );
+			plocha3.position.y = 0;
+			// plocha3.position.x = 1;
+			scene.add( plocha3);
+
+			const stickThickness = 1/25;
+
+			const stickGeometry = new THREE.CylinderGeometry(stickThickness, stickThickness, 1.5, 10000);
+			const stickMaterial = new THREE.MeshPhongMaterial({color: 0x964B00});
+			let stick = new THREE.Mesh( stickGeometry, stickMaterial);
+			stick.position.y = 1;
+			stick.position.x = -0.5;
+			stick.position.z = 0.5;
+			scene.add(stick);
+			
+			
+			const flagTopGeometry = new THREE.BoxGeometry( 1.5, 0.5, 0.1 );
+			const flagTopMaterial = new THREE.MeshPhongMaterial({color:'red'});
+			let flagTop = new THREE.Mesh( flagTopGeometry, flagTopMaterial );
+			flagTop.position.y = 1.4;
+			flagTop.position.x = 0.2;
+			flagTop.position.z = 0.5;
+			scene.add(flagTop);
+
+			const flagBottomGeometry = new THREE.BoxGeometry( 1.5, 0.25, 0.1 );
+			const flagBottomMaterial = new THREE.MeshPhongMaterial({color:'green'});
+			let flagBottom = new THREE.Mesh( flagBottomGeometry, flagBottomMaterial );
+			flagBottom.position.y = 1.03;
+			flagBottom.position.x = 0.2;
+			flagBottom.position.z = 0.5;
+			scene.add(flagBottom);
+
+			var light = new THREE.PointLight( );
+			light.position.set( 4, 2, 5 );
+			scene.add( light );
+
+			renderer.render(scene, camera);
+
+
+			const animate = function () {
+				requestAnimationFrame( animate );
+
+				// // flagBottom.rotation.y += 0.01;
+
+				renderer.render( scene, camera );
+			};
+
+			animate();
+
+		</script>
+	</body>
+</html>
