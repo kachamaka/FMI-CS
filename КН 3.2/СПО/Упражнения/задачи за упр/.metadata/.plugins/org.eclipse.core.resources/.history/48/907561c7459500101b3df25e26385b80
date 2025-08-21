@@ -1,0 +1,50 @@
+public class MyThread extends Thread {
+	String nameThread;
+	long numPoints;
+	int numThread;
+	long numPointsInCircle = 0;
+	long sideSquare;
+	long pointsOfThread;
+	boolean quit;
+
+	public MyThread(String nameThread, long sideSquare, long numPoints,
+			int numThread, long pointsOfThread, boolean quit) {
+		this.nameThread = nameThread;
+		this.sideSquare = sideSquare;
+		this.numPoints = numPoints;
+		this.numThread = numThread;
+		this.pointsOfThread = pointsOfThread;
+		this.quit = quit;
+	}
+
+	public void run() {
+		if (quit == false) {
+			System.out.println(nameThread + " is starting! ");
+			System.out.println("Points in: " + pointsOfThread);
+		}
+		for (long i = 0; i < pointsOfThread; i++) {
+			long x = randomNumber(0, sideSquare);
+			long y = randomNumber(0, sideSquare);
+			Point point = new Point(x, y);
+			if (inCircle(sideSquare / 2, point))
+				numPointsInCircle++;
+		}
+		if (quit == false) {
+			System.out.println("Points in circle: " + numPointsInCircle);
+			System.out.println(nameThread + " is finishing! ");
+		}
+	}
+
+	public static boolean inCircle(long radius, Point point) {
+		long distance = (radius - point.getX()) * (radius - point.getX())
+				+ (radius - point.getY()) * (radius - point.getY());
+		if (distance > radius * radius)
+			return false;
+		else
+			return true;
+	}
+
+	public static long randomNumber(long min, long max) {
+		return Math.round((Math.random() * (max - min)) + min);
+	}
+}

@@ -1,0 +1,5 @@
+
+public class Point {
+	static long xCoodrinate;
+	static long yCoodrinate;
+}

@@ -1,0 +1,63 @@
+import java.util.Calendar;
+
+public class Pi extends Thread {
+
+	static long numPoints;
+	static int numThread;
+	static long[] numPointsInCircle;
+	static long sideSquare;
+	static long pointsOfThread;
+	static String threadName;
+	static boolean quit = false;
+
+	public static long randomNumber(long min, long max) {
+		return Math.round((Math.random() * (max - min)) + min);
+	}
+
+	public static void main(String[] args) {
+		long timeOfStart = Calendar.getInstance().getTimeInMillis();
+		for (int i = 0; i < args.length; i++) {
+			if (args[i].equals("-s")) {
+				sideSquare = new Long(args[i + 1]);
+			}
+			if (args[i].equals("-t")) {
+				numThread = new Integer(args[i + 1]);
+			}
+			if (args[i] == "-q") {
+				quit = true;
+			}
+		}
+		if (sideSquare <= 0 || numThread <= 0 || args.length < 4
+				|| args.length > 5) {
+			System.out.println("ERROR: Args are not correct!!!");
+		} else {
+			numPointsInCircle = new long[numThread];
+			numPoints = randomNumber(0, sideSquare * sideSquare);
+			pointsOfThread = numPoints / numThread;
+			for (int t = 0; t < numThread; t++) {
+				if (t == numThread - 1) {
+					pointsOfThread = numPoints - pointsOfThread
+							* (numThread - 1);
+				}
+				MyThread thread = new MyThread("Thread " + Integer.toString(t),
+						sideSquare, numPoints, numThread, pointsOfThread, quit);
+				thread.run();
+				numPointsInCircle[t] = thread.numPointsInCircle;
+			}
+		}
+		long piontsInCircle = 0;
+		for (int i = 0; i < numThread; i++) {
+			piontsInCircle += numPointsInCircle[i];
+		}
+		double pi = 4 * ((double) piontsInCircle / numPoints);
+		long timeOfEnd = Calendar.getInstance().getTimeInMillis();
+		if (quit) {
+			System.out.println("Points in square: " + numPoints);
+			System.out.println("Points in circle: " + piontsInCircle);
+		}
+		System.out.println("Time of calculate Pi: " + (timeOfEnd - timeOfStart)
+				+ " milles");
+		System.out.println("Calculate Pi: " + pi);
+
+	}
+}

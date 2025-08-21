@@ -1,0 +1,85 @@
+package javachat;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class Client {
+	
+	public static void main(String[] args) {
+		try {
+			String clientAddress = "127.0.0.1";
+			int clientPort = 4444;
+			
+			if (args.length == 2)
+			{
+				clientAddress = args[0];
+				clientPort = Integer.parseInt(args[1]);
+			}
+			
+			BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
+			
+			System.out.print("Enter your username: ");
+			String username = console.readLine();
+			
+			if (!username.equals("*"))
+			{
+				Socket s = new Socket(clientAddress, clientPort);	
+				
+				OutputStream os = s.getOutputStream();			
+				InputStream is = s.getInputStream();
+				PrintWriter out = new PrintWriter(new OutputStreamWriter(os));
+				BufferedReader in = new BufferedReader(new InputStreamReader(is));
+				
+				String cmd = "hello "+ username +" \r\n";
+				System.out.println(cmd);
+				out.println(cmd);
+				out.flush();
+				String response = in.readLine();
+				System.out.println(response);
+				
+				if (response.startsWith("200 ok"))
+				{
+					ClientReaderRunnable crRunnable = new ClientReaderRunnable(s);
+					Thread srThread = new Thread(crRunnable);
+					srThread.start();
+					
+					while (true)
+					{
+						cmd = console.readLine();
+						out.println(cmd);
+						out.flush();
+						
+						if (cmd.startsWith("quit"))
+						{
+							break;
+						}
+					}
+					
+					srThread.interrupt();
+					srThread.join();
+				}
+				
+				s.close();
+			}
+			else
+			{
+				System.out.print("This username can't be used!");
+			}
+		} catch (UnknownHostException e) {
+			System.out.println("Unknown host!");
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("Connection problem!");
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+}

@@ -1,0 +1,26 @@
+what,kind,bundleId,bundleVersion,description,time
+executed,command,org.eclipse.ui,3.5.1.M20090902-1000,"org.eclipse.ui.edit.paste",1299538200757
+executed,command,org.eclipse.ui,3.5.1.M20090902-1000,"org.eclipse.ui.edit.paste",1299538228468
+no handler,command,org.eclipse.gef,3.5.0.v20090528-1511,"org.eclipse.gef.zoom_in",1299538237975
+executed,command,org.eclipse.ui,3.5.1.M20090902-1000,"org.eclipse.ui.edit.copy",1299538242518
+executed,command,org.eclipse.ui,3.5.1.M20090902-1000,"org.eclipse.ui.edit.copy",1299538242994
+executed,command,org.eclipse.ui,3.5.1.M20090902-1000,"org.eclipse.ui.edit.paste",1299538244924
+executed,command,org.eclipse.ui,3.5.1.M20090902-1000,"org.eclipse.ui.edit.paste",1299538250704
+executed,command,org.eclipse.ui,3.5.1.M20090902-1000,"org.eclipse.ui.edit.paste",1299538256953
+executed,command,org.eclipse.ui,3.5.1.M20090902-1000,"org.eclipse.ui.edit.undo",1299538261378
+executed,command,org.eclipse.ui,3.5.1.M20090902-1000,"org.eclipse.ui.edit.paste",1299538265172
+deactivated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299538271324
+activated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299538274983
+activated,view,org.eclipse.ui.console,3.4.0.v20090513,"org.eclipse.ui.console.ConsoleView",1299538276221
+activated,editor,org.eclipse.jdt.ui,3.5.1.r351_v20090821-0800,"org.eclipse.jdt.ui.CompilationUnitEditor",1299538295601
+deactivated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299538348638
+activated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299538361528
+deactivated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299538409015
+activated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299538413653
+deactivated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299538418579
+activated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299538420185
+activated,view,org.eclipse.ui.console,3.4.0.v20090513,"org.eclipse.ui.console.ConsoleView",1299538421523
+activated,editor,org.eclipse.jdt.ui,3.5.1.r351_v20090821-0800,"org.eclipse.jdt.ui.CompilationUnitEditor",1299538469506
+deactivated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299538489674
+activated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299538491209
+activated,view,org.eclipse.ui.console,3.4.0.v20090513,"org.eclipse.ui.console.ConsoleView",1299538492695

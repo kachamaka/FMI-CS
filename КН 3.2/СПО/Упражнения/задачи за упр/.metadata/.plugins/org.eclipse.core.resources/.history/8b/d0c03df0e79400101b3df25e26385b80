@@ -1,0 +1,11 @@
+
+public class Point {
+	static long xCoodrinate;
+	static long yCoodrinate;
+	
+	 void point(long x, long y) {
+		xCoodrinate = x;
+		yCoodrinate = y;
+
+	}
+}

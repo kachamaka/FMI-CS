@@ -1,0 +1,137 @@
+package javachat;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
+
+
+
+public class ServerRunnable implements Runnable {
+	private int maxClients;
+	Map<String, Socket> clients = new HashMap<String, Socket>();
+	Vector<Message> msgQueue = new Vector<Message>();
+	boolean stopped = false;
+	
+	public ServerRunnable(int maxClients) {
+		this.maxClients = maxClients;
+	}
+	
+	public synchronized boolean registeredClient(String username)
+	{
+		if (clients.containsKey(username))
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public synchronized int registerClient(String username, Socket socket)
+	{
+		if (clients.size() == maxClients)
+		{
+			return 2;
+		}
+		
+		if (!clients.containsKey(username))
+		{
+			clients.put(username, socket);
+			return 1;
+		}
+
+		return 0;
+	}
+	
+	public synchronized boolean unregisterClient(String username)
+	{
+		if (clients.containsKey(username))
+		{
+			clients.remove(username);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public synchronized Object[] getUsernameList()
+	{
+		return clients.keySet().toArray();
+	}
+	
+	public synchronized void sendMsg(Message msg) {
+		msgQueue.add(msg);
+		notify();
+	}
+	
+	private synchronized Message getMsg() throws InterruptedException {
+		while (msgQueue.size() == 0)
+		{
+			wait();
+		}
+		
+		Message msg = (Message) msgQueue.get(0);
+		msgQueue.removeElementAt(0);
+		
+		return msg;
+	}
+	
+	private synchronized void deliverMsg(Message msg) {
+		try {
+			if (msg.receiver.equals("*"))
+			{
+				Object[] clientsArray = clients.values().toArray();
+				
+				for (int i=0; i < clientsArray.length; i++)
+				{
+					if (((Socket) clientsArray[i]) != clients.get(msg.sender))
+					{
+						OutputStream c_out = ((Socket) clientsArray[i]).getOutputStream();
+						PrintWriter out = new PrintWriter(c_out);
+						
+						out.println("300 msg_from "+ msg.sender + msg.text);
+						out.flush();
+					}
+				}
+			}
+			else
+			{
+				Socket cSocket = clients.get(msg.receiver);
+				
+				OutputStream c_out = cSocket.getOutputStream();
+				PrintWriter out = new PrintWriter(c_out);
+				
+				out.println("300 msg_from "+ msg.sender + msg.text);
+				out.flush();	
+			}
+		} 
+		catch (IOException ioe) 
+		{
+			ioe.printStackTrace();
+		}
+	}
+	
+	public void run() {
+		Alert.show("ServerRunnable thread started!");
+		
+		while (!Thread.currentThread().isInterrupted()) 
+		{
+			try
+			{
+				Message msg = getMsg();
+				deliverMsg(msg);
+			} 
+			catch (InterruptedException ie)
+			{
+				ie.printStackTrace();
+				Thread.currentThread().interrupt();
+			}
+		}
+		
+		Alert.show("ServerRunnable thread stoped!");
+	}
+}
+

@@ -1,0 +1,26 @@
+what,kind,bundleId,bundleVersion,description,time
+java.version,sysinfo,,,"1.6.0_10-rc",1299549793517
+java.vm.info,sysinfo,,,"mixed mode",1299549793517
+java.vm.name,sysinfo,,,"Java HotSpot(TM) Client VM",1299549793517
+java.vm.specification.name,sysinfo,,,"Java Virtual Machine Specification",1299549793517
+java.vm.specification.vendor,sysinfo,,,"Sun Microsystems Inc.",1299549793517
+java.vm.specification.version,sysinfo,,,"1.0",1299549793517
+java.vm.vendor,sysinfo,,,"Sun Microsystems Inc.",1299549793517
+java.vm.version,sysinfo,,,"11.0-b15",1299549793517
+started,bundle,org.eclipse.debug.ui,3.5.1.v20090811_r351,"org.eclipse.debug.ui",1299549794251
+started,bundle,org.eclipse.wst.server.core,1.1.102.v20090825,"org.eclipse.wst.server.core",1299549794859
+started,bundle,org.eclipse.wst.server.ui,1.1.103.v20090909,"org.eclipse.wst.server.ui",1299549794906
+started,bundle,org.eclipse.jdt.debug,3.5.0.v20090526,"org.eclipse.jdt.debug",1299549795109
+started,bundle,org.eclipse.jdt.debug.ui,3.4.1.v20090811_r351,"org.eclipse.jdt.debug.ui",1299549795405
+started,bundle,org.eclipse.jst.common.project.facet.core,1.4.1.v200908111817,"org.eclipse.jst.common.project.facet.core",1299549795670
+activated,view,org.eclipse.ui.console,3.4.0.v20090513,"org.eclipse.ui.console.ConsoleView",1299549803517
+started,bundle,org.eclipse.wst.xsl.debug.ui,1.0.0.v200904240436,"org.eclipse.wst.xsl.debug.ui",1299549812739
+activated,editor,org.eclipse.jdt.ui,3.5.1.r351_v20090821-0800,"org.eclipse.jdt.ui.CompilationUnitEditor",1299549813768
+activated,view,org.eclipse.ui.console,3.4.0.v20090513,"org.eclipse.ui.console.ConsoleView",1299549815297
+deactivated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299549821945
+activated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299549829433
+activated,editor,org.eclipse.jdt.ui,3.5.1.r351_v20090821-0800,"org.eclipse.jdt.ui.CompilationUnitEditor",1299549833270
+executed,command,org.eclipse.ui,3.5.1.M20090902-1000,"org.eclipse.ui.edit.delete",1299549835485
+executed,command,org.eclipse.ui,3.5.1.M20090902-1000,"org.eclipse.ui.edit.delete",1299549836609
+deactivated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299549841850
+activated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299549843753

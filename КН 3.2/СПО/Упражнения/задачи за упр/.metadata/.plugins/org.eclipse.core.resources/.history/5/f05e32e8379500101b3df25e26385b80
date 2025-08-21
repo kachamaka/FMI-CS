@@ -1,0 +1,69 @@
+import java.util.Random;
+
+public class CalculatePi extends Thread {
+
+	static long numPoints;
+	static int numThread;
+	static long[] numPointInCircle;
+	static long sideSquare;
+	static long pointsOfThread;
+	static String threadName;
+	static boolean quit = false;
+
+	public static long randomNumber(long min, long max) {
+		return Math.round((Math.random() * (max - min)) + min);
+	}
+
+	@SuppressWarnings("deprecation")
+	public static void main(String[] args) {
+		for (int i = 0; i < args.length; i++) {
+			if (args[i].equals("-s")) {
+				sideSquare = new Long(args[i + 1]);
+			}
+			if (args[i].equals("-t")) {
+				numThread = new Integer(args[i + 1]);
+			}
+			if (args[i] == "-q") {
+				quit = true;
+			}
+		}
+		if (sideSquare <= 0 || numThread <= 0 || args.length < 4
+				|| args.length > 5) {
+			System.out.println("ERROR: Args are not correct!!!");
+		} else {
+			numPointInCircle = new long[numThread];
+			for (int i = 0; i < numThread; i++) {
+				numPointInCircle[i] = 0;
+
+			}
+			Random random = new Random();
+			numPoints = randomNumber(0, sideSquare*sideSquare);
+			pointsOfThread = numPoints / numThread;
+			for (int t = 0; t < numThread; t++) {
+				if (t == numThread - 1) {
+					pointsOfThread = numPoints - pointsOfThread
+							* (numPoints - 1);
+				}
+				MyThread thread = new MyThread("Thread " + t,
+						numPointInCircle[t], sideSquare, numPoints, numThread,
+						pointsOfThread);
+				thread.start();
+				try {
+					thread.join();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+					numPointInCircle[t] = thread.numPointInCircle;
+					//System.out.println("AAA " + thread.numPointInCircle);
+				
+			}
+		}
+		long temp =0;
+		 for (int i = 0; i < numThread; i++) {
+		 temp += numPointInCircle[i]; 
+		 }
+		 double pi = 4*((double)temp/numPoints);
+		 System.out.println(pi);
+		 
+	}
+}

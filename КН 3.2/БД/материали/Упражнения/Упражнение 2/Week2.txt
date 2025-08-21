@@ -1,0 +1,215 @@
+use pc;
+
+select model as name1, price
+from pc
+where price < 1000
+union
+select model, price
+from laptop
+where price < 1000;
+
+-- vsi4ki proizvoditeli, koito proizvejdat ednovremenno komputri i laptopi:
+
+select marker
+from product
+where type = 'PC'
+intersect
+select maker
+from product
+where type = 'Laptop';
+
+
+-- dekartovo proizvedenie
+
+use movies;
+
+select *
+from movie, studio;
+
+select *
+from movie
+cross join studio;  -- pravi sa6toto kato gornoto
+
+-- Vatre6no saedinenie (Inner Join)
+
+
+-- Zada4a: Za vseki film da se izvede zaglavie, godina, ime na studio i adres na studioto.
+
+select title, year, studioName, address
+from movie, studio
+where studioname = name;
+
+select title, year, studioName, address
+from movie
+join studio on studioname = name;  --pravi sa6toto (no 6te rabotim po tozi na4in, za6toto e po-4etimo)
+
+-- da se promeni gornata zada4a - da se izvejda sa6tata informaciq, no samo za filmi, proizvedeni predi 1990:
+
+select title, year, studioName, address
+from movie
+join studio on studioname = name
+where year < 1990;
+
+-- Ako ima ednoimenni atributi v saedinqvanite tablici:
+
+-- Primer: Da se izvedat  nomerata na modelite i cenite na vsi4ki komputri na proizvoditel A, sortirani po cena v narastva6t red:
+
+use pc;
+
+select distinct pc, model, price
+from pc
+join product on pc.model-product.model
+where maker = 'A'
+order by price;
+
+use movies;
+
+select *
+from studio as s1
+cross join studio as s2; -- 'as' moje da se izpuska
+
+-- 1.1.
+select starname 
+from starsin
+join moviestar on starname = name
+where movietitle = 'Terms of Endearment' and gender = 'M';
+
+-- 1.2.
+select distinct starname
+from starsin
+join movie on movietitle =  title and movieyear = year
+where studioname = 'MGM' and movieyear = 1995;
+
+-- 1.3.
+select moviiexec.name
+from studio
+join movieexec on presc# = cert#
+where studio.name = 'MGM';
+
+-- 1.4
+select m1.title
+from movie as m1
+cross join movie as m2
+where m2.title = 'Star Wars' 
+	and m1.length > m2.length;
+
+use pc;
+
+-- 2.1.
+select maker, speed
+from laptop
+join product on laptop.model = product.model
+where hd > 9;
+
+-- 2.2.
+select product.model, price
+from product
+join pc on product.model = pc.model
+where maker = 'B'
+union
+select product.model, price
+from product
+join laptop on product.model = laptop.model
+where maker = 'B'
+union
+select product.model, price
+from product
+join printer on product.model = printer.model
+where maker = 'B';
+
+-- 2.3.
+select distinct pc1.hd
+from pc pc1
+join pc pc2 on pc1.hd=pc2.hd
+where pc1.code <> pc2.code;
+
+-- 2.4.
+select distinct pc1.model, pc2.model
+from pc pc1
+join pc pc2 on oc1.speed = pc2.speed
+	and pc1.ram = pc2.ram
+where pc1.model < pc2.model;
+
+
+use ships;
+
+-- 3.2.
+select ships.name, displacement, numguns
+from outcomes
+join ships on outcomes.ship = ships.name
+join classes on classes.class = ships.class
+where battle = 'Guadalcanal';
+
+-- 3.3. Uslovieto da se 4ete taka: "... darjavi, koito imat KLASOVE korabi ot ...."
+--1na4in
+select distinct cl.country
+from classes c1
+join classes c2 on c1.country = c2.country
+where c1.type = 'bb' and c2.tpye= 'bc'
+
+--2na4in
+select country
+from classes
+where type = 'bb'
+intersect
+select country
+from classes
+where type = 'bc'
+
+-- gre6en variant1:
+select country from classes
+where type = 'bb' or type = 'bc';
+
+-- o6te po-gre6en varinat2:
+select country from classes
+where type = 'bb' and type = 'bc';
+
+
+
+use pc;
+
+-- 2.5.
+select distinct p1.maker
+from pc pc1
+join product p1 on pc1.model = p1.model
+join product p2 on p1.maker = p2.maker
+join pc pc2 on pc2.model = p2.model
+where pc1.code <> pc2.code
+	and pc.speed>400 and pc2.speed>400;
+
+use ships;
+
+-- 3.4. (poslednata)
+select o1.ship
+from outcomes o1
+join battles b1 on o1.battle=b1.name
+join outcomes o2 on o1.ship=o2.ship
+join battles b2 on o2.battle = b2.name
+where b1.date < b2.date
+	and o1.result='damaged'; 
+
+
+use northwind;
+
+-- 1. Da se izvedat v dve kolonki: imenata na vseki slujitel i imenata na negoviq prqk na4alnik. 
+-- 6efove bez preki na4alnici da ne se izvejdat.
+
+select e1.FirstName + ' ' + e1.LastName as Employee,
+	e2.FirstName + ' ' + e2.Lastname as Boss
+from employees e1
+join employees e2 on e1.reporysto = e2.employeeid;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

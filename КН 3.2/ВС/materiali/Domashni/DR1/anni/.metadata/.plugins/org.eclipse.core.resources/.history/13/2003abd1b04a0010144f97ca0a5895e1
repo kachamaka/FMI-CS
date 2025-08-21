@@ -1,0 +1,48 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class homework1 {
+	public static void main(String[] args) {
+
+		/*
+		 * Условие на задачата: Телефонът ви звъни по 12 пъти на седмица, като
+		 * позвъняванията попадат случайно в кой да ден от седмицата. Каква е
+		 * вероятността да звъи поне веднъж на ден?
+		 */
+
+		Scanner scanner = new Scanner(System.in);
+		Random random = new Random();
+		System.out.print("Въведи брой опити: ");
+		int br = scanner.nextInt();
+		while (br != 0) {
+			System.out.print("Въведи брой разпределения: ");
+			int count = scanner.nextInt();
+			int temp = count;
+			int chances = 0; // броя на благоприятните възможности
+			while (count != 0) {
+				int week[] = { 0, 0, 0, 0, 0, 0, 0 };// масив, който отговаря на
+				// дните от седмицата
+				int nulls = 0;
+				int i = 12;// броя на обажданията
+				while (i != 0) {
+					int index = random.nextInt(7);
+					week[index]++;
+					i--;
+				}
+				for (int day = 0; day < week.length; day++) {
+					if (week[day] == 0)
+						nulls++;
+				}
+				if (nulls != 0)
+					chances++;
+				count--;
+			}
+			System.out.println("chances: " +  chances + "temp" + temp );
+			float k = (float) chances/temp;
+			System.out.println("Вероятността е:" + k );
+			br--;
+		}
+
+	}
+
+}

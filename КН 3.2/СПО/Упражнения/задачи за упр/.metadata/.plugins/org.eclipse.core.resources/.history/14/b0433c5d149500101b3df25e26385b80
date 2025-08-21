@@ -1,0 +1,69 @@
+import java.util.Random;
+
+
+public class Pi extends Thread {
+	static long numPoints;
+	static long numThread;
+	static long[] numPointInCircle;
+	static long sideSquare;
+	static long pointsOfThread;
+	static String threadName;
+	static boolean quit = false;
+
+	public static boolean inCircle(long radius, Point point) {
+		long distance = (radius - point.getX()) * (radius - point.getX())
+				- (radius - point.getY()) * (radius - point.getY());
+		if (distance > radius)
+			return false;
+		else
+			return true;
+	}
+
+	public void run() {
+		long counter = 0;
+		Random random = new Random();
+		for (long i = 0; i < pointsOfThread; i++) {
+			long x = random.nextLong();
+			long y = random.nextLong();
+			Point point = new Point(x, y);
+			if (inCircle(sideSquare / 2, point))
+				counter++;
+		}
+	}
+
+	public static void main(String[] args) {
+		for (int i = 0; i < args.length; i++) {
+			if (args[i].equals("-s")) {
+				sideSquare = Long.parseLong(args[i + 1]);
+			}
+			if (args[i].equals("-t")) {
+				numThread = Long.parseLong(args[i + 1]);
+			}
+			if (args[i] == "-q") {
+				quit = true;
+			}
+		}
+		if (sideSquare <= 0 || numThread <= 0 || args.length < 4
+				|| args.length > 5) {
+			System.out.println("ERROR: Args are not correct!!!");
+		} else {
+			Random random = new Random();
+			numPoints = Math.abs(random.nextLong());
+			pointsOfThread = numPoints / numThread;
+			for (long t = 0; t < numThread; t++) {
+				if (t == numThread - 1) {
+					pointsOfThread = numPoints - pointsOfThread
+							* (numPoints - 1);
+					Thread thread = new Thread();
+					thread.run();
+				} else {
+					Thread thread = new Thread();
+					thread.run();
+				}
+			}
+			System.out.println(numPoints);
+
+		}
+	}
+
+}

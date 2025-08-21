@@ -1,0 +1,85 @@
+package javachat;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class ServerStarterRunnable implements Runnable {
+	public int serverPort, maxClients;
+	public ServerSocket sSocket;
+	
+	public ServerStarterRunnable(int serverPort, int maxClients)
+	{
+		this.serverPort = serverPort;
+		this.maxClients = maxClients;
+	}
+	
+	public void run() {
+		Alert.show("ServerStarter thread started!");
+		
+		ServerRunnable serverRunnable = new ServerRunnable(maxClients);
+		Thread serverThread = new Thread(serverRunnable);
+		serverThread.start();
+		
+		ThreadGroup schThreadGroup = new ThreadGroup("schThreadGroup");
+		
+		try 
+		{	
+			sSocket = new ServerSocket(serverPort);
+			
+			Alert.show("Socket opened successfully at 127.0.0.1:" + serverPort);
+			
+			while (true) 
+			{
+				Socket cSocket = sSocket.accept();
+				
+				Alert.show("Server accepted new client!");
+				
+				ServerClientHandlerRunnable schRunnable = new ServerClientHandlerRunnable(cSocket, serverRunnable);
+				Thread schThread = new Thread(schThreadGroup, schRunnable);
+				schThread.start();
+			}
+		} 
+		catch (IOException e) 
+		{	
+			System.out.println("Socket was closed or it can't be established!");
+			//e.printStackTrace();
+			
+			try 
+			{
+				Thread[] ta = new Thread[schThreadGroup.activeCount()];
+				schThreadGroup.enumerate(ta); 
+				
+			    for (Thread thr : ta) 
+			    { 
+			        thr.interrupt();
+			        while(thr.isAlive());
+			    }
+			    
+			    schThreadGroup.destroy();
+
+				
+				if (serverThread.isAlive())
+				{
+					serverThread.interrupt();
+					serverThread.join();		
+				}
+			}
+			catch (InterruptedException e1) 
+			{
+				//e1.printStackTrace();
+			}
+		}
+		
+		Alert.show("ServerStarter thread stoped!");
+	}
+	
+	public void stop()
+	{
+		try {
+			this.sSocket.close();
+		} catch (IOException e) {
+			//e.printStackTrace();
+		}
+	}
+}

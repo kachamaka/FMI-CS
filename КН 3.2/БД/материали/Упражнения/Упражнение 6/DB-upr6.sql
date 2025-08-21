@@ -1,0 +1,169 @@
+use ships;
+
+-- Да се изведат имената на всички кораби,
+-- в чието име се среща се среща низът "king", без
+-- значение дали с малки или главни букви
+
+select name
+from ships
+where name like '%king%';
+
+-- в MS SQL горното е коректно решение; в други СУБД
+-- трябва да е lower(name) like '%king%';
+
+-- Класовете с водоизместимост (displacement) като тази
+-- на класа Kongo (всички освен Конго)
+
+select c1.class
+from classes c1
+join classes c2 on c1.displacement = c2.displacement
+where c2.class = 'Kongo' and c1.class <> c2.class;
+
+-- можеше по-лесно с подзаявка
+select class
+from classes
+where displacement = (select displacement
+					from classes
+					where class = 'Kongo')
+	and class <> 'Kongo';
+
+-- Класовете с водоизм. като тази на Конго, но с
+-- по-голям брой оръдия:
+
+select c1.class
+from classes c1
+join classes c2 on c1.displacement = c2.displacement
+where c2.class = 'Kongo' and c1.numguns > c2.numguns;
+
+use pc;
+-- да се изведат всички производители на компютри,
+-- за които средната цена на произведените компютри
+-- е по-ниска от средната цена на компютрите на А:
+
+select p.maker
+from product p
+join pc on pc.model = p.model
+group by p.maker
+having AVG(price) < (select avg(pc1.price)
+					from product p1
+					join pc pc1 on p1.model = pc1.model
+					where p1.maker = 'A');
+					
+-- да се изведат всички производители,
+-- за които средната цена на произведените компютри
+-- е по-ниска от средната цена на техните лаптопи:
+
+select p.maker
+from product p
+join pc on pc.model = p.model
+group by p.maker
+having AVG(price) < (select avg(laptop.price)
+					from product p1
+					join laptop on p1.model = laptop.model
+					where p1.maker = p.maker);
+
+-- размерите на тези твърди дискове, които се
+-- появяват в точно два лаптопа
+select hd
+from laptop
+group by hd
+having COUNT(*) = 2;
+-- ако се искаше да не се среща в 
+-- нито един - не може count(*) = 0
+
+-- Намерете за всички производители на поне 2 лазерни
+-- принтера броя на произвежданите от тях PC-та
+select p.maker, COUNT(distinct pc.model)
+from product p
+join printer pr on p.model = pr.model
+join product p2 on p.maker = p2.maker
+join pc on p2.model = pc.model
+where pr.TYPE='Laser'
+group by p.maker
+having COUNT(distinct pr.model) >= 2;
+-- или:
+select maker, (select count(*)
+				from product p1
+				where p1.maker = p.maker
+					and type='PC') as PC_count
+from product p
+join printer pr on p.model = pr.model
+where pr.type = 'Laser'
+group by maker
+having count(*) >= 2;
+
+select p1.maker, count(*)
+from product p1
+join pc pc1 on p1.model = pc1.model
+group by p1.maker
+having p1.maker in (select p.maker
+					from product p
+					join printer pr on pr.model = p.model
+					group by pr.type
+					having pr.type = 'Laser' and COUNT(*)=2);
+
+-- Всички модели компютри, за които разликата в размера
+-- на най-големия и най-малкия харддиск на конкретна
+-- конфигурация е поне 20 GB.
+select model
+from pc
+group by model
+having MAX(hd) - MIN(hd) >= 20;
+
+use ships;
+-- За всеки клас кораби да се изведе баланса между
+-- оцелели кораби (брой кортежи в outcomes с result = 'ok')
+-- и потънали ('sunk')
+-- Напр. ако 2 са ok, 5 са sunk - балансът е -3
+select CLASS,
+			(select COUNT(*)
+			from ships s
+			join OUTCOMES o on s.NAME=o.SHIP
+			where s.CLASS = c.CLASS
+				and o.RESULT = 'ok')
+			- (select COUNT(*)
+			from ships s
+			join OUTCOMES o on s.NAME=o.SHIP
+			where s.CLASS = c.CLASS
+				and o.RESULT = 'sunk')
+from CLASSES c;
+
+-- 2-и начин:
+select c.CLASS, SUM(case o.RESULT
+					when 'ok' then 1
+					when 'sunk' then -1
+					else 0
+					end)
+from CLASSES c
+left join ships s on c.CLASS = s.CLASS
+left join OUTCOMES o on s.NAME = o.SHIP
+group by c.CLASS;
+
+-- За всяка година, през която е проведена битка,
+-- да се изведе броя на корабите, пуснати на вода
+-- през същата година
+select YEAR(date), COUNT(distinct ships.NAME)
+from BATTLES
+left join ships on YEAR(date)=launched
+group by YEAR(date);
+
+use northwind;
+
+-- Да се изведе шефа на екипа, направил най-големи
+-- продажби
+select *
+from Employees
+where EmployeeID = (select top 1 e.reportsto
+		from Employees e
+		join orders o on e.EmployeeID=o.EmployeeID
+		join "Order Details" od on o.OrderID=od.OrderID
+		group by e.ReportsTo
+		order by SUM(od.quantity * od.unitprice) desc);
+
+-- За всеки служител да се изведат имената му и 
+-- колко различни клиента е обслужил:
+select e.FirstName, e.LastName, 
+		COUNT(distinct CustomerID) as customersCount
+from Employees e
+left join Orders o on e.EmployeeID = o.EmployeeID
+group by e.EmployeeID, e.FirstName, e.LastName; --!!!

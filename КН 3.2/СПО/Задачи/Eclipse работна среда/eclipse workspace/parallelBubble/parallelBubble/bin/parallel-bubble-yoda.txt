@@ -1,0 +1,37 @@
+lisp@yoda:~/java/parallelBubble/bin$ java TaskRunner 100000 1
+populating a[] finished in: 17 ms
+job finished in: 45439 ms
+
+lisp@yoda:~/java/parallelBubble/bin$ java TaskRunner 100000 2
+populating a[] finished in: 17 ms
+job finished in: 36611 ms
+
+lisp@yoda:~/java/parallelBubble/bin$ java TaskRunner 100000 3
+populating a[] finished in: 14 ms
+job finished in: 27875 ms
+
+lisp@yoda:~/java/parallelBubble/bin$ java TaskRunner 100000 4
+populating a[] finished in: 17 ms
+job finished in: 23404 ms
+
+lisp@yoda:~/java/parallelBubble/bin$ java TaskRunner 100000 5
+populating a[] finished in: 16 ms
+job finished in: 21228 ms
+
+lisp@yoda:~/java/parallelBubble/bin$ java TaskRunner 100000 6
+populating a[] finished in: 17 ms
+job finished in: 16511 ms
+
+lisp@yoda:~/java/parallelBubble/bin$ java TaskRunner 100000 7
+populating a[] finished in: 18 ms
+job finished in: 14478 ms
+
+lisp@yoda:~/java/parallelBubble/bin$ java TaskRunner 100000 8
+populating a[] finished in: 14 ms
+job finished in: 13465 ms
+
+lisp@yoda:~/java/parallelBubble/bin$ java TaskRunner 15 3 -dump
+populating a[] finished in: 1 ms
+   95444  391913  467041  807054  728001  245877  546415  790355  350503  755441  486491  786280  636301  711521  351253
+job finished in: 1 ms
+   95444  245877  350503  351253  391913  467041  486491  546415  636301  711521  728001  755441  786280  790355  807054

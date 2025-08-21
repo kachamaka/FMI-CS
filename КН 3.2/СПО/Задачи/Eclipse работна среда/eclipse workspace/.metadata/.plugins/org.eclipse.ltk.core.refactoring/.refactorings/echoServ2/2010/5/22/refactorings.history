@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 1 elements(s) to &apos;test1/src/test1&apos;&#x0D;&#x0A;- Original project: &apos;echoServ2&apos;&#x0D;&#x0A;- Destination element: &apos;test1/src/test1&apos;&#x0D;&#x0A;- Original element: &apos;ClientRunnable.java&apos;" description="Copy compilation unit" destination="=test1/src&lt;test1" element1="/echoServ2\/src&lt;{ClientRunnable.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1275055753671" units="1" version="1.0"/>
+</session>

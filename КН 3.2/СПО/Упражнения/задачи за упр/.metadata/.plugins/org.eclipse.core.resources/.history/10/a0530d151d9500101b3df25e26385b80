@@ -1,0 +1,93 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Random;
+
+public class Pi extends Thread {
+
+	static long numPoints;
+	static int numThread;
+	static long[] numPointInCircle;
+	static long sideSquare;
+	static long pointsOfThread;
+	static String threadName;
+	static boolean quit = false;
+
+	public static boolean inCircle(long radius, Point point) {
+		long distance = (radius - point.getX()) * (radius - point.getX())
+				- (radius - point.getY()) * (radius - point.getY());
+		if (distance > radius)
+			return false;
+		else
+			return true;
+	}
+
+	public Pi(String name) {
+		threadName = name;
+	}
+
+	public void run() {
+		System.out.println("lala");
+		System.out.println(Thread.currentThread().getName() + " starting");
+		long counter = 0;
+		Random random = new Random();
+		for (long i = 0; i < pointsOfThread; i++) {
+			long x = random.nextLong();
+			long y = random.nextLong();
+			Point point = new Point(x, y);
+			if (inCircle(sideSquare / 2, point))
+				counter++;
+		}
+		int index = Integer.parseInt(Thread.currentThread().getName()
+				.substring(7));
+		numPointInCircle[index] = counter;
+	}
+
+	public static void main(String[] args) {
+		for (int i = 0; i < args.length; i++) {
+			if (args[i].equals("-s")) {
+				sideSquare = Long.parseLong(args[i + 1]);
+			}
+			if (args[i].equals("-t")) {
+				numThread = Integer.parseInt(args[i + 1]);
+			}
+			if (args[i] == "-q") {
+				quit = true;
+			}
+		}
+		if (sideSquare <= 0 || numThread <= 0 || args.length < 4
+				|| args.length > 5) {
+			System.out.println("ERROR: Args are not correct!!!");
+		} else {
+			Random random = new Random();
+			numPoints = Math.abs(random.nextLong());
+			pointsOfThread = numPoints / numThread;
+			for (int t = 0; t < numThread; t++) {
+				if (t == numThread - 1) {
+					pointsOfThread = numPoints - pointsOfThread
+							* (numPoints - 1);
+					// Thread thread = new Thread("Thread " + t);
+					Pi thread = new Pi("Thread " + t);
+					System.out.println("Thread " + t);
+					thread.start();
+					System.out.println("koko");
+				} else {
+					//Thread thread = new Thread("Thread " + t);
+					Pi thread = new Pi("Thread " + t);
+					System.out.println("Thread " + t);
+					thread.start();
+				}
+			}
+			long temp = 0;
+
+			for (int i = 0; i < numThread; i++) {
+				System.out.println("in for +");
+				System.out.println(numPointInCircle[i]);
+				temp = temp + numPointInCircle[i];
+			}
+			long pi = 4 * (temp / numPoints);
+			System.out.println(pi);
+
+		}
+	}
+
+}

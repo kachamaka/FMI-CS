@@ -1,0 +1,164 @@
+package javachat;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
+
+
+public class ServerClientHandlerRunnable implements Runnable {
+	private String cUsername;
+	private Socket cSocket;
+	private ServerRunnable serverRunnable;
+	
+	public ServerClientHandlerRunnable(Socket cSocket, ServerRunnable serverRunnable) {
+		this.cSocket = cSocket;
+		this.serverRunnable = serverRunnable;
+	}
+	
+	public void run() {
+		Alert.show("ServerClientHandler thread started!");
+		
+		try {
+			InputStream c_in = cSocket.getInputStream();
+			OutputStream c_out = cSocket.getOutputStream();
+			
+			BufferedReader in = new BufferedReader(new InputStreamReader(c_in));
+			PrintWriter out = new PrintWriter(c_out);
+			
+			String line = in.readLine();
+			
+			if (line.startsWith("hello") && line.split(" ").length >= 2)
+			{
+				Alert.show("Client sent hello command!");
+				
+				cUsername = (line.split(" "))[1];
+				
+				int status = serverRunnable.registerClient(cUsername, cSocket);
+				
+				switch(status)
+				{
+					case 0:
+						out.print("100 err "+ cUsername +" already taken! \r\n");
+						out.flush();
+						
+						Alert.show("Client wasn't registered successfully as "+ cUsername +"!");
+						
+						break;
+					case 1:
+						out.print("200 ok "+ cUsername +" successfully registerred \r\n");
+						out.flush();
+						
+						Alert.show("Client was registered successfully as "+ cUsername +"!");
+						
+						break;
+					case 2:
+						out.print("100 err no more clients can be connected to this server! \r\n");
+						out.flush();
+						
+						Alert.show("Client wasn't registered successfully as "+ cUsername +"!");
+						
+						break;
+				}
+				
+				if (status == 1)
+				{
+					while (!Thread.currentThread().isInterrupted()) {
+						line = in.readLine();
+						
+						if (line.startsWith("quit")) 
+						{
+							out.print("200 ok goodbye \r\n");
+							out.flush();
+							
+							serverRunnable.unregisterClient(cUsername);
+							
+							Alert.show("User "+ cUsername +" was unregistered successfully!");
+							
+							break;	
+						}
+						else if (line.startsWith("msg_to"))
+						{
+							Message msg = new Message(line, cUsername);
+							
+							if (serverRunnable.registeredClient(msg.receiver))
+							{
+								serverRunnable.sendMsg(msg);
+								out.print("200 ok message to " + msg.receiver + " sent successfully. \r\n");
+								out.flush();
+								
+								Alert.show("User "+ cUsername +" send message to "+ msg.receiver +" successfully!");
+							}
+							else
+							{
+								out.print("100 err " + msg.receiver + " does not exists! \r\n");
+								out.flush();
+								
+								Alert.show("User "+ cUsername +" tried to send message to non-existing user "+ msg.receiver +"!");
+							}
+						} 
+						else if (line.startsWith("msg"))
+						{
+							Message msg = new Message(line, cUsername);
+							
+							serverRunnable.sendMsg(msg);
+							out.print("200 ok message sent successfully. \r\n");
+							out.flush();
+							
+							Alert.show("User send message to all successfully!");
+						}
+						else if (line.startsWith("list"))
+						{
+							Object[] list = serverRunnable.getUsernameList();
+							
+							String response = "200 ok ";
+							for (int i=0; i < list.length; i++)
+							{
+								response += list[i].toString() + " ";
+							}
+							response += "\r\n";
+							
+							out.print(response);
+							out.flush();
+							
+							Alert.show("Server sent list of registered users to "+ cUsername +" successfully!");
+						}
+						else
+						{
+							out.print("100 err "+ line +" is unknown command! \r\n");
+							out.flush();
+							
+							Alert.show("User sent unknown command "+ line +"!");
+						}
+					}
+				}
+			}
+			else
+			{
+				out.print("100 err "+ line +" is wrong hello command! \r\n");
+				out.print("400 err server is going to disconnect you! Goodbye! \r\n");
+				out.flush();
+				
+				Alert.show("Client sent wrong hello command!");
+			}
+			
+			if (Thread.currentThread().isInterrupted())
+			{
+				out.print("100 err Server is going to be stopped! You must quit. Goodbye! \r\n");
+				out.flush();
+			}
+			cSocket.close();
+			Alert.show("User "+ cUsername +" was disconnected successfully!");
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		
+		Alert.show("ServerClientHandler thread stoped!");
+	}
+}

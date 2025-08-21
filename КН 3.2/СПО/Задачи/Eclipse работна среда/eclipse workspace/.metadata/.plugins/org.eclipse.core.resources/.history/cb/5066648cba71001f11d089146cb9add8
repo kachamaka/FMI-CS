@@ -1,0 +1,43 @@
+package javachat;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.Socket;
+
+public class ClientReaderRunnable implements Runnable {
+	public Socket s;
+	
+	public ClientReaderRunnable(Socket s)
+	{
+		this.s = s;
+	}
+	
+	public void run() {
+		try
+		{
+			InputStream is = s.getInputStream();
+			BufferedReader in = new BufferedReader(new InputStreamReader(is));
+			
+			while (!Thread.currentThread().isInterrupted())
+			{
+				String response = in.readLine();
+				
+				if (response == null)
+				{
+					break;
+				}
+				
+				System.out.println(response);
+			}
+		}
+		catch (IOException e) 
+		{
+			System.out.println("Connection lost! You must quit.");
+			//e.printStackTrace();
+		} 
+		
+		System.out.print("hihihi")l
+	}
+}

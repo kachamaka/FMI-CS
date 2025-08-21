@@ -1,0 +1,14 @@
+what,kind,bundleId,bundleVersion,description,time
+started,bundle,org.eclipse.wst.validation,1.2.102.v200905201610,"org.eclipse.wst.validation",1299784064700
+started,bundle,org.eclipse.jst.j2ee,1.1.301.v200909030330,"org.eclipse.jst.j2ee",1299784064765
+activated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299784066247
+deactivated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299784068005
+activated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299784081595
+activated,view,org.eclipse.ui.console,3.4.0.v20090513,"org.eclipse.ui.console.ConsoleView",1299784083043
+executed,command,org.eclipse.ui,3.5.1.M20090902-1000,"org.eclipse.ui.edit.copy",1299784111038
+deactivated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299784113033
+activated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299784422027
+deactivated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299784423489
+activated,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299784424839
+closed,workbench,org.eclipse.ui.workbench,3.5.1.M20090826-0800a,"",1299784425099
+stopped,bundle,org.eclipse.jst.ws.axis.creation.ui,1.0.406.v200903031852,"org.eclipse.jst.ws.axis.creation.ui",1299784425774

@@ -1,0 +1,11 @@
+--zad. da ne se dopuska promqna na MovieExec(insert, update, delete),
+ --ako srednata stoinost na Networht stawa pod 500 000
+ create trigger tr
+ on MovieExec
+ alter insert,update,delete
+ as
+ if(select avg(networth) from MovieExec) < 500000
+ begin 
+ raiserror('...',16,1)
+ rollback
+ end
