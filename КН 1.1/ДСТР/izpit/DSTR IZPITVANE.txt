@@ -1,0 +1,12 @@
+relations
+functions: 
+-injection
+-surjection
+-bijection
+kraino/bezkraino mnojestvo
+orders
+cantor diagonalization
+inclusion exclusion principle
+graphs def.
+trees def.
+euler cycle in multigraphs

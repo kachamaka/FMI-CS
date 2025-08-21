@@ -1,0 +1,72 @@
+﻿-> Какви са причините да използваме указатели като аргумент на функция?
+
+-> Напишете тялото на следната функция, така че да обръща символен низ
+void reverse (char * text)
+{
+	int size = strlen(text);
+	for(int i = 0; i<size/2;i++){
+		swap(text[i], text[size-i-1]);
+	}
+}
+
+-> Опишете накратко алгоритъма за двоично търсене. Кога се използва?
+
+-> Какви са основните типове данни в езика C++?
+char, int, double, float, bool
+
+-> Разгледайте дадения по-долу код. Кажете дали е коректен или не. Ако е коректен, обяснете какво прави. Ако не е коректен, обяснете защо.
+int x;
+int& ref;
+ref = &x;
+ref = 56;
+std::cout << ref << " " << x;
+
+-> Намерете грешките в дадения по-долу код.
+След това в даденото по-долу поле напишете грешките, които сте открили.
+Опишете ги недвусмислено или като коментари по дадения код или изброени с детайлни обяснения.
+
+include <iostream>
+
+int main()
+{
+   cin >> x; //variable x not defined
+
+   if(x = 0) //double '=' for comparison
+      cout << "x is 0!" << endl;
+      return 1; //return is outside if statement
+		
+   short array[x], sum; //x is not constant
+   for(int i = 0; i <= x; i++)
+   {
+      array[i] = i;//if i=x -> out of bounds
+      if (i % 2) sum += i; //i%2 then what? -> has to be i%2==0
+   }
+   cout << sum / (x/2);
+
+   for (i = 0; i <= x; ++i) //previous i exists only in the previous for loop -> int i = 0
+       cout << array[i] << ', '; //again out of bounds
+}
+
+-> Опишете какви са изискванията при дефиниране на аргументи на функции със стойности по подразбиране
+
+-> Обяснете какви са основните стъпки при заделяне и работа с динамична памет. Дайте пример с конкретен код.
+
+int n;
+cin >> n;
+int a = new(nothrow) int[n]; //nothrow in order not to throw an exception
+if(!a) return 2; //handle not enough memory case
+...
+delete[] a; // deallocate memory
+
+-> Направете съпоставка на операторите for и while.
+
+-> Каква е разликата между указател и псевдоним?
+
+-> Какъв е проблемът в дадения по-долу код:
+long x;
+short y;
+
+cin >> x >> y;
+y = x;
+cout << x << y; 
+
