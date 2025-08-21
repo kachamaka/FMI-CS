@@ -1,0 +1,8 @@
+A7-D9-A7-D9-A7-A9-D12-A9-D12-A9-A5-D7-A5-D7-A5-A3-D5-A3-D5-A3-A3-D5-A3-D5-A3-A5-D7-A5-D7-A5-A7-D9-A7-D9-A7-A7-D9-A7-D9-A7-A7-D9-A7-D9-A7-A9-D12-A9-D12-A9-A5-D7-A5-D7-A5-A0-D2-A0-D2-A0-A3-D5-A3-D5-A3-A5-D7-A5-D7-A5-A7-D9-A7-D9-A7-A7-D9-A7-D9-A7
+180-180-180-180-360-180-180-180-180-360-180-180-180-180-360-180-180-180-180-360-180-180-180-180-360-180-180-180-180-360-180-180-180-180-360-180-180-180-180-360-180-180-180-180-360-180-180-180-180-360-180-180-180-180-360-180-180-180-180-360-180-180-180-180-360-180-180-180-180-360-180-180-180-180-360-180-180-180-180-360
+x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+7-x-7-x-7-9-x-9-x-9-5-x-5-x-5-3-x-3-x-3-3-x-3-x-3-5-x-5-x-5-7-x-7-x-7-7-x-7-x-7-7-x-7-x-7-9-x-9-x-9-5-x-5-x-5-0-x-0-x-0-3-x-3-x-3-5-x-5-x-5-7-x-7-x-7-7-x-7-x-7
+x-9-x-9-x-x-12-x-12-x-x-7-x-7-x-x-5-x-5-x-x-5-x-5-x-x-7-x-7-x-x-9-x-9-x-x-9-x-9-x-x-9-x-9-x-x-12-x-12-x-x-7-x-7-x-x-2-x-2-x-x-5-x-5-x-x-7-x-7-x-x-9-x-9-x-x-9-x-9-x
+x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x
+x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x

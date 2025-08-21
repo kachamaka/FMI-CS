@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/guitar.css">
+    <link rel="icon" type="image/x-icon" href="../assets/img/ascii_chords.png">
+    <title>ASCII Chords editor</title>
+</head>
+<body>
+
+<nav class="unselectable">
+    <a href="../index.html" id="home">Home</a>
+    <a href="./chordsEditor.html" id="chordsEditor">Chords Editor</a>
+    <a href="./favourites.html" id="favourites">Favourites</a>
+    <a href="#" class="right" onclick="logout()" id="logout">Log Out</a>
+    <a href="./profile.html" id="profile" class="right">Profile</a>
+    <a href="./register.html" id="register" class="right">Sign Up</a>
+    <a href="./login.html" id="login" class="right">Log In</a>
+</nav>
+
+<div id="cardContainer" class="unselectable">
+  
+</div>
+
+<script>
+  window.onload = function() {
+    setTimeout(() => {
+      loadFavourites();
+    }, 100);
+  }
+</script>
+<script src="../script/main.js"></script>
+
+</body>
+</html>

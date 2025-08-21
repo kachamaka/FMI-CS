@@ -1,0 +1,46 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #DEFDF1;
+}
+
+.registration-form {
+  background-color: #DEFDF1;
+  padding: 30px;
+  border: 1px solid green;
+  width: 50%;
+  max-width: 400px; 
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s;
+}
+
+input:hover, select:hover {
+  border-color: #6fa06f;
+}
+
+.register-button {
+  background-color: transparent;
+  border: 2px solid #6fa06f; 
+  color: #6fa06f;
+  padding: 10px 15px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.register-button:hover {
+  background-color: #6fa06f;
+  color: #fff; 
+}

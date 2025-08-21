@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "*.pl": "prolog",
+        "xstring": "cpp",
+        "utility": "cpp",
+        "vector": "cpp",
+        "iostream": "cpp",
+        "stack": "cpp",
+        "ostream": "cpp",
+        "sstream": "cpp",
+        "string": "cpp",
+        "xhash": "cpp",
+        "list": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}

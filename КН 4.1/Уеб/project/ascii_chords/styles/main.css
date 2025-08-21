@@ -1,0 +1,374 @@
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+}
+
+nav {
+    background: linear-gradient(to right, #2c3e50, #3498db);
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border-radius: 8px;
+    margin-right: 5px;
+}
+
+nav a.right {
+    float: right;
+    margin-right: 15px;
+}
+
+nav a:hover {
+    background-color: #555;
+}
+
+section {
+    padding: 20px;
+    text-align: center;
+    color: #333;
+}
+
+h1 {
+    color: #3498db;
+}
+
+p {
+    line-height: 1.6;
+    color: #555;
+}
+
+#login, #register, #profile, #chordsEditor, #favourites {
+    display: none;
+} 
+
+.hide {
+    visibility: hidden;
+}
+
+.show {
+    visibility: visible;
+}
+
+.form-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+    color: #3498db;
+}
+
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+input {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #217dbb;
+}
+
+.profile-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container h2 {
+    color: #3498db;
+}
+
+.profile-info {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.profile-info label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.profile-info p {
+    line-height: 1.6;
+    color: #555;
+}
+
+.base {
+    padding-left: 10px;
+}
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: inline-block; /* Display cards inline */
+}
+
+/* Styling for the buttons */
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 5px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.interval {
+    width: 60px;
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 5px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+/* Styling for the card container */
+#cardContainer {
+    text-align: center; /* Optional: Center the cards */
+}
+
+ /* Styling for the chord card */
+.chordCard {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 5px;
+    padding: 8px;
+    display: inline-block; /* Display chord cards inline */
+}
+
+#buttonContainer {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.toast {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.success {
+    background-color: #4CAF50;
+}
+
+.fail {
+    background-color: #C62828;
+}
+
+ /* Hide the default checkbox */
+ #loop {
+    display: none;
+}
+
+/* Style for the toggle switch container */
+.loopContainer {
+    position: relative;
+    width: 60px;
+    height: 34px;
+    margin-left: 5px !important;
+}
+
+/* Style for the toggle switch */
+.loopSwitch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 34px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Style for the toggle switch when toggled on */
+.loopSwitch.active {
+    background-color: #4CAF50; /* Green */
+}
+
+/* Style for the toggle thumb */
+.loopThumb {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: white;
+    top: 4px;
+    left: 4px;
+    transition: transform 0.3s ease;
+}
+
+/* Style for the toggle thumb when toggled on */
+.loopThumb.active {
+    transform: translateX(26px);
+}
+
+.loopLabel {
+    margin-left: 70px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.unselectable {
+    user-select: none;
+}
+
+.user-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-container h2 {
+    color: #3498db;
+}
+
+.user-list {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.user-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-card h3 {
+    color: #3498db;
+}
+
+.user-card button {
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.user-card button:hover {
+    background-color: #c0392b;
+}
+
+#newPassword,
+#confirmPassword {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#submitPasswordChange {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#submitPasswordChange:hover {
+    background-color: #217dbb;
+}
+
+.removeButton {
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    color: red;
+    font-weight: bold;
+}

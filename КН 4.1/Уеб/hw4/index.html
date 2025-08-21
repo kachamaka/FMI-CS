@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрационна форма</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <form id="registration-form">
+    <label for="username">Потребителско име*:</label>
+    <input type="text" id="username" required minlength="3" maxlength="10">
+
+    <label for="name">Име*:</label>
+    <input type="text" id="name" required maxlength="50">
+
+    <label for="family-name">Фамилно име*:</label>
+    <input type="text" id="family-name" required maxlength="50">
+
+    <label for="email">Имейл*:</label>
+    <input type="email" id="email" required>
+
+    <label for="password">Парола*:</label>
+    <input type="password" id="password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,10}$">
+
+    <label for="street">Улица:</label>
+    <input type="text" id="street">
+
+    <label for="city">Град:</label>
+    <input type="text" id="city">
+
+    <label for="postal-code">Пощенски код:</label>
+    <input type="text" id="postal-code" pattern="^\d{5}-?\d{0,4}$">
+
+    <button type="button" id="register-btn">Регистрация</button>
+  </form>
+
+  <div id="success"></div>
+
+  <script src="main.js"></script>
+
+</body>
+</html>

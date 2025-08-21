@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/guitar.css">
+    <link rel="icon" type="image/x-icon" href="../assets/img/ascii_chords.png">
+    <title>ASCII Chords editor</title>
+</head>
+<body>
+
+<nav class="unselectable">
+    <a href="../index.html" id="home">Home</a>
+    <a href="./chordsEditor.html" id="chordsEditor">Chords Editor</a>
+    <a href="./favourites.html" id="favourites">Favourites</a>
+    <a href="#" class="right" onclick="logout()" id="logout">Log Out</a>
+    <a href="./profile.html" id="profile" class="right">Profile</a>
+    <a href="./register.html" id="register" class="right">Sign Up</a>
+    <a href="./login.html" id="login" class="right">Log In</a>
+</nav>
+
+<div class="classic-guitar unselectable">
+    <div class="guitar-neck-new">
+      <ul>
+        <div class="headstock-wrap">
+          <div class="headstock">
+            <span class="headstock-circel-one"></span><span class="headstock-circel-two"></span>
+            <ul class="headstock-strings">
+              <li class="headstock-string-f"></li>
+              <li class="headstock-string-h"></li>
+              <li class="headstock-string-g"></li>
+              <li class="headstock-string-d"></li>
+              <li class="headstock-string-a"></li>
+              <li class="headstock-string-e"></li>
+            </ul>
+          </div>
+        </div>
+        <li>
+          <ul class="fret--first">
+            <li>
+              E
+            </li>
+            <li>
+              B
+            </li>
+            <li>
+              G
+            </li>
+            <li>
+              D
+            </li>
+            <li>
+              A
+            </li>
+            <li>
+              E
+            </li>
+          </ul>
+          <!----><!---->
+          <span id="f0" onclick="playSound('f0')" note="e" class=""><i class="note-name">E</i></span>
+          <span id="b0" onclick="playSound('b0')" note="h" class=""><i class="note-name">B</i></span>
+          <span id="g0" onclick="playSound('g0')" note="g" class=""><i class="note-name">G</i></span>
+          <span id="d0" onclick="playSound('d0')" note="d" class=""><i class="note-name">D</i></span>
+          <span id="a0" onclick="playSound('a0')" note="a" class=""><i class="note-name">A</i></span>
+          <span id="e0" onclick="playSound('e0')" note="e" class=""><i class="note-name">E</i></span>
+        </li>
+        <li>
+          <!----><!----><!---->
+          <span id="f1" onclick="playSound('f1')" note="f" class=""><i class="note-name">F</i></span>
+          <span id="b1" onclick="playSound('b1')" note="c" class=""><i class="note-name">C</i></span>
+          <span id="g1" onclick="playSound('g1')" note="as" class=""><i class="note-name">A<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="d1" onclick="playSound('d1')" note="es" class=""><i class="note-name">E<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="a1" onclick="playSound('a1')" note="b" class=""><i class="note-name">B<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="e1" onclick="playSound('e1')" note="f" class=""><i class="note-name">F</i></span>
+        </li>
+        <li>
+          <!----><!----><!---->
+          <span id="f2" onclick="playSound('f2')" note="ges" class=""><i class="note-name">G<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="b2" onclick="playSound('b2')" note="des" class=""><i class="note-name">D<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="g2" onclick="playSound('g2')" note="a" class=""><i class="note-name">A</i></span>
+          <span id="d2" onclick="playSound('d2')" note="e" class=""><i class="note-name">E</i></span>
+          <span id="a2" onclick="playSound('a2')" note="h" class=""><i class="note-name">B</i></span>
+          <span id="e2" onclick="playSound('e2')" note="ges" class=""><i class="note-name">G<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+        </li>
+        <li>
+          <!---->
+          <div class="dots"></div>
+          <!---->
+          <span id="f3" onclick="playSound('f3')" note="g" class=""><i class="note-name">G</i></span>
+          <span id="b3" onclick="playSound('b3')" note="d" class=""><i class="note-name">D</i></span>
+          <span id="g3" onclick="playSound('g3')" note="b" class=""><i class="note-name">B<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="d3" onclick="playSound('d3')" note="f" class=""><i class="note-name">F</i></span>
+          <span id="a3" onclick="playSound('a3')" note="c" class=""><i class="note-name">C</i></span>
+          <span id="e3" onclick="playSound('e3')" note="g" class=""><i class="note-name">G</i></span>
+        </li>
+        <li>
+          <!----><!----><!---->
+          <span id="f4" onclick="playSound('f4')" note="as" class=""><i class="note-name">A<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="b4" onclick="playSound('b4')" note="es" class=""><i class="note-name">E<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="g4" onclick="playSound('b0')" note="h" class=""><i class="note-name">B</i></span>
+          <span id="d4" onclick="playSound('d4')" note="ges" class=""><i class="note-name">G<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="a4" onclick="playSound('a4')" note="des" class=""><i class="note-name">D<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="e4" onclick="playSound('e4')" note="as" class=""><i class="note-name">A<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+        </li>
+        <li>
+          <!---->
+          <div class="dots"></div>
+          <!---->
+          <span id="f5" onclick="playSound('f5')" note="a" class=""><i class="note-name">A</i></span>
+          <span id="b5" onclick="playSound('f0')" note="e" class=""><i class="note-name">E</i></span>
+          <span id="g5" onclick="playSound('b1')" note="c" class=""><i class="note-name">C</i></span>
+          <span id="d5" onclick="playSound('g0')" note="g" class=""><i class="note-name">G</i></span>
+          <span id="a5" onclick="playSound('d0')" note="d" class=""><i class="note-name">D</i></span>
+          <span id="e5" onclick="playSound('a0')" note="a" class=""><i class="note-name">A</i></span>
+        </li>
+        <li>
+          <!----><!----><!---->
+          <span id="f6" onclick="playSound('f6')" note="b" class=""><i class="note-name">B<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="b6" onclick="playSound('f1')" note="f" class=""><i class="note-name">F</i></span>
+          <span id="g6" onclick="playSound('b2')" note="des" class=""><i class="note-name">D<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="d6" onclick="playSound('g1')" note="as" class=""><i class="note-name">A<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="a6" onclick="playSound('d1')" note="es" class=""><i class="note-name">E<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="e6" onclick="playSound('a1')" note="b" class=""><i class="note-name">B<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+        </li>
+        <li>
+          <!---->
+          <div class="dots"></div>
+          <!---->
+          <span id="f7" onclick="playSound('f7')" note="h" class=""><i class="note-name">B</i></span>
+          <span id="b7" onclick="playSound('f2')" note="ges" class=""><i class="note-name">G<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="g7" onclick="playSound('b3')" note="d" class=""><i class="note-name">D</i></span>
+          <span id="d7" onclick="playSound('g2')" note="a" class=""><i class="note-name">A</i></span>
+          <span id="a7" onclick="playSound('d2')" note="e" class=""><i class="note-name">E</i></span>
+          <span id="e7" onclick="playSound('a2')" note="h" class=""><i class="note-name">B</i></span>
+        </li>
+        <li>
+          <!----><!----><!---->
+          <span id="f8" onclick="playSound('f8')" note="c" class=""><i class="note-name">C</i></span>
+          <span id="b8" onclick="playSound('f3')" note="g" class=""><i class="note-name">G</i></span>
+          <span id="g8" onclick="playSound('b4')" note="es" class=""><i class="note-name">E<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="d8" onclick="playSound('g3')" note="b" class=""><i class="note-name">B<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="a8" onclick="playSound('d3')" note="f" class=""><i class="note-name">F</i></span>
+          <span id="e8" onclick="playSound('a3')" note="c" class=""><i class="note-name">C</i></span>
+        </li>
+        <li>
+          <!---->
+          <div class="dots"></div>
+          <!---->
+          <span id="f9" onclick="playSound('f9')" note="des" class=""><i class="note-name">D<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="b9" onclick="playSound('f4')" note="as" class=""><i class="note-name">A<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="g9" onclick="playSound('f0')" note="e" class=""><i class="note-name">E</i></span>
+          <span id="d9" onclick="playSound('b0')" note="h" class=""><i class="note-name">B</i></span>
+          <span id="a9" onclick="playSound('d4')" note="ges" class=""><i class="note-name">G<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="e9" onclick="playSound('a4')" note="des" class=""><i class="note-name">D<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+        </li>
+        <li>
+          <!----><!----><!---->
+          <span id="f10" onclick="playSound('f10')" note="d" class=""><i class="note-name">D</i></span>
+          <span id="b10" onclick="playSound('f5')" note="a" class=""><i class="note-name">A</i></span>
+          <span id="g10" onclick="playSound('f1')" note="f" class=""><i class="note-name">F</i></span>
+          <span id="d10" onclick="playSound('b1')" note="c" class=""><i class="note-name">C</i></span>
+          <span id="a10" onclick="playSound('g0')" note="g" class=""><i class="note-name">G</i></span>
+          <span id="e10" onclick="playSound('d0')" note="d" class=""><i class="note-name">D</i></span>
+        </li>
+        <li>
+          <!----><!----><!---->
+          <span id="f11" onclick="playSound('f11')" note="es" class=""><i class="note-name">E<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="b11" onclick="playSound('f6')" note="b" class=""><i class="note-name">B<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="g11" onclick="playSound('f2')" note="ges" class=""><i class="note-name">G<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="d11" onclick="playSound('b2')" note="des" class=""><i class="note-name">D<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="a11" onclick="playSound('g1')" note="as" class=""><i class="note-name">A<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="e11" onclick="playSound('d1')" note="es" class=""><i class="note-name">E<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+        </li>
+        <li>
+          <!----><!---->
+          <div class="dots-double"><span></span><span></span></div>
+
+          <span id="f12" onclick="playSound('f12')" note="e" class=""><i class="note-name">E</i></span>
+          <span id="b12" onclick="playSound('f7')" note="h" class=""><i class="note-name">B</i></span>
+          <span id="g12" onclick="playSound('f3')" note="g" class=""><i class="note-name">G</i></span>
+          <span id="d12" onclick="playSound('b3')" note="d" class=""><i class="note-name">D</i></span>
+          <span id="a12" onclick="playSound('g2')" note="a" class=""><i class="note-name">A</i></span>
+          <span id="e12" onclick="playSound('d2')" note="e" class=""><i class="note-name">E</i></span>
+        </li>
+        <li>
+          <!----><!----><!---->
+          <span id="f13" onclick="playSound('f13')" note="f" class=""><i class="note-name">F</i></span>
+          <span id="b13" onclick="playSound('f8')" note="c" class=""><i class="note-name">C</i></span>
+          <span id="g13" onclick="playSound('f4')" note="as" class=""><i class="note-name">A<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="d13" onclick="playSound('b4')" note="es" class=""><i class="note-name">E<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="a13" onclick="playSound('g3')" note="b" class=""><i class="note-name">B<span style="font-family: Arial Unicode MS, Lucida Sans Unicode;">♭</span></i></span>
+          <span id="e13" onclick="playSound('d3')" note="f" class=""><i class="note-name">F</i></span>
+        </li>
+        <ul data-v-64bf88e6="" class="strings">
+          <li data-v-64bf88e6=""><span data-v-64bf88e6="" class="string-left" style="flex-grow: 13;"></span><span data-v-64bf88e6="" class="string-right" style="flex-grow: 1; transform: matrix(1, 0, 0, 1, 0, 0);"></span></li>
+          <li data-v-64bf88e6=""><span data-v-64bf88e6="" class="string-left" style="flex-grow: 5;"></span><span data-v-64bf88e6="" class="string-right" style="flex-grow: 9; transform: matrix(1, 0, 0, 1, 0, 0);"></span></li>
+          <li data-v-64bf88e6=""><span data-v-64bf88e6="" class="string-left" style="flex-grow: 0;"></span><span data-v-64bf88e6="" class="string-right" style="flex-grow: 14; transform: matrix(1, 0, 0, 1, 0, 0);"></span></li>
+          <li data-v-64bf88e6=""><span data-v-64bf88e6="" class="string-left" style="flex-grow: 4;"></span><span data-v-64bf88e6="" class="string-right" style="flex-grow: 10; transform: matrix(1, 0, 0, 1, 0, 0);"></span></li>
+          <li data-v-64bf88e6=""><span data-v-64bf88e6="" class="string-left" style="flex-grow: 1;"></span><span data-v-64bf88e6="" class="string-right" style="flex-grow: 13; transform: matrix(1, 0, 0, 1, 0, 0);"></span></li>
+          <li data-v-64bf88e6=""><span data-v-64bf88e6="" class="string-left" style="flex-grow: 4;"></span><span data-v-64bf88e6="" class="string-right" style="flex-grow: 10; transform: matrix(1, 0, 0, 1, 0, 0);"></span></li>
+        </ul>
+        <div></div>
+      </ul>
+    </div>
+</div>
+
+<div id="buttonContainer" class="unselectable">
+  <button id="openModalBtn" class="btn">Add chord</button>
+  <button class="btn" onclick="playSequence()">Play Sequence</button>
+  <button class="btn" onclick="clearSequence()">Clear Sequence</button>
+  <button class="btn" onclick="exportSequence()">Export Sequence</button>
+  <button class="btn" onclick="importSequence()">Import Sequence</button>
+  <button class="btn" onclick="shareSequence()">Share Sequence</button>
+  <!-- <input class="interval" placeholder="interval" type="number" name="interval" id="interval"> -->
+  <div class="loopContainer" onclick="toggle()">
+      <input type="checkbox" id="loop">
+      <div id="loopSwitch" class="loopSwitch">
+          <div id="loopThumb" class="loopThumb"></div>
+      </div>
+      
+      <span class="loopLabel">
+        Loop
+      </span>
+  </div>
+</div>
+
+<div class="base unselectable" id="sequenceContainer"></div>
+  
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeModalBtn">&times;</span>
+    <h2>Add Guitar Chord</h2>
+    <input type="text" id="chordName" placeholder="Enter chord name">
+
+    <input type="text" id="chordString" placeholder="x-x-x-x-x-x">
+
+    <button id="addChordBtn" class="btn" onclick="addChord()">Add Chord</button>
+  </div>
+</div>
+
+<div id="cardContainer" class="unselectable">
+  
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var openModalBtn = document.getElementById("openModalBtn");
+    var closeModalBtn = document.getElementById("closeModalBtn");
+    var addChordBtn = document.getElementById("addChordBtn");
+    var modal = document.getElementById("myModal");
+
+    openModalBtn.addEventListener("click", function () {
+      modal.style.display = "block";
+    });
+
+    closeModalBtn.addEventListener("click", function () {
+      modal.style.display = "none";
+    });
+
+    window.addEventListener("click", function (event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+
+  });
+
+  window.onload = function() {
+    setTimeout(() => {
+      loadChords();
+    }, 100);
+  }
+</script>
+<script src="../script/main.js"></script>
+
+</body>
+</html>
