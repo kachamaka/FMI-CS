@@ -1,0 +1,391 @@
+Да се напише заявка, която извежда име на клас, годината на първата битка, в която кораб на този
+клас е участвал, годината на последната битка, в която кораб на този клас е участвал, и броя на
+всички различни битки, в които кораби на този клас са участвали
+
+само за тези класове, започващи с буквата N. 
+
+Ако за даден клас няма кораб, който да е участвал в битка, за съответните години да се върне стойност null.
+
+
+SELECT classes.class, MIN(battles.date), MAX(battles.date),
+	   COUNT(DISTINCT battles.name)
+FROM battles
+JOIN outcomes ON battles.name = outcomes.battle
+JOIN ships ON ships.name = outcomes.ship
+RIGHT JOIN classes ON classes.class = ships.class
+WHERE classes.class IN ("A", "B", "D")
+GROUP BY classes.class;
+
+
+SELECT classes.class, MIN(battles.date), MAX(battles.date),
+	   COUNT(DISTINCT battles.name)
+FROM battles
+RIGHT JOIN classes ON battles.name IN(
+						SELECT outcomes.battle
+						FROM outcomes
+						WHERE outcomes.ship IN(
+								SELECT ships.name
+								FROM ships
+								WHERE ships.class = classes.class
+							  )
+                      )
+WHERE classes.class IN ("A", "B", "D")
+GROUP BY classes.class;
+
+
+Да се напише заявка, която да изведе имената на тези битки, за които броят на корабите от тип 'bb',
+участвали в тази битка, 
+
+е по-голям от броя на корабите от тип 'bc', участвали в същата битка. Битки, в които не е участвал нито един кораб, да не се извеждат в резултата.
+
+SELECT battles_with_bb_ships.battle_name
+FROM   (SELECT battles.name AS battle_name, 
+			   COUNT(outcomes.ship) AS bb_ships
+		FROM battles
+		JOIN outcomes ON battles.name = outcomes.battle
+		JOIN ships ON ships.name = outcomes.ship
+		JOIN classes ON classes.class = ships.class
+		WHERE classes.type = "bb"
+		GROUP BY battles.name) AS battles_with_bb_ships
+LEFT JOIN
+	   (SELECT battles.name AS battle_name, 
+			   COUNT(outcomes.ship) AS bc_ships
+		FROM battles
+		JOIN outcomes ON battles.name = outcomes.battle
+		JOIN ships ON ships.name = outcomes.ship
+		JOIN classes ON classes.class = ships.class
+		WHERE classes.type = "bc"
+		GROUP BY battles.name) AS bc_ships
+ON battles_with_bb_ships.battle_name =
+   battles_with_bc_ships.battle_name
+   
+WHERE battles_with_bb_ships.bb_ships >
+	  battles_with_bc_ships.bc_ships;
+
+
+
+Попълнете липсващите части, обозначени с ______ така, че заявката да изведе име и държава на корабите, които никога не са потъвали в битка (може и да не са участвали).
+
+SELECT ships.name, classes.country
+FROM ships 
+LEFT JOIN outcomes ON name=ship
+JOIN classes ON ships.class=classes.class
+WHERE outcomes.result <> "sunk";
+
+Попълнете липсващите части, обозначени с ______ така, че заявката да изведе име, водоизместимост и брой оръдия на най-леките кораби с най-много оръдия.
+
+SELECT s.name, c.displacement, c.numguns
+FROM classes c 
+JOIN ships s ON s.class=c.class
+WHERE displacement = (SELECT MIN(displacement)
+					  FROM classes) 
+		AND
+	  numguns = (SELECT MAX(numguns)
+				 FROM classes c1
+				 WHERE c1.class = c.class);
+
+
+Попълнете липсващите части, обозначени с ______ така, че заявката да изведе име на битките, в които е участвал един кораб.
+
+/*
+SELECT battle
+FROM outcomes
+GROUP BY battle
+HAVING COUNT(ship) = 1;
+*/
+
+
+SELECT battle
+FROM outcomes o1
+WHERE EXISTS (SELECT *
+			  FROM outcomes o2
+			  WHERE o1.battle = o2.battle HAVING COUNT(ship)=1 );
+
+
+Да се посочи заявката, която извежда име на класа и брой на потъналите в битка кораби за съответния клас, за тези класове с повече от 5 кораба.
+
+/*
+SELECT t1.class, t1.sunks
+FROM(SELECT ships.class, COUNT(outcomes.ship) AS sunks
+	FROM ships
+	JOIN outcomes ON ships.name = outcomes.ship
+	WHERE outcomes.result = "sunk"
+	GROUP BY ships.class) AS t1
+JOIN
+	(SELECT ships.class, COUNT(outcomes.ship) AS cnt
+	FROM ships
+	JOIN outcomes ON ships.name = outcomes.ship
+	GROUP BY ships.class
+	HAVING cnt > 5) AS t2
+ON t1.class = t2.class;
+
+SELECT ships.class, 
+	  SUM(IF(outcomes.result="sunk",1,0) AS sunks
+FROM ships
+JOIN outcomes ON ships.name = outcomes.ship
+GROUP BY ships.class
+HAVING COUNT(outcomes.ship)>5;
+
+*/
+
+
+SELECT DISTINCT t1.country, IF(t2.cnt IS NULL, 0, t2.cnt)
+FROM classes AS t1
+LEFT JOIN (SELECT classes.country, COUNT(*) AS cnt
+           FROM classes
+		   JOIN ships ON classes.class = ships.class
+		   JOIN outcomes ON ships.name = outcomes.ship
+		   WHERE outcomes.result = "sunk"
+		   ) AS t2 ON t1.country = t2.country
+WHERE t1.class IN(
+			SELECT ships.class
+			FROM ships
+			WHERE ships.name IN(
+				SELECT ship FROM outcomes));
+
+
+Да се посочи заявката, която извежда всички държави, които имат поне един кораб, участвал в
+битка, както и броя на потъналите кораби за всяка от държавите.
+
+
+SELECT t1.country, t2.cnt
+FROM(
+		SELECT DISTINCT classes.country
+		FROM classes
+		JOIN ships ON classes.class = ships.class
+		JOIN outcomes ON outcomes.ship = ships.name ) AS t1
+JOIN
+	(	SELECT classes.country, COUNT(*) AS cnt
+		FROM classes
+		JOIN ships ON classes.class = ships.class
+		JOIN outcomes ON outcomes.ship = ships.name
+		WHERE outcomes.result = "sunk"
+		GROUP BY classes.country ) AS t2
+ON t1.country = t2.country;
+
+SELECT classes.country, 
+	   SUM(IF(outcomes.result = "sunk",1,0)
+FROM classes
+JOIN ships ON classes.class = ships.class
+JOIN outcomes ON outcomes.ship = ships.name
+GROUP BY classes.country;
+
+
+Да се посочи заявката, която извежда имената на битките, които са по-мащабни (с кораби от повече
+държави) от битката в Коралово море (Coral Sea).
+
+
+SELECT t.battle
+FROM(	SELECT outcomes.battle, 
+			   COUNT(DISTINCT classes.country) AS countries
+		FROM classes
+		JOIN ships ON ships.class = classes.class
+		JOIN outcomes ON ships.name = outcomes.ship
+		GROUP BY outcomes.battle ) AS t
+WHERE t.countries > (
+			SELECT COUNT(DISTINCT classes.country)
+			FROM classes
+			JOIN ships ON ships.class = classes.class
+			JOIN outcomes ON ships.name = outcomes.ship 
+			WHERE outcomes.battle = "Coral Sea"
+			//GROUP BY outcomes.battle
+	  )
+	  
+SELECT outcomes.battle
+FROM classes
+JOIN ships ON ships.class = classes.class
+JOIN outcomes ON ships.name = outcomes.ship
+GROUP BY outcomes.battle
+HAVING COUNT(DISTINCT classes.country) > (
+			SELECT COUNT(DISTINCT classes.country)
+			FROM classes
+			JOIN ships ON ships.class = classes.class
+			JOIN outcomes ON ships.name = outcomes.ship 
+			WHERE outcomes.battle = "Coral Sea"
+			//GROUP BY outcomes.battle
+	  )
+
+SELECT DISTINCT battle
+FROM outcomes, (SELECT count(DISTINCT country) as NumCountries
+FROM outcomes o,ships s,classes c
+WHERE o.ship=s.name AND s.class=c.class
+AND battle='Coral Sea') as t
+HAVING (SELECT count(DISTINCT country)
+FROM outcomes o1,ships s,classes c
+WHERE o1.ship=s.name AND s.class=c.class AND battle=o1.battle)
+>
+t.NumCountries;
+
+SELECT DISTINCT battle
+FROM outcomes o1
+WHERE
+(SELECT COUNT(DISTINCT country)
+FROM outcomes o,ships s,classes c
+WHERE o.ship=s.name AND s.class=c.class AND battle=o1.battle)
+>
+(SELECT count(DISTINCT country)
+FROM outcomes o,ships s,classes c
+WHERE o.ship=s.name AND s.class=c.class AND battle='b1')
+
+
+SELECT DISTINCT battle
+FROM outcomes o, ships s, classes c
+Where o.ship=s.name AND s.class=c.class
+GROUP BY battle
+HAVING COUNT(DISTINCT country)>(SELECT COUNT(country)
+FROM outcomes o, classes c, ships s
+WHERE ship=name AND s.class=c.class
+AND battle='b2');
+
+
+
+
+Оградете буквата на заявката, която извежда имената на всички кораби, пуснати на вода в
+година, в която е имало битка (не е задължително корабът да е участвал в нея).
+
+
+SELECT ships.name
+FROM ships
+WHERE launched IN (
+		SELECT YEAR(battles.date)
+		FROM battles );
+
+
+
+select country, COUNT(result)
+from classes c
+left join ships s
+on c.class = s.class
+left join outcomes o
+on s.name = o.ship
+where o.result = 'sunk' OR result IS NULL
+GROUP BY country;
+
+
+Оградете буквата на заявката, която за всички държави, които имат най-много 3 (евентуално 0)
+кораба, извежда името на държавата и броя потънали кораби (който също може да бъде 0).
+
+SELECT countries_with_less_than_3_ships.country,
+	   countries_and_their_sunked_ships.sunks
+FROM	(SELECT classes.country, COUNT(ships.name) AS cnt
+		FROM classes
+		LEFT JOIN ships ON classes.class = ships.class
+		GROUP BY classes.country
+		HAVING cnt <= 3) AS countries_with_less_than_3_ships
+JOIN 
+		(SELECT classes.country, COUNT(outcomes.ship) AS sunks
+		FROM classes
+		JOIN ships ON classes.class = ships.class
+		JOIN outcomes ON ships.name = classes.ships
+		WHERE result = "sunk"
+		GROUP BY country) countries_and_their_sunked_ships
+ON countries_with_less_than_3_ships.country 
+       =
+   countries_and_their_sunked_ships.country;
+
+
+
+
+SELECT authors.name, books.name
+FROM authors
+LEFT JOIN books ON authors.id = books.a_id
+WHERE books.name IS NULL;
+
+
+
+
+
+
+
+
+
+
+
+///////////////////
+movies задачки
+
+Да се напише заявка, която да изведе име на студио, годината на първия филм за това студио, годината на последния филм за това студио и броя на всички филми за това студио, само за тези студиа започващи с буквата ‘M’
+SELECT studio.name, MIN(movie.year), MAX(movie.year), COUNT(movie.title)
+FROM studio
+LEFT JOIN movie ON studio.name = movie.studioname
+WHERE studio.name LIKE "M%"
+GROUP BY studio.name;
+
+Да се напише заявка, която да изведе името на актрисата, участвала в най-много филми, и броя на филмите, в които е участвала. 
+SELECT moviestar.name, COUNT(starsin.starname) AS cnt
+FROM moviestar
+JOIN starsin ON moviestar.name = starsin.starname
+WHERE gender = "F"
+GROUP BY moviestar.name
+ORDER BY cnt DESC
+LIMIT 1;
+
+Попълнете липсващите части, обозначени с ______ така, че заявката да изведе за всяко студио името на студиото, заглавието и годината на филма, излязъл последно на екран за това студио. 
+SELECT studioname, title, year  
+FROM movie m  
+WHERE YEAR(year) = (SELECT YEAR(MAX(year))
+			  FROM movie m2                        
+			  WHERE m2.studioname=m.studioname);
+
+Попълнете липсващите части, обозначени с ______ така, че заявката да изведе име на продуцент и обща дължина на продуцираните от него филми, за тези продуценти, които имат поне един филм преди 1980 г. 
+SELECT movieexec.name, SUM(movie.length) 
+FROM movieexec 
+JOIN movie ON movie.producerc = movieexec.cert
+WHERE movieexec.cert IN(
+		SELECT movie.producerc
+		FROM movie
+		WHERE movie.year < '1980')
+GROUP BY movieexec.name;
+
+
+
+
+
+
+Попълнете липсващите части, обозначени с ______ така, че заявката да изведе име на актьорите, участвали във филми на продуценти с най-големи нетни активи, както и заглавие на филмите, в които са участвали, име на продуцент и нетни активи. 
+SELECT starsin.starname, starsin.movietitle, t.name, t.networth 
+FROM starsin 
+JOIN movie ON starsin.movietitle=movie.title AND starsin.movieyear=movie.year    
+JOIN (SELECT cert, networth, name        
+      FROM movieexec        
+	  WHERE networth = (SELECT MAX(networth) FROM movieexec)) t 
+	  ON t.cert = movie.producerc;
+
+Заградете буквата на заявката, която извежда името на продуцента, заглавието и годината на всички филми, продуцирани от продуцента на филма ‘Interstellar’. 
+A) Ще изведе само филма "Interstellar"
+Б) В заявката в JOIN оператор EXISTS ще даде true винаги и главната заявка връща всички продуценти, а не само този на Interstellar
+В) Вярно. Даже няма нужда да е ANY - може и просто =
+Г) Вярно. Има напълно ненужен JOIN на starsin, заради който се налага DISTINCT
+​Да се посочи заявката, която извежда името на продуцента и имената на филмите,  продуцирани от продуцента на 'Pretty Woman'. Възможно е името на продуцента на филма да  не е известно.
+A) Вярно
+Б) Вложената заявка не връща name и title
+В) Ако не е известен продуцента, ще даде empty set. Освен това връща само Pretty Woman
+Г) Извежда този, който НЕ Е продуцирал Pretty Woman
+Да се посочи заявката, която за актьорите, участвали в най­много филми на съответното  студио, извежда име на студио, име на актьор и брой филми, в които е участвал актьорът. В  резултата ​ не​  трябва да се включват филми, за които името на студиото не е известно.
+A) Невалиден COUNT в HAVING
+Б) Невалиден COUNT в HAVING
+В) DISTINCT в COUNT ще редуцира броя на участията само до 1
+Г) Вярно
+
+
+
+Да се посочи заявката, която извежда имената и адресите на всички актриси от  София, както и на всички филмови студиа от София. Резултатите да са сортирани по адрес. 
+
+a) Студиото и човека трябва да са на еднакъв адрес
+б) Вярно
+в) В първата заявка няма ограничение да са от София
+г) Групиране? По адрес? Сечение? Неясно какво се иска с тази задача.
+д) JOIN между студио и актьор? Non sense
+
+
+
+
+
+
+
+
+
+
+
+
+
