@@ -1,0 +1,83 @@
+in: open ..\test\input.json
+out: Successfully opened ..\test\input.json.
+
+in: validate
+out: File is valid.
+
+in: print
+out:
+Object:
+store:
+ Object:
+ book:
+  Array:
+   Object:
+   category:reference
+   author:Nigel Rees
+   title:Sayings of the Century
+   price:8.95
+   Object:
+   category:fiction
+   author:Herman Melville
+   title:Moby Dick
+   isbn:0-553-21311-3
+   price:8.99
+   Object:
+   category:fiction
+   author:J.R.R. Tolkien
+   title:The Lord of the Rings
+   isbn:0-395-19395-8
+   price:22.99
+ bicycle:
+  Object:
+  color:red
+  price:19.95
+expensive:10
+
+in: search name
+out: Nothing found.
+
+in: search category
+out:
+reference
+fiction
+fiction
+
+in: set $.store.book[0].category "sci-fi"
+out: Successfully set element.
+
+in: create $.store.book[4] "book"
+out: Successfully created element.
+
+in: delete $.expensive
+out: Successfully deleted element.
+
+in: move $.store.book[1] $.store.book[2]
+out: Successfully moved element.
+
+in: print
+out: 
+Object:
+store:
+ Object:
+ book:
+  Array:
+   Object:
+   category:sci-fi
+   author:Nigel Rees
+   title:Sayings of the Century
+   price:8.95
+   Object:
+   category:fiction
+   author:Herman Melville
+   title:Moby Dick
+   isbn:0-553-21311-3
+   price:8.99
+   book
+ bicycle:
+  Object:
+  color:red
+  price:19.95
+
+save
+Successfully saved to file ..\test\input.json

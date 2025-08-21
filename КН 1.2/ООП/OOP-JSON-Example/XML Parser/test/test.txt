@@ -1,0 +1,50 @@
+in: open ..\test\input.xml
+out: Successfully opened ..\test\input.xml.
+
+in: print
+out:
+Tag Name: people
+ID: _1
+  Tag Name: person
+  ID: 0
+    Tag Name: name
+    ID: _2
+    Text: John Smith
+    Tag Name: address
+    ID: _3
+    Text: USA
+  Tag Name: person
+  ID: 1
+    Tag Name: name
+    ID: _4
+    Text: Ivan Petrov
+    Tag Name: address
+    ID: _5
+    Text: Bulgaria
+
+in: children _1
+out:
+Tag Name: person
+ID: 1
+  Tag Name: name
+  ID: _4
+  Text: Ivan Petrov
+  Tag Name: address
+  ID: _5
+  Text: Bulgaria
+Tag Name: person
+ID: 0
+  Tag Name: name
+  ID: _2
+  Text: John Smith
+  Tag Name: address
+  ID: _3
+  Text: USA
+
+in: child _1 1
+out: 
+ID: 0
+Name: person
+
+in: text _3
+out: USA
