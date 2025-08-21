@@ -1,0 +1,724 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     23790,        668]*)
+(*NotebookOutlinePosition[     24434,        690]*)
+(*  CellTagsIndexPosition[     24390,        686]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+    StyleBox[\(n\  = \ 3;\),
+      "Text",
+      FormatType->StandardForm,
+      FontFamily->"Arial",
+      FontSize->14], "\[IndentingNewLine]", 
+    StyleBox[\(start\  = \ 0;\),
+      "Text",
+      FormatType->StandardForm,
+      FontFamily->"Arial",
+      FontSize->14], "\n", 
+    RowBox[{
+      StyleBox[\(end\  = \ 1;\),
+        "Text"], 
+      StyleBox["\[IndentingNewLine]",
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14]}], "\[IndentingNewLine]", 
+    RowBox[{
+      StyleBox[\(Array[x, \ n + 1, \ 0];\),
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14], 
+      StyleBox[" \t\t\t",
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14]}], "\n", 
+    RowBox[{
+      StyleBox[\(Array[r, \ n - 1];\),
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14], 
+      StyleBox[" \t\t",
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14]}], "\n", 
+    RowBox[{
+      StyleBox[\(Array[a, \ n - 1];\),
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14], 
+      StyleBox[" \t\t",
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14]}], "\n", 
+    RowBox[{
+      StyleBox[\(Array[b, \ n - 1];\),
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14], 
+      StyleBox[" \t\t\t\t",
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14]}], "\n", 
+    RowBox[{
+      StyleBox[\(Array[c, \ n - 1];\),
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14], 
+      StyleBox[" \t\t\t\t",
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14]}], "\n", 
+    RowBox[{
+      StyleBox[\(Array[d, \ n + 1, \ 0];\),
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14], 
+      StyleBox[" ",
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14], 
+      StyleBox["\[IndentingNewLine]",
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14], 
+      StyleBox["\t\t\t",
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14], 
+      StyleBox["\n",
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14], 
+      StyleBox[\( (*Generirame\ vyzlite*) \),
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14]}], "\n", 
+    RowBox[{
+      StyleBox[\(Do\ [\ x[i]\  = \ i/n, \ {i, \ start, \ end}];\),
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14], 
+      StyleBox["\n",
+        "Text"], 
+      StyleBox[\( (*Zadavame\ Funkciqta*) \),
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14]}], "\[IndentingNewLine]", 
+    RowBox[{
+      StyleBox[\(f[t_] := E^\(t^2\);\),
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14], 
+      StyleBox["\[IndentingNewLine]",
+        "Text"], 
+      StyleBox[\( (*Generirame\ proizvodnite\ f[start]\ i\ f[end]*) \),
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14]}], "\[IndentingNewLine]", 
+    StyleBox[\(d[0] = \(f'\)[start];\),
+      "Text",
+      FormatType->StandardForm,
+      FontFamily->"Arial",
+      FontSize->14], "\[IndentingNewLine]", 
+    RowBox[{
+      StyleBox[\(d[n] = \(f'\)[end];\),
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14], 
+      StyleBox["\[IndentingNewLine]",
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14], 
+      StyleBox[\( (*Generirame\ polinomite\ vyv\ vseki\ edin\ ot\ vyzlite*) \
+\),
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14]}], "\[IndentingNewLine]", 
+    RowBox[{
+      RowBox[{
+        StyleBox[\(P[i_, t_]\),
+          FormatType->StandardForm,
+          FontFamily->"Arial",
+          FontSize->14], 
+        StyleBox[":=",
+          FormatType->StandardForm,
+          FontFamily->"Arial",
+          FontSize->14], 
+        RowBox[{
+          StyleBox["If",
+            FormatType->StandardForm,
+            FontFamily->"Arial",
+            FontSize->14], 
+          StyleBox["[",
+            FormatType->StandardForm,
+            FontFamily->"Arial",
+            FontSize->14], 
+          RowBox[{
+            StyleBox[\(t \[GreaterEqual] x[i] && t \[LessEqual] x[i + 1]\),
+              FormatType->StandardForm,
+              FontFamily->"Arial",
+              FontSize->14], 
+            StyleBox[",",
+              FormatType->StandardForm,
+              FontFamily->"Arial",
+              FontSize->14], 
+            StyleBox["\[IndentingNewLine]",
+              FormatType->StandardForm,
+              FontFamily->"Arial",
+              FontSize->14], 
+            RowBox[{
+              StyleBox[\(f[x[i]]\),
+                FormatType->StandardForm,
+                FontFamily->"Arial",
+                FontSize->14], 
+              StyleBox["\[IndentingNewLine]",
+                FormatType->StandardForm,
+                FontFamily->"Arial",
+                FontSize->14], 
+              StyleBox["+",
+                FormatType->StandardForm,
+                FontFamily->"Arial",
+                FontSize->14], 
+              StyleBox[\(d[i]*\((t - x[i])\)\),
+                FormatType->StandardForm,
+                FontFamily->"Arial",
+                FontSize->14], 
+              StyleBox["\[IndentingNewLine]",
+                FormatType->StandardForm,
+                FontFamily->"Arial",
+                FontSize->14], 
+              StyleBox["+",
+                FormatType->StandardForm,
+                FontFamily->"Arial",
+                FontSize->14], 
+              RowBox[{
+                RowBox[{
+                  StyleBox["(",
+                    FormatType->StandardForm,
+                    FontFamily->"Arial",
+                    FontSize->14], 
+                  StyleBox["\[IndentingNewLine]",
+                    FormatType->StandardForm,
+                    FontFamily->"Arial",
+                    FontSize->14], 
+                  RowBox[{
+                    StyleBox["(*",
+                      FormatType->StandardForm,
+                      FontFamily->"Arial",
+                      FontSize->14], 
+                    RowBox[{
+                      StyleBox["Pi",
+                        FormatType->StandardForm,
+                        FontFamily->"Arial",
+                        FontSize->14], 
+                      StyleBox["[",
+                        FormatType->StandardForm,
+                        FontFamily->"Arial",
+                        FontSize->14], 
+                      StyleBox[
+                        RowBox[{
+                          StyleBox["xi",
+                            FormatType->StandardForm,
+                            FontFamily->"Arial",
+                            FontSize->14], 
+                          StyleBox[",",
+                            FormatType->StandardForm,
+                            FontFamily->"Arial",
+                            FontSize->14], 
+                          StyleBox[" ",
+                            FormatType->StandardForm,
+                            FontFamily->"Arial",
+                            FontSize->14], 
+                          StyleBox["xi",
+                            FormatType->StandardForm,
+                            FontFamily->"Arial",
+                            FontSize->14], 
+                          StyleBox[",",
+                            FormatType->StandardForm,
+                            FontFamily->"Arial",
+                            FontSize->14], 
+                          StyleBox[" ",
+                            FormatType->StandardForm,
+                            FontFamily->"Arial",
+                            FontSize->14], 
+                          RowBox[{
+                            StyleBox[
+                              RowBox[{
+                                StyleBox["x",
+                                  FormatType->StandardForm,
+                                  FontFamily->"Arial",
+                                  FontSize->14], 
+                                StyleBox["i",
+                                  "Subtitle",
+                                  FormatType->StandardForm,
+                                  FontFamily->"Arial",
+                                  FontSize->14]}]], 
+                            StyleBox["+",
+                              "Subtitle",
+                              FormatType->StandardForm,
+                              FontFamily->"Arial",
+                              FontSize->14], 
+                            StyleBox["1",
+                              "Subtitle",
+                              FormatType->StandardForm,
+                              FontFamily->"Arial",
+                              FontSize->14]}]}],
+                        "Output"], 
+                      StyleBox["]",
+                        FormatType->StandardForm,
+                        FontFamily->"Arial",
+                        FontSize->14]}], 
+                    StyleBox["*)",
+                      FormatType->StandardForm,
+                      FontFamily->"Arial",
+                      FontSize->14]}], 
+                  StyleBox["\[IndentingNewLine]",
+                    FormatType->StandardForm,
+                    FontFamily->"Arial",
+                    FontSize->14], 
+                  StyleBox["\t",
+                    "Output"], 
+                  
+                  StyleBox[\(\((\((f[x[i + 1]] - f[x[i]])\)/\((x[i + 1] - 
+                                x[i])\) - d[i])\)/\((x[i + 1] - x[i])\)\),
+                    FormatType->StandardForm,
+                    FontFamily->"Arial",
+                    FontSize->14], 
+                  StyleBox[")",
+                    FormatType->StandardForm,
+                    FontFamily->"Arial",
+                    FontSize->14]}], 
+                StyleBox["\[IndentingNewLine]",
+                  FormatType->StandardForm,
+                  FontFamily->"Arial",
+                  FontSize->14], 
+                StyleBox["\t\t",
+                  "Output"], 
+                StyleBox["*",
+                  FormatType->StandardForm,
+                  FontFamily->"Arial",
+                  FontSize->14], 
+                StyleBox[\(\((t - x[i])\)^2\),
+                  FormatType->StandardForm,
+                  FontFamily->"Arial",
+                  FontSize->14]}], 
+              StyleBox["\[IndentingNewLine]",
+                FormatType->StandardForm,
+                FontFamily->"Arial",
+                FontSize->14], 
+              StyleBox["+",
+                FormatType->StandardForm,
+                FontFamily->"Arial",
+                FontSize->14], 
+              RowBox[{
+                StyleBox["(*",
+                  FormatType->StandardForm,
+                  FontFamily->"Arial",
+                  FontSize->14], 
+                RowBox[{
+                  StyleBox["Pi",
+                    FormatType->StandardForm,
+                    FontFamily->"Arial",
+                    FontSize->14], 
+                  StyleBox["[",
+                    FormatType->StandardForm,
+                    FontFamily->"Arial",
+                    FontSize->14], 
+                  StyleBox[
+                    RowBox[{
+                      StyleBox["xi",
+                        FormatType->StandardForm,
+                        FontFamily->"Arial",
+                        FontSize->14], 
+                      StyleBox[",",
+                        FormatType->StandardForm,
+                        FontFamily->"Arial",
+                        FontSize->14], 
+                      StyleBox[" ",
+                        FormatType->StandardForm,
+                        FontFamily->"Arial",
+                        FontSize->14], 
+                      StyleBox["xi",
+                        FormatType->StandardForm,
+                        FontFamily->"Arial",
+                        FontSize->14], 
+                      StyleBox[",",
+                        FormatType->StandardForm,
+                        FontFamily->"Arial",
+                        FontSize->14], 
+                      StyleBox[" ",
+                        FormatType->StandardForm,
+                        FontFamily->"Arial",
+                        FontSize->14], 
+                      RowBox[{
+                        StyleBox[
+                          RowBox[{
+                            StyleBox["x",
+                              FormatType->StandardForm,
+                              FontFamily->"Arial",
+                              FontSize->14], 
+                            StyleBox["i",
+                              "Subtitle",
+                              FormatType->StandardForm,
+                              FontFamily->"Arial",
+                              FontSize->14]}]], 
+                        StyleBox["+",
+                          "Subtitle",
+                          FormatType->StandardForm,
+                          FontFamily->"Arial",
+                          FontSize->14], 
+                        StyleBox["1",
+                          "Subtitle",
+                          FormatType->StandardForm,
+                          FontFamily->"Arial",
+                          FontSize->14]}], 
+                      StyleBox[",",
+                        "Subtitle",
+                        FormatType->StandardForm,
+                        FontFamily->"Arial",
+                        FontSize->14], 
+                      StyleBox[\(xi + 1\),
+                        "Subtitle",
+                        FormatType->StandardForm,
+                        FontFamily->"Arial",
+                        FontSize->14]}],
+                    "Output"], 
+                  StyleBox["]",
+                    FormatType->StandardForm,
+                    FontFamily->"Arial",
+                    FontSize->14]}], 
+                StyleBox["*)",
+                  FormatType->StandardForm,
+                  FontFamily->"Arial",
+                  FontSize->14]}], 
+              StyleBox["\[IndentingNewLine]",
+                FormatType->StandardForm,
+                FontFamily->"Arial",
+                FontSize->14], 
+              StyleBox["\t",
+                "Output"], 
+              
+              StyleBox[\(\((\[IndentingNewLine]\t\((\[IndentingNewLine]\t
+                        d[i + 1]\[IndentingNewLine]\t - 
+                          2*\((\[IndentingNewLine]\t\((f[x[i + 1]] - 
+                                    f[x[i]])\)/\((x[i + 1] - 
+                                    x[i])\)\[IndentingNewLine]\ \ \ \ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\)\[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ \ \ \ \
+\ \ \ \  + 
+                          d[i]\[IndentingNewLine]\ \ \ \ \ \ \ \ \ \ )\)\
+\[IndentingNewLine]/\((x[i + 1] - 
+                            x[i])\)^2\[IndentingNewLine])\)\[IndentingNewLine]\
+*\((t - x[i])\)^2*\((t - x[i + 1])\)\),
+                FormatType->StandardForm,
+                FontFamily->"Arial",
+                FontSize->14]}], 
+            StyleBox["\[IndentingNewLine]",
+              FormatType->StandardForm,
+              FontFamily->"Arial",
+              FontSize->14], 
+            StyleBox[",",
+              FormatType->StandardForm,
+              FontFamily->"Arial",
+              FontSize->14], 
+            StyleBox["0",
+              FormatType->StandardForm,
+              FontFamily->"Arial",
+              FontSize->14]}], 
+          StyleBox["]",
+            FormatType->StandardForm,
+            FontFamily->"Arial",
+            FontSize->14]}]}], 
+      StyleBox["\[IndentingNewLine]",
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14], 
+      StyleBox[\( (*Generirane\ na\ spline*) \),
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14]}], "\[IndentingNewLine]", 
+    RowBox[{
+      StyleBox[\(Sn[t_] := Sum[P[i, t], {i, 0, n - 1}];\),
+        "Text"], 
+      StyleBox["\n",
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14], 
+      StyleBox[\( (*Generirame\ koeficientite\ za\ matricata*) \),
+        "Text",
+        FormatType->StandardForm,
+        FontFamily->"Arial",
+        FontSize->14]}], "\[IndentingNewLine]", 
+    StyleBox[\(Do[\[IndentingNewLine]a[i] = 
+            x[i + 1] - x[i]; \[IndentingNewLine]b[i] = 
+            2*\((x[i + 1] - x[i - 1])\); \[IndentingNewLine]c[i] = 
+            x[i] - x[i - 1]; \[IndentingNewLine]r[i] = 
+            3*\((\((\((f[x[i]] - f[x[i - 1]])\)/\((x[i] - x[i - 1])\))\)*\((x[
+                          i + 1] - 
+                        x[i])\) + \((\((f[x[i + 1]] - 
+                            f[x[i]])\)/\((x[i + 1] - x[i])\))\)*\((x[i] - 
+                        x[i - 1])\))\);\[IndentingNewLine], {i, 1, n - 1}];\),
+      
+      "Text"], "\[IndentingNewLine]", 
+    RowBox[{
+      StyleBox[\(r[1] -= a[1]*d[0];\),
+        "Text"], 
+      StyleBox["\[IndentingNewLine]",
+        "Text"], 
+      StyleBox["\[IndentingNewLine]",
+        "Text"], 
+      StyleBox[\( (*progonkata*) \),
+        "Text"]}], "\n", 
+    StyleBox[\(Array[alpha, n - 1];\),
+      "Text"], "\n", 
+    StyleBox[\(Array[beta, n - 1];\),
+      "Text"], "\[IndentingNewLine]", 
+    StyleBox[\(alpha[1] = \(-c[1]\)/b[1];\),
+      "Text"], "\n", 
+    RowBox[{
+      StyleBox[\(beta[1] = r[1]/b[1];\),
+        "Text"], 
+      StyleBox["\n",
+        "Text"]}], "\[IndentingNewLine]", 
+    RowBox[{
+      StyleBox[\(Do[\[IndentingNewLine]alpha[
+                i] = \(-c[i]\)/\((a[i]*alpha[i - 1] + 
+                    b[i])\); \[IndentingNewLine]beta[
+                i] = \((r[i] - a[i]*beta[i - 1])\)/\((a[i]*alpha[i - 1] + 
+                    b[i])\);\[IndentingNewLine], {i, 2, n - 1}];\),
+        "Text"], 
+      StyleBox["\n",
+        "Text"], 
+      StyleBox["\[IndentingNewLine]",
+        "Text"], 
+      StyleBox["\[IndentingNewLine]",
+        "Text"]}], "\[IndentingNewLine]", 
+    RowBox[{
+      StyleBox[\(Do[\[IndentingNewLine]\(d[i] = 
+                alpha[i]*d[i + 1] + beta[i];\)\[IndentingNewLine], {i, n - 1, 
+              1, \(-1\)}];\),
+        "Text"], 
+      StyleBox["\[IndentingNewLine]",
+        "Text"]}], "\n", 
+    StyleBox[\(Plot[{f[t], Sn[t]}, {t, start, end}, 
+        PlotStyle \[Rule] {RGBColor[1, 0, 0], RGBColor[0, 0, 1]}]\),
+      "Text"], "\n", 
+    RowBox[{
+      StyleBox[GridBox[{
+            {\(Plot[Abs[f[t] - Sn[t]], {t, start, end}, 
+                PlotRange \[Rule] All]\)},
+            {"\[Placeholder]"}
+            }],
+        "Text"], \
+\(\[AliasDelimiter]\(\[AliasDelimiter]\(\[AliasDelimiter]\)\(\n\)\(\
+\[IndentingNewLine]\)\)\)}]}], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(Syntax::"sntxf"\), \(\(:\)\(\ \)\), \
+"\<\"\\\"\\!\\(\\((\\(\\((\\(\\(d[\\(\\(i + 1\\)\\)]\\)\\) - \\(\\(2 * \
+\\(\\((\\(\\((\\(\\(f[\\(\\(x[\\(\\(i + 1\\)\\)]\\)\\)]\\)\\) - \
+\\(\\(f[\\(\\(x[i]\\)\\)]\\)\\))\\)\\)/\\(\\((\\(\\(x[\\(\\(i + \
+1\\)\\)]\\)\\) - \\(\\(x[i]\\)\\))\\)\\))\\)\\)\\)\\) + \
+\\(\\(d[i]\\)\\))\\)\\)/\\(\\(\\(\\((\\(\\(x[\\(\\(i + 1\\)\\)]\\)\\) - \
+\\(\\(x[i]\\)\\))\\)\\)^2\\)\\))\\)\\\\ \\)\\\" cannot be followed by \\\"\\!\
+\\(\\(* \\(\\(\\(\\((t - \\(\\(x[i]\\)\\))\\)\\)^2\\)\\) * \\(\\((t - \
+\\(\\(x[\\(\\(i + 1\\)\\)]\\)\\))\\)\\)\\)\\)\\\".\\!\\(\\\"\\\"\\) \
+\\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", ButtonStyle->\\\"RefGuideLinkText\
+\\\", ButtonFrame->None, ButtonData:>\\\"General::sntxf\\\"]\\)\"\>"}]], \
+"Message"],
+
+Cell[BoxData[
+    StyleBox[
+      RowBox[{\(P[i_, t_]\), ":=", 
+        RowBox[{
+        "If", "[", \(t \[GreaterEqual] x[i] && t \[LessEqual] x[i + 1]\), ",",
+           
+          
+          RowBox[{\(f[x[i]]\), "+", \(d[i]*\((t - x[i])\)\), 
+            "+", \(\((\((\((f[x[i + 1]] - f[x[i]])\)/\((x[i + 1] - x[i])\) - 
+                      d[i])\)/\((x[i + 1] - x[i])\))\)*\((t - x[i])\)^2\), 
+            "+", 
+            
+            RowBox[{\((\((d[i + 1] - 
+                      2*\((\((f[x[i + 1]] - f[x[i]])\)/\((x[i + 1] - 
+                                x[i])\))\) + 
+                      d[i])\)/\((x[i + 1] - x[i])\)^2)\), 
+              "\[IndentingNewLine]", 
+              
+              ErrorBox[\(\(*\)\(\((t - x[i])\)^2\)\(*\)\((t - 
+                      x[i + 1])\)\)]}]}], ",", "0", "]"}]}],
+      ShowStringCharacters->True]], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\[AliasDelimiter]\[AliasDelimiter]\)\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(Plot::"plnr"\), \(\(:\)\(\ \)\), 
+      "\"\<\!\(Abs[f[t] - Sn[t]]\) is not a ma\[AliasDelimiter]\
+\[AliasDelimiter]chine-size real number at t = 0.08480879985937367`. \!\(
+\*ButtonBox[\(More\[Ellipsis]\),
+ButtonData:>\\\"Plot::plnr\\\",
+ButtonStyle->\\\"RefGuideLinkText\\\",
+ButtonFrame->\\\"None\\\"]\)\>\""}]], "Message",
+  GeneratedCell->False,
+  CellAutoOverwrite->False]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\(\[AliasDelimiter]\(\[AliasDelimiter]\[AliasDelimiter]\)\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\[AliasDelimiter]\)], "Input"],
+
+Cell[BoxData[""], "Print",
+  GeneratedCell->False,
+  CellAutoOverwrite->False],
+
+Cell[BoxData[""], "Print",
+  GeneratedCell->False,
+  CellAutoOverwrite->False]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\[IndentingNewLine]\)], "Input"],
+
+Cell[BoxData[""], "Print",
+  GeneratedCell->False,
+  CellAutoOverwrite->False]
+}, Open  ]]
+},
+FrontEndVersion->"5.2 for Microsoft Windows",
+ScreenRectangle->{{0, 1280}, {0, 745}},
+WindowSize->{1264, 709},
+WindowMargins->{{0, Automatic}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 19308, 532, 1443, "Input"],
+Cell[21087, 587, 788, 12, 22, "Message"],
+Cell[21878, 601, 866, 20, 56, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[22781, 626, 71, 1, 30, "Input"],
+Cell[22855, 629, 405, 9, 22, "Message"]
+}, Open  ]],
+Cell[23275, 641, 92, 1, 30, "Input"],
+
+Cell[CellGroupData[{
+Cell[23392, 646, 50, 1, 30, "Input"],
+Cell[23445, 649, 78, 2, 25, "Print"],
+Cell[23526, 653, 78, 2, 25, "Print"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[23641, 660, 52, 1, 50, "Input"],
+Cell[23696, 663, 78, 2, 25, "Print"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+
